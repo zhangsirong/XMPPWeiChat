@@ -1,0 +1,15 @@
+//
+//  PrefixHeader.pch
+//  MYWeiChat
+//
+//  Created by hp on 16/1/21.
+//  Copyright (c) 2016年 hp. All rights reserved.
+//
+
+#ifndef MYWeiChat_PrefixHeader_pch
+#define MYWeiChat_PrefixHeader_pch
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#endif
