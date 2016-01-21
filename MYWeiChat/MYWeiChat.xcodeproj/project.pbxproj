@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E6525C431C511141008B00EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C421C511141008B00EC /* main.m */; };
-		E6525C491C511142008B00EC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C481C511142008B00EC /* ViewController.m */; };
-		E6525C4C1C511142008B00EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6525C4A1C511142008B00EC /* Main.storyboard */; };
 		E6525C4E1C511142008B00EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6525C4D1C511142008B00EC /* Images.xcassets */; };
-		E6525C511C511142008B00EC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6525C4F1C511142008B00EC /* LaunchScreen.xib */; };
 		E6525C5D1C511142008B00EC /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C5C1C511142008B00EC /* MYWeiChatTests.m */; };
 		E6525E361C51119E008B00EC /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E6525E351C51119E008B00EC /* libxml2.dylib */; };
 		E6525E381C5111A6008B00EC /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E6525E371C5111A6008B00EC /* libresolv.dylib */; };
@@ -163,6 +160,12 @@
 		E65267941C51153B008B00EC /* build-libidn.sh in Resources */ = {isa = PBXBuildFile; fileRef = E65267111C51153B008B00EC /* build-libidn.sh */; };
 		E65267951C51153B008B00EC /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E65267131C51153B008B00EC /* libidn.a */; };
 		E65267981C511626008B00EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E65267971C511626008B00EC /* AppDelegate.m */; };
+		E68EA8D81C51267800A1F066 /* ZSRContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8D71C51267800A1F066 /* ZSRContactsViewController.m */; };
+		E68EA8DB1C5126FB00A1F066 /* ZSRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8DA1C5126FB00A1F066 /* ZSRMessageViewController.m */; };
+		E68EA8DE1C51277B00A1F066 /* ZSRMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8DD1C51277B00A1F066 /* ZSRMeViewController.m */; };
+		E68EA8E11C5127FF00A1F066 /* ZSRDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8E01C5127FF00A1F066 /* ZSRDiscoverViewController.m */; };
+		E6D869411C511A4100581206 /* ZSRTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D869401C511A4100581206 /* ZSRTabBarViewController.m */; };
+		E6D869441C511B2000581206 /* ZSRNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D869431C511B2000581206 /* ZSRNavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,11 +182,7 @@
 		E6525C3D1C511141008B00EC /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6525C411C511141008B00EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6525C421C511141008B00EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E6525C471C511142008B00EC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E6525C481C511142008B00EC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E6525C4B1C511142008B00EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6525C4D1C511142008B00EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E6525C501C511142008B00EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E6525C561C511142008B00EC /* MYWeiChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MYWeiChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6525C5B1C511142008B00EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6525C5C1C511142008B00EC /* MYWeiChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWeiChatTests.m; sourceTree = "<group>"; };
@@ -495,6 +494,18 @@
 		E65267151C51153B008B00EC /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPFramework.h; sourceTree = "<group>"; };
 		E65267961C511626008B00EC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E65267971C511626008B00EC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E68EA8D61C51267800A1F066 /* ZSRContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsViewController.h; sourceTree = "<group>"; };
+		E68EA8D71C51267800A1F066 /* ZSRContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsViewController.m; sourceTree = "<group>"; };
+		E68EA8D91C5126FB00A1F066 /* ZSRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageViewController.h; sourceTree = "<group>"; };
+		E68EA8DA1C5126FB00A1F066 /* ZSRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageViewController.m; sourceTree = "<group>"; };
+		E68EA8DC1C51277B00A1F066 /* ZSRMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMeViewController.h; sourceTree = "<group>"; };
+		E68EA8DD1C51277B00A1F066 /* ZSRMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMeViewController.m; sourceTree = "<group>"; };
+		E68EA8DF1C5127FF00A1F066 /* ZSRDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRDiscoverViewController.h; sourceTree = "<group>"; };
+		E68EA8E01C5127FF00A1F066 /* ZSRDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRDiscoverViewController.m; sourceTree = "<group>"; };
+		E6D8693F1C511A4100581206 /* ZSRTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTabBarViewController.h; sourceTree = "<group>"; };
+		E6D869401C511A4100581206 /* ZSRTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTabBarViewController.m; sourceTree = "<group>"; };
+		E6D869421C511B2000581206 /* ZSRNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRNavigationViewController.h; sourceTree = "<group>"; };
+		E6D869431C511B2000581206 /* ZSRNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRNavigationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,11 +553,7 @@
 			isa = PBXGroup;
 			children = (
 				E6525C661C51118C008B00EC /* CLasses */,
-				E6525C471C511142008B00EC /* ViewController.h */,
-				E6525C481C511142008B00EC /* ViewController.m */,
-				E6525C4A1C511142008B00EC /* Main.storyboard */,
 				E6525C4D1C511142008B00EC /* Images.xcassets */,
-				E6525C4F1C511142008B00EC /* LaunchScreen.xib */,
 				E6525C401C511141008B00EC /* Supporting Files */,
 			);
 			path = MYWeiChat;
@@ -608,6 +615,7 @@
 		E65261D81C5114C0008B00EC /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				E65267991C511978008B00EC /* Controller */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1475,6 +1483,25 @@
 			path = libidn;
 			sourceTree = "<group>";
 		};
+		E65267991C511978008B00EC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E68EA8DF1C5127FF00A1F066 /* ZSRDiscoverViewController.h */,
+				E68EA8E01C5127FF00A1F066 /* ZSRDiscoverViewController.m */,
+				E68EA8DC1C51277B00A1F066 /* ZSRMeViewController.h */,
+				E68EA8DD1C51277B00A1F066 /* ZSRMeViewController.m */,
+				E68EA8D91C5126FB00A1F066 /* ZSRMessageViewController.h */,
+				E68EA8DA1C5126FB00A1F066 /* ZSRMessageViewController.m */,
+				E68EA8D61C51267800A1F066 /* ZSRContactsViewController.h */,
+				E68EA8D71C51267800A1F066 /* ZSRContactsViewController.m */,
+				E6D869421C511B2000581206 /* ZSRNavigationViewController.h */,
+				E6D869431C511B2000581206 /* ZSRNavigationViewController.m */,
+				E6D8693F1C511A4100581206 /* ZSRTabBarViewController.h */,
+				E6D869401C511A4100581206 /* ZSRTabBarViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1519,6 +1546,7 @@
 		E6525C351C511141008B00EC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ZSR;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = hp;
 				TargetAttributes = {
@@ -1555,9 +1583,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6525C4C1C511142008B00EC /* Main.storyboard in Resources */,
 				E65267941C51153B008B00EC /* build-libidn.sh in Resources */,
-				E6525C511C511142008B00EC /* LaunchScreen.xib in Resources */,
 				E6525C4E1C511142008B00EC /* Images.xcassets in Resources */,
 				E65263661C5114D6008B00EC /* MBProgressHUD.bundle in Resources */,
 				E652678F1C51153B008B00EC /* README.txt in Resources */,
@@ -1615,7 +1641,6 @@
 				E65263751C5114D6008B00EC /* UIImageView+HighlightedWebCache.m in Sources */,
 				E65267451C51153B008B00EC /* XMPPRoomMemoryStorage.m in Sources */,
 				E652675D1C51153B008B00EC /* XMPPIQ+XEP_0066.m in Sources */,
-				E6525C491C511142008B00EC /* ViewController.m in Sources */,
 				E652675E1C51153B008B00EC /* XMPPMessage+XEP_0066.m in Sources */,
 				E65267351C51153B008B00EC /* XMPPRoster.m in Sources */,
 				E65267891C51153B008B00EC /* DDASLLogger.m in Sources */,
@@ -1678,11 +1703,15 @@
 				E65267871C51153B008B00EC /* GCDAsyncSocket.m in Sources */,
 				E65267931C51153B008B00EC /* DDXMLNode.m in Sources */,
 				E65267501C51153B008B00EC /* XMPPvCardTemp.m in Sources */,
+				E68EA8DB1C5126FB00A1F066 /* ZSRMessageViewController.m in Sources */,
 				E652678A1C51153B008B00EC /* DDFileLogger.m in Sources */,
+				E6D869441C511B2000581206 /* ZSRNavigationViewController.m in Sources */,
 				E65267591C51153B008B00EC /* XMPPResultSet.m in Sources */,
 				E65267731C51153B008B00EC /* XMPPMessageDeliveryReceipts.m in Sources */,
 				E65267621C51153B008B00EC /* XMPPSoftwareVersion.m in Sources */,
+				E68EA8DE1C51277B00A1F066 /* ZSRMeViewController.m in Sources */,
 				E652672A1C51153B008B00EC /* XMPPGoogleSharedStatus.m in Sources */,
+				E68EA8D81C51267800A1F066 /* ZSRContactsViewController.m in Sources */,
 				E652636B1C5114D6008B00EC /* SDWebImageCompat.m in Sources */,
 				E652676F1C51153B008B00EC /* XMPPvCardAvatarModule.m in Sources */,
 				E65267781C51153B008B00EC /* XMPPTime.m in Sources */,
@@ -1703,6 +1732,7 @@
 				E652671D1C51153B008B00EC /* NSData+XMPP.m in Sources */,
 				E652673C1C51153B008B00EC /* XMPPPrivacy.m in Sources */,
 				E652671F1C51153B008B00EC /* NSXMLElement+XMPP.m in Sources */,
+				E68EA8E11C5127FF00A1F066 /* ZSRDiscoverViewController.m in Sources */,
 				E65267491C51153B008B00EC /* XMPPMUC.m in Sources */,
 				E65267331C51153B008B00EC /* XMPPRosterMemoryStorage.m in Sources */,
 				E652674A1C51153B008B00EC /* XMPPRoom.m in Sources */,
@@ -1715,6 +1745,7 @@
 				E65267201C51153B008B00EC /* XMPPElement.m in Sources */,
 				E652677F1C51153B008B00EC /* XMPPMessage+XEP_0333.m in Sources */,
 				E652678B1C51153B008B00EC /* DDLog.m in Sources */,
+				E6D869411C511A4100581206 /* ZSRTabBarViewController.m in Sources */,
 				E652674D1C51153B008B00EC /* XMPPvCardCoreDataStorage.m in Sources */,
 				E65267211C51153B008B00EC /* XMPPIQ.m in Sources */,
 				E65267641C51153B008B00EC /* NSString+XEP_0106.m in Sources */,
@@ -1744,25 +1775,6 @@
 			targetProxy = E6525C571C511142008B00EC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		E6525C4A1C511142008B00EC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E6525C4B1C511142008B00EC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E6525C4F1C511142008B00EC /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E6525C501C511142008B00EC /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E6525C5E1C511142008B00EC /* Debug */ = {
@@ -1851,6 +1863,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/MYWeiChat/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1875,6 +1888,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/MYWeiChat/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (

@@ -11,5 +11,17 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+// RGB颜色
+
+#define ZSRColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#define ZSRRandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+
+#ifdef DEBUG // 处于开发阶段
+#define ZSRLog(...) NSLog(__VA_ARGS__)
+#else // 处于发布阶段
+#define ZSRLog(...)
+#endif
+
 
 #endif
