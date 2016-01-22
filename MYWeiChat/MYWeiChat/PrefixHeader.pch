@@ -22,6 +22,9 @@
 #else // 处于发布阶段
 #define ZSRLog(...)
 #endif
+#define ScreenW  [UIScreen mainScreen].bounds.size.width
+#define ScreenH  [UIScreen mainScreen].bounds.size.height
+
 
 
 #endif

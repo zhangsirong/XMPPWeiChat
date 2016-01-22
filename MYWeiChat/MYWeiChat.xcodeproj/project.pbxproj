@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E61994CD1C52560E00199806 /* ZSRStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61994CC1C52560E00199806 /* ZSRStartViewController.m */; };
+		E61994D21C526F3700199806 /* ZSRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61994D11C526F3700199806 /* ZSRLoginViewController.m */; };
+		E63465E01C52875B00FA9E5E /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E63465DF1C52875B00FA9E5E /* LaunchImage.png */; };
 		E6525C431C511141008B00EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C421C511141008B00EC /* main.m */; };
 		E6525C4E1C511142008B00EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6525C4D1C511142008B00EC /* Images.xcassets */; };
 		E6525C5D1C511142008B00EC /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C5C1C511142008B00EC /* MYWeiChatTests.m */; };
@@ -179,6 +182,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E61994CB1C52560E00199806 /* ZSRStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRStartViewController.h; sourceTree = "<group>"; };
+		E61994CC1C52560E00199806 /* ZSRStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRStartViewController.m; sourceTree = "<group>"; };
+		E61994D01C526F3700199806 /* ZSRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRLoginViewController.h; sourceTree = "<group>"; };
+		E61994D11C526F3700199806 /* ZSRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRLoginViewController.m; sourceTree = "<group>"; };
+		E63465DF1C52875B00FA9E5E /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		E6525C3D1C511141008B00EC /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6525C411C511141008B00EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6525C421C511141008B00EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -529,6 +537,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E60F936C1C525204009305B7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E60F936D1C525259009305B7 /* Singleton */,
+				E60F936E1C525259009305B7 /* Tool */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E60F936D1C525259009305B7 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
+		E60F936E1C525259009305B7 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		E6525C341C511141008B00EC = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +583,7 @@
 		E6525C3F1C511141008B00EC /* MYWeiChat */ = {
 			isa = PBXGroup;
 			children = (
+				E63465DF1C52875B00FA9E5E /* LaunchImage.png */,
 				E6525C661C51118C008B00EC /* CLasses */,
 				E6525C4D1C511142008B00EC /* Images.xcassets */,
 				E6525C401C511141008B00EC /* Supporting Files */,
@@ -589,6 +621,7 @@
 		E6525C661C51118C008B00EC /* CLasses */ = {
 			isa = PBXGroup;
 			children = (
+				E60F936C1C525204009305B7 /* Common */,
 				E65261DA1C5114D5008B00EC /* Lib */,
 				E65261D61C5114C0008B00EC /* Login */,
 				E65261D81C5114C0008B00EC /* Main */,
@@ -608,6 +641,10 @@
 		E65261D71C5114C0008B00EC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E61994D01C526F3700199806 /* ZSRLoginViewController.h */,
+				E61994D11C526F3700199806 /* ZSRLoginViewController.m */,
+				E61994CB1C52560E00199806 /* ZSRStartViewController.h */,
+				E61994CC1C52560E00199806 /* ZSRStartViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1584,6 +1621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E65267941C51153B008B00EC /* build-libidn.sh in Resources */,
+				E63465E01C52875B00FA9E5E /* LaunchImage.png in Resources */,
 				E6525C4E1C511142008B00EC /* Images.xcassets in Resources */,
 				E65263661C5114D6008B00EC /* MBProgressHUD.bundle in Resources */,
 				E652678F1C51153B008B00EC /* README.txt in Resources */,
@@ -1619,6 +1657,7 @@
 				E65263671C5114D6008B00EC /* MBProgressHUD.m in Sources */,
 				E65267751C51153B008B00EC /* XMPPAutoPing.m in Sources */,
 				E65267981C511626008B00EC /* AppDelegate.m in Sources */,
+				E61994D21C526F3700199806 /* ZSRLoginViewController.m in Sources */,
 				E652676A1C51153B008B00EC /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				E652675A1C51153B008B00EC /* XMPPIQ+XEP_0060.m in Sources */,
 				E65267911C51153B008B00EC /* DDXMLDocument.m in Sources */,
@@ -1723,6 +1762,7 @@
 				E65267561C51153B008B00EC /* XMPPvCardTempModule.m in Sources */,
 				E65267161C51153B008B00EC /* XMPPAnonymousAuthentication.m in Sources */,
 				E652636F1C5114D6008B00EC /* SDWebImageManager.m in Sources */,
+				E61994CD1C52560E00199806 /* ZSRStartViewController.m in Sources */,
 				E6525C431C511141008B00EC /* main.m in Sources */,
 				E652636E1C5114D6008B00EC /* SDWebImageDownloaderOperation.m in Sources */,
 				E65267361C51153B008B00EC /* XMPPSystemInputActivityMonitor.m in Sources */,

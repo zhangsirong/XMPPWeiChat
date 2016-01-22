@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "ZSRTabBarViewController.h"
+#import "ZSRStartViewController.h"
+#import "ZSRNavigationViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -19,7 +22,9 @@
 
     self.window =[[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
-    self.window.rootViewController = [[ZSRTabBarViewController alloc] init];
+    ZSRNavigationViewController *navVc = [[ZSRNavigationViewController alloc] initWithRootViewController:[[ZSRStartViewController alloc] init]];
+
+    self.window.rootViewController = navVc;
     [self.window makeKeyAndVisible];
     return YES;
 }
