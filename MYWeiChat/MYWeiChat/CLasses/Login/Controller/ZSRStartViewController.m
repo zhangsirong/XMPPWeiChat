@@ -11,6 +11,7 @@
 
 #import "ZSRStartViewController.h"
 #import "ZSRLoginViewController.h"
+#import "ZSRRegisgerViewController.h"
 @interface ZSRStartViewController ()
 @property (nonatomic,strong) UIButton *loginButton;
 @property (nonatomic,strong) UIButton *regisgerButton;
@@ -32,12 +33,12 @@
     [imageView setImage:image];
     [self.view addSubview:imageView];
     
-    _loginButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_loginButton setFrame:CGRectMake(pading, ScreenH - pading - btnH, btnW, btnH)];
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [_loginButton setBackgroundColor:ZSRColor(9, 187, 7)];
     [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [_loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_loginButton];
     
     _regisgerButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -45,10 +46,12 @@
     [_regisgerButton setTitle:@"注册" forState:UIControlStateNormal];
     [_regisgerButton setBackgroundColor:ZSRColor(164, 164, 164)];
     [_regisgerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_regisgerButton addTarget:self action:@selector(regisgerAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginButton];
     
     [self.view addSubview:_regisgerButton];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"使用手机号登录" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  返回" style:UIBarButtonItemStylePlain target:nil action:nil];
 
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -57,11 +60,19 @@
 
 }
 
-- (void)login
+- (void)loginAction
 {
     ZSRLoginViewController *vc = [[ZSRLoginViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES ];
 //    [self presentViewController:vc animated:YES completion:nil];
 
+}
+
+- (void)regisgerAction
+{
+    ZSRRegisgerViewController *vc = [[ZSRRegisgerViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES ];
+    //    [self presentViewController:vc animated:YES completion:nil];
+    
 }
 @end

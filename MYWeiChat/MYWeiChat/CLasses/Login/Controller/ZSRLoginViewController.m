@@ -10,6 +10,7 @@
 #define cellH 50
 
 #import "ZSRLoginViewController.h"
+#import "ZSRTabBarViewController.h"
 
 @interface ZSRLoginViewController ()
 
@@ -42,6 +43,7 @@
     _numberField=[[UITextField alloc] initWithFrame:CGRectMake(pading, cellH, ScreenW - pading * 2, cellH)];
     _numberField.backgroundColor=[UIColor whiteColor];
     _numberField.placeholder=[NSString stringWithFormat:@"你的手机号码"];
+    [_numberField becomeFirstResponder];
     [self.view addSubview:_numberField];
     
     _passwordField=[[UITextField alloc] initWithFrame:CGRectMake(pading, cellH * 2, ScreenW - pading * 2, cellH)];
@@ -55,6 +57,7 @@
     [_loginButton setBackgroundColor:ZSRColor(9, 187, 7)];
     
     [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_loginButton];
     
     _messageLoginButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -84,14 +87,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)loginAction
+{
+    ZSRTabBarViewController   *vc = [[ZSRTabBarViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES ];
+        [self presentViewController:vc animated:YES completion:nil];
+    
 }
-*/
-
 @end
