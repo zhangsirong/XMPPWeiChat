@@ -63,7 +63,7 @@
     childVc.tabBarItem.title = title;
     childVc.tabBarItem.image = [UIImage imageNamed:image];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    childVc.view.backgroundColor = ZSRRandomColor;
+//    childVc.view.backgroundColor = ZSRRandomColor;
     // 先给外面传进来的小控制器 包装 一个导航控制
     ZSRNavigationViewController *nav = [[ZSRNavigationViewController alloc] initWithRootViewController:childVc];
     // 设置文字的样式

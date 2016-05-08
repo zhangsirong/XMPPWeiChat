@@ -10,15 +10,20 @@
 		E61994CD1C52560E00199806 /* ZSRStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61994CC1C52560E00199806 /* ZSRStartViewController.m */; };
 		E61994D21C526F3700199806 /* ZSRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61994D11C526F3700199806 /* ZSRLoginViewController.m */; };
 		E63465E01C52875B00FA9E5E /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E63465DF1C52875B00FA9E5E /* LaunchImage.png */; };
+		E63FF9A31CDF6A6700820F6B /* friends.plist in Resources */ = {isa = PBXBuildFile; fileRef = E63FF9A21CDF6A6700820F6B /* friends.plist */; };
 		E6525C431C511141008B00EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C421C511141008B00EC /* main.m */; };
 		E6525C4E1C511142008B00EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6525C4D1C511142008B00EC /* Images.xcassets */; };
 		E6525C5D1C511142008B00EC /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C5C1C511142008B00EC /* MYWeiChatTests.m */; };
 		E65267981C511626008B00EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E65267971C511626008B00EC /* AppDelegate.m */; };
-		E68EA8D81C51267800A1F066 /* ZSRContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8D71C51267800A1F066 /* ZSRContactsViewController.m */; };
-		E68EA8DB1C5126FB00A1F066 /* ZSRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8DA1C5126FB00A1F066 /* ZSRMessageViewController.m */; };
-		E68EA8DE1C51277B00A1F066 /* ZSRMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8DD1C51277B00A1F066 /* ZSRMeViewController.m */; };
-		E68EA8E11C5127FF00A1F066 /* ZSRDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EA8E01C5127FF00A1F066 /* ZSRDiscoverViewController.m */; };
 		E69C08231CDE30C500D03B3B /* ZSRRegisgerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08221CDE30C500D03B3B /* ZSRRegisgerViewController.m */; };
+		E69C082B1CDE462300D03B3B /* ZSRMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C082A1CDE462300D03B3B /* ZSRMeViewController.m */; };
+		E69C082E1CDE462C00D03B3B /* ZSRDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C082D1CDE462C00D03B3B /* ZSRDiscoverViewController.m */; };
+		E69C08351CDE465800D03B3B /* ZSRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08341CDE465800D03B3B /* ZSRMessageViewController.m */; };
+		E69C083B1CDE46FB00D03B3B /* ZSRContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08381CDE46FB00D03B3B /* ZSRContactsViewController.m */; };
+		E69C083E1CDE474600D03B3B /* ZSRFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C083D1CDE474600D03B3B /* ZSRFriend.m */; };
+		E69C08411CDE479D00D03B3B /* ZSRFriendGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08401CDE479D00D03B3B /* ZSRFriendGroup.m */; };
+		E69C08441CDE4A0100D03B3B /* ZSRFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08431CDE4A0100D03B3B /* ZSRFriendCell.m */; };
+		E69C08471CDE4DC100D03B3B /* ZSRHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08461CDE4DC100D03B3B /* ZSRHeaderView.m */; };
 		E6D869411C511A4100581206 /* ZSRTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D869401C511A4100581206 /* ZSRTabBarViewController.m */; };
 		E6D869441C511B2000581206 /* ZSRNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D869431C511B2000581206 /* ZSRNavigationViewController.m */; };
 /* End PBXBuildFile section */
@@ -39,6 +44,7 @@
 		E61994D01C526F3700199806 /* ZSRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRLoginViewController.h; sourceTree = "<group>"; };
 		E61994D11C526F3700199806 /* ZSRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRLoginViewController.m; sourceTree = "<group>"; };
 		E63465DF1C52875B00FA9E5E /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
+		E63FF9A21CDF6A6700820F6B /* friends.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = friends.plist; sourceTree = "<group>"; };
 		E6525C3D1C511141008B00EC /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6525C411C511141008B00EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6525C421C511141008B00EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,16 +55,24 @@
 		E65261D51C5113F6008B00EC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E65267961C511626008B00EC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E65267971C511626008B00EC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E68EA8D61C51267800A1F066 /* ZSRContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsViewController.h; sourceTree = "<group>"; };
-		E68EA8D71C51267800A1F066 /* ZSRContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsViewController.m; sourceTree = "<group>"; };
-		E68EA8D91C5126FB00A1F066 /* ZSRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageViewController.h; sourceTree = "<group>"; };
-		E68EA8DA1C5126FB00A1F066 /* ZSRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageViewController.m; sourceTree = "<group>"; };
-		E68EA8DC1C51277B00A1F066 /* ZSRMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMeViewController.h; sourceTree = "<group>"; };
-		E68EA8DD1C51277B00A1F066 /* ZSRMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMeViewController.m; sourceTree = "<group>"; };
-		E68EA8DF1C5127FF00A1F066 /* ZSRDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRDiscoverViewController.h; sourceTree = "<group>"; };
-		E68EA8E01C5127FF00A1F066 /* ZSRDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRDiscoverViewController.m; sourceTree = "<group>"; };
 		E69C08211CDE30C500D03B3B /* ZSRRegisgerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRRegisgerViewController.h; sourceTree = "<group>"; };
 		E69C08221CDE30C500D03B3B /* ZSRRegisgerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRRegisgerViewController.m; sourceTree = "<group>"; };
+		E69C08291CDE462300D03B3B /* ZSRMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMeViewController.h; sourceTree = "<group>"; };
+		E69C082A1CDE462300D03B3B /* ZSRMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMeViewController.m; sourceTree = "<group>"; };
+		E69C082C1CDE462C00D03B3B /* ZSRDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRDiscoverViewController.h; sourceTree = "<group>"; };
+		E69C082D1CDE462C00D03B3B /* ZSRDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRDiscoverViewController.m; sourceTree = "<group>"; };
+		E69C08331CDE465800D03B3B /* ZSRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageViewController.h; sourceTree = "<group>"; };
+		E69C08341CDE465800D03B3B /* ZSRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageViewController.m; sourceTree = "<group>"; };
+		E69C08371CDE46FB00D03B3B /* ZSRContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsViewController.h; sourceTree = "<group>"; };
+		E69C08381CDE46FB00D03B3B /* ZSRContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsViewController.m; sourceTree = "<group>"; };
+		E69C083C1CDE474600D03B3B /* ZSRFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriend.h; sourceTree = "<group>"; };
+		E69C083D1CDE474600D03B3B /* ZSRFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriend.m; sourceTree = "<group>"; };
+		E69C083F1CDE479D00D03B3B /* ZSRFriendGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriendGroup.h; sourceTree = "<group>"; };
+		E69C08401CDE479D00D03B3B /* ZSRFriendGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriendGroup.m; sourceTree = "<group>"; };
+		E69C08421CDE4A0100D03B3B /* ZSRFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriendCell.h; sourceTree = "<group>"; };
+		E69C08431CDE4A0100D03B3B /* ZSRFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriendCell.m; sourceTree = "<group>"; };
+		E69C08451CDE4DC100D03B3B /* ZSRHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRHeaderView.h; sourceTree = "<group>"; };
+		E69C08461CDE4DC100D03B3B /* ZSRHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRHeaderView.m; sourceTree = "<group>"; };
 		E6D8693F1C511A4100581206 /* ZSRTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTabBarViewController.h; sourceTree = "<group>"; };
 		E6D869401C511A4100581206 /* ZSRTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTabBarViewController.m; sourceTree = "<group>"; };
 		E6D869421C511B2000581206 /* ZSRNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRNavigationViewController.h; sourceTree = "<group>"; };
@@ -138,6 +152,7 @@
 		E6525C401C511141008B00EC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E63FF9A21CDF6A6700820F6B /* friends.plist */,
 				E6525C411C511141008B00EC /* Info.plist */,
 				E6525C421C511141008B00EC /* main.m */,
 				E65261D51C5113F6008B00EC /* PrefixHeader.pch */,
@@ -166,6 +181,10 @@
 			isa = PBXGroup;
 			children = (
 				E60F936C1C525204009305B7 /* Common */,
+				E69C08321CDE465800D03B3B /* Message */,
+				E69C08261CDE45B500D03B3B /* Contacts */,
+				E69C08271CDE45B500D03B3B /* Discover */,
+				E69C08281CDE45B500D03B3B /* Me */,
 				E65261D61C5114C0008B00EC /* Login */,
 				E65261D81C5114C0008B00EC /* Main */,
 				E65261D91C5114C0008B00EC /* Other */,
@@ -214,20 +233,80 @@
 		E65267991C511978008B00EC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E68EA8DF1C5127FF00A1F066 /* ZSRDiscoverViewController.h */,
-				E68EA8E01C5127FF00A1F066 /* ZSRDiscoverViewController.m */,
-				E68EA8DC1C51277B00A1F066 /* ZSRMeViewController.h */,
-				E68EA8DD1C51277B00A1F066 /* ZSRMeViewController.m */,
-				E68EA8D91C5126FB00A1F066 /* ZSRMessageViewController.h */,
-				E68EA8DA1C5126FB00A1F066 /* ZSRMessageViewController.m */,
-				E68EA8D61C51267800A1F066 /* ZSRContactsViewController.h */,
-				E68EA8D71C51267800A1F066 /* ZSRContactsViewController.m */,
 				E6D869421C511B2000581206 /* ZSRNavigationViewController.h */,
 				E6D869431C511B2000581206 /* ZSRNavigationViewController.m */,
 				E6D8693F1C511A4100581206 /* ZSRTabBarViewController.h */,
 				E6D869401C511A4100581206 /* ZSRTabBarViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		E69C08261CDE45B500D03B3B /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				E69C08361CDE46FB00D03B3B /* Controller */,
+				E69C08391CDE46FB00D03B3B /* Model */,
+				E69C083A1CDE46FB00D03B3B /* View */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		E69C08271CDE45B500D03B3B /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				E69C082C1CDE462C00D03B3B /* ZSRDiscoverViewController.h */,
+				E69C082D1CDE462C00D03B3B /* ZSRDiscoverViewController.m */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		E69C08281CDE45B500D03B3B /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				E69C08291CDE462300D03B3B /* ZSRMeViewController.h */,
+				E69C082A1CDE462300D03B3B /* ZSRMeViewController.m */,
+			);
+			path = Me;
+			sourceTree = "<group>";
+		};
+		E69C08321CDE465800D03B3B /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				E69C08331CDE465800D03B3B /* ZSRMessageViewController.h */,
+				E69C08341CDE465800D03B3B /* ZSRMessageViewController.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		E69C08361CDE46FB00D03B3B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E69C08371CDE46FB00D03B3B /* ZSRContactsViewController.h */,
+				E69C08381CDE46FB00D03B3B /* ZSRContactsViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E69C08391CDE46FB00D03B3B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E69C083C1CDE474600D03B3B /* ZSRFriend.h */,
+				E69C083D1CDE474600D03B3B /* ZSRFriend.m */,
+				E69C083F1CDE479D00D03B3B /* ZSRFriendGroup.h */,
+				E69C08401CDE479D00D03B3B /* ZSRFriendGroup.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E69C083A1CDE46FB00D03B3B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E69C08421CDE4A0100D03B3B /* ZSRFriendCell.h */,
+				E69C08431CDE4A0100D03B3B /* ZSRFriendCell.m */,
+				E69C08451CDE4DC100D03B3B /* ZSRHeaderView.h */,
+				E69C08461CDE4DC100D03B3B /* ZSRHeaderView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +392,7 @@
 			files = (
 				E63465E01C52875B00FA9E5E /* LaunchImage.png in Resources */,
 				E6525C4E1C511142008B00EC /* Images.xcassets in Resources */,
+				E63FF9A31CDF6A6700820F6B /* friends.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,17 +410,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E69C082B1CDE462300D03B3B /* ZSRMeViewController.m in Sources */,
+				E69C08441CDE4A0100D03B3B /* ZSRFriendCell.m in Sources */,
+				E69C08351CDE465800D03B3B /* ZSRMessageViewController.m in Sources */,
+				E69C08471CDE4DC100D03B3B /* ZSRHeaderView.m in Sources */,
 				E65267981C511626008B00EC /* AppDelegate.m in Sources */,
+				E69C082E1CDE462C00D03B3B /* ZSRDiscoverViewController.m in Sources */,
 				E61994D21C526F3700199806 /* ZSRLoginViewController.m in Sources */,
-				E68EA8DB1C5126FB00A1F066 /* ZSRMessageViewController.m in Sources */,
+				E69C08411CDE479D00D03B3B /* ZSRFriendGroup.m in Sources */,
+				E69C083E1CDE474600D03B3B /* ZSRFriend.m in Sources */,
 				E6D869441C511B2000581206 /* ZSRNavigationViewController.m in Sources */,
-				E68EA8DE1C51277B00A1F066 /* ZSRMeViewController.m in Sources */,
-				E68EA8D81C51267800A1F066 /* ZSRContactsViewController.m in Sources */,
 				E69C08231CDE30C500D03B3B /* ZSRRegisgerViewController.m in Sources */,
 				E61994CD1C52560E00199806 /* ZSRStartViewController.m in Sources */,
 				E6525C431C511141008B00EC /* main.m in Sources */,
-				E68EA8E11C5127FF00A1F066 /* ZSRDiscoverViewController.m in Sources */,
 				E6D869411C511A4100581206 /* ZSRTabBarViewController.m in Sources */,
+				E69C083B1CDE46FB00D03B3B /* ZSRContactsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
