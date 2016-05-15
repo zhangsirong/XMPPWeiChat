@@ -11,6 +11,7 @@
 		E649FEC01CE8481600A0447F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEBF1CE8481600A0447F /* main.m */; };
 		E649FED91CE8481600A0447F /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FED81CE8481600A0447F /* MYWeiChatTests.m */; };
 		E649FEE41CE8481600A0447F /* MYWeiChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */; };
+		E66F42611CE86D7A001217F6 /* MBProgressHUD+ZSR.m in Sources */ = {isa = PBXBuildFile; fileRef = E66F42601CE86D7A001217F6 /* MBProgressHUD+ZSR.m */; };
 		E690694B1CE84BF60014FE63 /* ZSRContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069231CE84BF60014FE63 /* ZSRContactsViewController.m */; };
 		E690694C1CE84BF60014FE63 /* ZSRFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069261CE84BF60014FE63 /* ZSRFriend.m */; };
 		E690694D1CE84BF60014FE63 /* ZSRFriendGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069281CE84BF60014FE63 /* ZSRFriendGroup.m */; };
@@ -59,6 +60,8 @@
 		E649FEDF1CE8481600A0447F /* MYWeiChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MYWeiChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWeiChatUITests.m; sourceTree = "<group>"; };
 		E649FEE51CE8481600A0447F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E66F425F1CE86D7A001217F6 /* MBProgressHUD+ZSR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+ZSR.h"; sourceTree = "<group>"; };
+		E66F42601CE86D7A001217F6 /* MBProgressHUD+ZSR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+ZSR.m"; sourceTree = "<group>"; };
 		E69069221CE84BF60014FE63 /* ZSRContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsViewController.h; sourceTree = "<group>"; };
 		E69069231CE84BF60014FE63 /* ZSRContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsViewController.m; sourceTree = "<group>"; };
 		E69069251CE84BF60014FE63 /* ZSRFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriend.h; sourceTree = "<group>"; };
@@ -196,9 +199,19 @@
 			path = MYWeiChatUITests;
 			sourceTree = "<group>";
 		};
+		E66F425B1CE86D3A001217F6 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				E66F425F1CE86D7A001217F6 /* MBProgressHUD+ZSR.h */,
+				E66F42601CE86D7A001217F6 /* MBProgressHUD+ZSR.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		E690691E1CE84BF60014FE63 /* CLasses */ = {
 			isa = PBXGroup;
 			children = (
+				E66F425B1CE86D3A001217F6 /* Category */,
 				E690691F1CE84BF60014FE63 /* Common */,
 				E69069201CE84BF60014FE63 /* Contacts */,
 				E690692E1CE84BF60014FE63 /* Discover */,
@@ -515,6 +528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66F42611CE86D7A001217F6 /* MBProgressHUD+ZSR.m in Sources */,
 				E69069501CE84BF60014FE63 /* ZSRDiscoverViewController.m in Sources */,
 				E649FEC01CE8481600A0447F /* main.m in Sources */,
 				E69069511CE84BF60014FE63 /* ZSRLoginViewController.m in Sources */,
@@ -661,6 +675,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "PODS_ROOT/**";
 			};
 			name = Debug;
 		};
@@ -676,6 +691,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "PODS_ROOT/**";
 			};
 			name = Release;
 		};

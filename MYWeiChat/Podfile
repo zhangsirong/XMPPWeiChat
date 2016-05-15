@@ -1,3 +1,4 @@
 platform :ios, "7.0"
 
-pod 'HyphenateFullSDK', :git => 'https://github.com/easemob/hyphenate-full-cocoapods.git'
+pod 'EaseMobSDKFull', :git => 'https://github.com/easemob/sdk-ios-cocoapods-integration.git'
+pod 'MBProgressHUD', '~> 0.9.2'

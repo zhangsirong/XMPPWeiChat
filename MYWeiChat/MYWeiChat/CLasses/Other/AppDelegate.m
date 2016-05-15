@@ -10,9 +10,8 @@
 #import "ZSRTabBarViewController.h"
 #import "ZSRStartViewController.h"
 #import "ZSRNavigationViewController.h"
-#import "EMSDK.h"
-#import "EMClient.h"
-@interface AppDelegate ()
+#import "EaseMob.h"
+@interface AppDelegate ()<EMChatManagerDelegate>
 
 @end
 
@@ -21,31 +20,58 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    //AppKey:注册的AppKey，详细见下面注释。
-    //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
-    EMOptions *options = [EMOptions optionsWithAppkey:@"lpzsrong#chatapp"];
-    [[EMClient sharedClient] initializeSDKWithOptions:options];
+    //registerSDKWithAppKey:注册的appKey，详细见下面注释。
+    //apnsCertName:推送证书名(不需要加后缀)，详细见下面注释。
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"lpzsrong#chatapp" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:@(NO)}];
+    [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
+    
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+
     self.window =[[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     ZSRNavigationViewController *navVc = [[ZSRNavigationViewController alloc] initWithRootViewController:[[ZSRStartViewController alloc] init]];
 
     self.window.rootViewController = navVc;
+    
+    // 3.如果登录过，直接来到主界面
+    if ([[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
+        // 来主界面
+        ZSRTabBarViewController *vc = [[ZSRTabBarViewController alloc] init];
+        //    [self.navigationController pushViewController:vc animated:YES ];
+        self.window.rootViewController = vc;
+    }
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
-
-// APP进入后台
+#pragma mark 自动登录的回调
+-(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
+    if (!error) {
+        NSLog(@"自动登录成功 %@",loginInfo);
+    }else{
+        NSLog(@"自动登录失败 %@",error);
+    }
+    
+}
+// App进入后台
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[EMClient sharedClient] applicationDidEnterBackground:application];
+    [[EaseMob sharedInstance] applicationDidEnterBackground:application];
 }
 
-// APP将要从后台返回
+// App将要从后台返回
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    [[EMClient sharedClient] applicationWillEnterForeground:application];
+    [[EaseMob sharedInstance] applicationWillEnterForeground:application];
 }
+
+// 申请处理时间
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [[EaseMob sharedInstance] applicationWillTerminate:application];
+}
+
 
 
 @end

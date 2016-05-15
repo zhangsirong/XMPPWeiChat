@@ -11,6 +11,7 @@
 
 #import "ZSRLoginViewController.h"
 #import "ZSRTabBarViewController.h"
+#import "EaseMob.h"
 
 @interface ZSRLoginViewController ()
 
@@ -36,19 +37,22 @@
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     _countryButton=[[UIButton alloc] initWithFrame:CGRectMake(pading, 0, ScreenW - pading * 2, cellH)];
-    [_countryButton setTitle:@"国家/地区" forState:UIControlStateNormal];
+    [_countryButton setTitle:@"登录" forState:UIControlStateNormal];
     [_countryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:_countryButton];
 
     _numberField=[[UITextField alloc] initWithFrame:CGRectMake(pading, cellH, ScreenW - pading * 2, cellH)];
-    _numberField.backgroundColor=[UIColor whiteColor];
-    _numberField.placeholder=[NSString stringWithFormat:@"你的手机号码"];
+    _numberField.backgroundColor = [UIColor whiteColor];
+    _numberField.placeholder = [NSString stringWithFormat:@"你的手机号码"];
+    _numberField.text = @"zhangsan";
     [_numberField becomeFirstResponder];
     [self.view addSubview:_numberField];
     
     _passwordField=[[UITextField alloc] initWithFrame:CGRectMake(pading, cellH * 2, ScreenW - pading * 2, cellH)];
-    _passwordField.backgroundColor=[UIColor whiteColor];
-    _passwordField.placeholder=[NSString stringWithFormat:@"填写密码"];
+    _passwordField.backgroundColor = [ UIColor whiteColor];
+    _passwordField.placeholder = [NSString stringWithFormat:@"填写密码"];
+    _passwordField.text = @"123456";
+    _passwordField.secureTextEntry = YES;
     [self.view addSubview:_passwordField];
     
     _loginButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -89,9 +93,32 @@
 
 - (void)loginAction
 {
-    ZSRTabBarViewController   *vc = [[ZSRTabBarViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES ];
-        [self presentViewController:vc animated:YES completion:nil];
+    NSString *username = self.numberField.text;
+    NSString *password = self.passwordField.text;
     
+    if (username.length == 0 || password.length == 0) {
+        NSLog(@"请输入账号和密码");
+        return;
+    }
+    // 登录
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:username password:password completion:^(NSDictionary *loginInfo, EMError *error) {
+        // 登录请求完成后的block回调
+        if (!error) {
+            NSLog(@"登录成功 %@",loginInfo);
+            
+            // 设置自动登录
+            [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+            
+            // 来主界面
+            ZSRTabBarViewController   *vc = [[ZSRTabBarViewController alloc] init];
+            //    [self.navigationController pushViewController:vc animated:YES ];
+            [self presentViewController:vc animated:YES completion:nil];
+            
+        }else{
+            NSLog(@"登录失败 %@",error);
+            //User do not exist.
+            /** 每一个应用都有自己的注册用户*/
+        }
+    } onQueue:dispatch_get_main_queue()];
 }
 @end

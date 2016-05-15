@@ -11,7 +11,10 @@
 #define cellW 120
 #define cellH 50
 #import "ZSRRegisgerViewController.h"
-
+#import "EaseMob.h"
+#import "ZSRTabBarViewController.h"
+#import "ZSRLoginViewController.h"
+#import "MBProgressHUD+ZSR.h"
 @interface ZSRRegisgerViewController ()
 
 @property (nonatomic ,strong) UIButton *countryButton;
@@ -31,8 +34,9 @@
 - (void)setupChildView
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
+
     _countryButton=[[UIButton alloc] initWithFrame:CGRectMake(pading, 0, ScreenW - pading * 2, cellH)];
-    [_countryButton setTitle:@"国家/地区" forState:UIControlStateNormal];
+    [_countryButton setTitle:@"注册" forState:UIControlStateNormal];
     [_countryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:_countryButton];
     
@@ -52,6 +56,8 @@
     [_regisgerButton setBackgroundColor:ZSRColor(9, 187, 7)];
     
     [_regisgerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_regisgerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
+
     [self.view addSubview:_regisgerButton];
     
 
@@ -68,5 +74,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)registerAction
+{
+    NSString *username = self.numberField.text;
+    NSString *password = self.passwordField.text;
+    
+    if (username.length == 0 || password.length == 0) {
+        NSLog(@"请输入账号和密码");
+        return;
+    }
+    // 注册
+    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:username password:password withCompletion:^(NSString *username, NSString *password, EMError *error) {
+        NSLog(@"%@",[NSThread currentThread]);
+        if (!error) {
+            [MBProgressHUD showError:@"注册成功,请登录"];
+        }else{
+            [MBProgressHUD showError:@"注册失败,用户名已存在"];
+         NSLog(@"注册失败 %@",error);
+        }
+        
+    } onQueue:nil];
+    
+}
 @end
