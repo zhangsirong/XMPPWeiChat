@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"通讯录";
     self.view.backgroundColor = [UIColor redColor];
     self.tableView.rowHeight = 50;
     self.tableView.sectionHeaderHeight = 44;
@@ -51,10 +53,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 
 #pragma mark - Table view data source
 

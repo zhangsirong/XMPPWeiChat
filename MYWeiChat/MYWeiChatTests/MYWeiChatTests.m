@@ -2,11 +2,10 @@
 //  MYWeiChatTests.m
 //  MYWeiChatTests
 //
-//  Created by hp on 16/1/21.
-//  Copyright (c) 2016年 hp. All rights reserved.
+//  Created by hp on 5/15/16.
+//  Copyright © 2016 hp. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
 @interface MYWeiChatTests : XCTestCase
@@ -27,7 +26,7 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
 
 - (void)testPerformanceExample {

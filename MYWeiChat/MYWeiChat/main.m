@@ -2,8 +2,8 @@
 //  main.m
 //  MYWeiChat
 //
-//  Created by hp on 16/1/21.
-//  Copyright (c) 2016年 hp. All rights reserved.
+//  Created by hp on 5/15/16.
+//  Copyright © 2016 hp. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

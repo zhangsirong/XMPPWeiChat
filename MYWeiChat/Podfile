@@ -1,0 +1,3 @@
+platform :ios, "7.0"
+
+pod 'HyphenateFullSDK', :git => 'https://github.com/easemob/hyphenate-full-cocoapods.git'

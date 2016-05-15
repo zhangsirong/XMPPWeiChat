@@ -51,7 +51,7 @@
     
     ZSRDiscoverViewController *discoverVc = [[ZSRDiscoverViewController alloc] init];
     [self addChildVc:discoverVc title:@"发现" image:@"tabbar_discover.png" selectedImage:@"tabbar_discoverHL.png"];
-    
+   
     ZSRMeViewController *meVc = [[ZSRMeViewController alloc] init];
     [self addChildVc:meVc title:@"我" image:@"tabbar_me.png" selectedImage:@"tabbar_meHL.png"];
     
@@ -60,7 +60,9 @@
 
 - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage
 {
-    childVc.tabBarItem.title = title;
+    childVc.title = title;
+//    childVc.navigationItem.title = title;
+//    childVc.tabBarItem.title = title;
     childVc.tabBarItem.image = [UIImage imageNamed:image];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 //    childVc.view.backgroundColor = ZSRRandomColor;

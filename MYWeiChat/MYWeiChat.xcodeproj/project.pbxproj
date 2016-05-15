@@ -7,87 +7,108 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E61994CD1C52560E00199806 /* ZSRStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61994CC1C52560E00199806 /* ZSRStartViewController.m */; };
-		E61994D21C526F3700199806 /* ZSRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61994D11C526F3700199806 /* ZSRLoginViewController.m */; };
-		E63465E01C52875B00FA9E5E /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E63465DF1C52875B00FA9E5E /* LaunchImage.png */; };
-		E63FF9A31CDF6A6700820F6B /* friends.plist in Resources */ = {isa = PBXBuildFile; fileRef = E63FF9A21CDF6A6700820F6B /* friends.plist */; };
-		E6525C431C511141008B00EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C421C511141008B00EC /* main.m */; };
-		E6525C4E1C511142008B00EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6525C4D1C511142008B00EC /* Images.xcassets */; };
-		E6525C5D1C511142008B00EC /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6525C5C1C511142008B00EC /* MYWeiChatTests.m */; };
-		E65267981C511626008B00EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E65267971C511626008B00EC /* AppDelegate.m */; };
-		E69C08231CDE30C500D03B3B /* ZSRRegisgerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08221CDE30C500D03B3B /* ZSRRegisgerViewController.m */; };
-		E69C082B1CDE462300D03B3B /* ZSRMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C082A1CDE462300D03B3B /* ZSRMeViewController.m */; };
-		E69C082E1CDE462C00D03B3B /* ZSRDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C082D1CDE462C00D03B3B /* ZSRDiscoverViewController.m */; };
-		E69C08351CDE465800D03B3B /* ZSRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08341CDE465800D03B3B /* ZSRMessageViewController.m */; };
-		E69C083B1CDE46FB00D03B3B /* ZSRContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08381CDE46FB00D03B3B /* ZSRContactsViewController.m */; };
-		E69C083E1CDE474600D03B3B /* ZSRFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C083D1CDE474600D03B3B /* ZSRFriend.m */; };
-		E69C08411CDE479D00D03B3B /* ZSRFriendGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08401CDE479D00D03B3B /* ZSRFriendGroup.m */; };
-		E69C08441CDE4A0100D03B3B /* ZSRFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08431CDE4A0100D03B3B /* ZSRFriendCell.m */; };
-		E69C08471CDE4DC100D03B3B /* ZSRHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E69C08461CDE4DC100D03B3B /* ZSRHeaderView.m */; };
-		E6D869411C511A4100581206 /* ZSRTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D869401C511A4100581206 /* ZSRTabBarViewController.m */; };
-		E6D869441C511B2000581206 /* ZSRNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D869431C511B2000581206 /* ZSRNavigationViewController.m */; };
+		DB9F3BA344DB3F85AE088D7C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE634299918A178D9145FFC /* libPods.a */; };
+		E649FEC01CE8481600A0447F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEBF1CE8481600A0447F /* main.m */; };
+		E649FED91CE8481600A0447F /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FED81CE8481600A0447F /* MYWeiChatTests.m */; };
+		E649FEE41CE8481600A0447F /* MYWeiChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */; };
+		E690694B1CE84BF60014FE63 /* ZSRContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069231CE84BF60014FE63 /* ZSRContactsViewController.m */; };
+		E690694C1CE84BF60014FE63 /* ZSRFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069261CE84BF60014FE63 /* ZSRFriend.m */; };
+		E690694D1CE84BF60014FE63 /* ZSRFriendGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069281CE84BF60014FE63 /* ZSRFriendGroup.m */; };
+		E690694E1CE84BF60014FE63 /* ZSRFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E690692B1CE84BF60014FE63 /* ZSRFriendCell.m */; };
+		E690694F1CE84BF60014FE63 /* ZSRHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E690692D1CE84BF60014FE63 /* ZSRHeaderView.m */; };
+		E69069501CE84BF60014FE63 /* ZSRDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069301CE84BF60014FE63 /* ZSRDiscoverViewController.m */; };
+		E69069511CE84BF60014FE63 /* ZSRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069341CE84BF60014FE63 /* ZSRLoginViewController.m */; };
+		E69069521CE84BF60014FE63 /* ZSRRegisgerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069361CE84BF60014FE63 /* ZSRRegisgerViewController.m */; };
+		E69069531CE84BF60014FE63 /* ZSRStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069381CE84BF60014FE63 /* ZSRStartViewController.m */; };
+		E69069541CE84BF60014FE63 /* ZSRNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690693C1CE84BF60014FE63 /* ZSRNavigationViewController.m */; };
+		E69069551CE84BF60014FE63 /* ZSRTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690693E1CE84BF60014FE63 /* ZSRTabBarViewController.m */; };
+		E69069561CE84BF60014FE63 /* ZSRMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069411CE84BF60014FE63 /* ZSRMeViewController.m */; };
+		E69069571CE84BF60014FE63 /* ZSRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069441CE84BF60014FE63 /* ZSRMessageViewController.m */; };
+		E69069581CE84BF60014FE63 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069471CE84BF60014FE63 /* AppDelegate.m */; };
+		E69069591CE84BF60014FE63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E69069481CE84BF60014FE63 /* Images.xcassets */; };
+		E690695A1CE84BF60014FE63 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E69069491CE84BF60014FE63 /* LaunchImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E6525C571C511142008B00EC /* PBXContainerItemProxy */ = {
+		E649FED51CE8481600A0447F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E6525C351C511141008B00EC /* Project object */;
+			containerPortal = E649FEB31CE8481600A0447F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E6525C3C1C511141008B00EC;
+			remoteGlobalIDString = E649FEBA1CE8481600A0447F;
+			remoteInfo = MYWeiChat;
+		};
+		E649FEE01CE8481600A0447F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E649FEB31CE8481600A0447F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E649FEBA1CE8481600A0447F;
 			remoteInfo = MYWeiChat;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E61994CB1C52560E00199806 /* ZSRStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRStartViewController.h; sourceTree = "<group>"; };
-		E61994CC1C52560E00199806 /* ZSRStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRStartViewController.m; sourceTree = "<group>"; };
-		E61994D01C526F3700199806 /* ZSRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRLoginViewController.h; sourceTree = "<group>"; };
-		E61994D11C526F3700199806 /* ZSRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRLoginViewController.m; sourceTree = "<group>"; };
-		E63465DF1C52875B00FA9E5E /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
-		E63FF9A21CDF6A6700820F6B /* friends.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = friends.plist; sourceTree = "<group>"; };
-		E6525C3D1C511141008B00EC /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6525C411C511141008B00EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E6525C421C511141008B00EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E6525C4D1C511142008B00EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E6525C561C511142008B00EC /* MYWeiChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MYWeiChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6525C5B1C511142008B00EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E6525C5C1C511142008B00EC /* MYWeiChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWeiChatTests.m; sourceTree = "<group>"; };
-		E65261D51C5113F6008B00EC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		E65267961C511626008B00EC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E65267971C511626008B00EC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E69C08211CDE30C500D03B3B /* ZSRRegisgerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRRegisgerViewController.h; sourceTree = "<group>"; };
-		E69C08221CDE30C500D03B3B /* ZSRRegisgerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRRegisgerViewController.m; sourceTree = "<group>"; };
-		E69C08291CDE462300D03B3B /* ZSRMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMeViewController.h; sourceTree = "<group>"; };
-		E69C082A1CDE462300D03B3B /* ZSRMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMeViewController.m; sourceTree = "<group>"; };
-		E69C082C1CDE462C00D03B3B /* ZSRDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRDiscoverViewController.h; sourceTree = "<group>"; };
-		E69C082D1CDE462C00D03B3B /* ZSRDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRDiscoverViewController.m; sourceTree = "<group>"; };
-		E69C08331CDE465800D03B3B /* ZSRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageViewController.h; sourceTree = "<group>"; };
-		E69C08341CDE465800D03B3B /* ZSRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageViewController.m; sourceTree = "<group>"; };
-		E69C08371CDE46FB00D03B3B /* ZSRContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsViewController.h; sourceTree = "<group>"; };
-		E69C08381CDE46FB00D03B3B /* ZSRContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsViewController.m; sourceTree = "<group>"; };
-		E69C083C1CDE474600D03B3B /* ZSRFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriend.h; sourceTree = "<group>"; };
-		E69C083D1CDE474600D03B3B /* ZSRFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriend.m; sourceTree = "<group>"; };
-		E69C083F1CDE479D00D03B3B /* ZSRFriendGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriendGroup.h; sourceTree = "<group>"; };
-		E69C08401CDE479D00D03B3B /* ZSRFriendGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriendGroup.m; sourceTree = "<group>"; };
-		E69C08421CDE4A0100D03B3B /* ZSRFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriendCell.h; sourceTree = "<group>"; };
-		E69C08431CDE4A0100D03B3B /* ZSRFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriendCell.m; sourceTree = "<group>"; };
-		E69C08451CDE4DC100D03B3B /* ZSRHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRHeaderView.h; sourceTree = "<group>"; };
-		E69C08461CDE4DC100D03B3B /* ZSRHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRHeaderView.m; sourceTree = "<group>"; };
-		E6D8693F1C511A4100581206 /* ZSRTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTabBarViewController.h; sourceTree = "<group>"; };
-		E6D869401C511A4100581206 /* ZSRTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTabBarViewController.m; sourceTree = "<group>"; };
-		E6D869421C511B2000581206 /* ZSRNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRNavigationViewController.h; sourceTree = "<group>"; };
-		E6D869431C511B2000581206 /* ZSRNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRNavigationViewController.m; sourceTree = "<group>"; };
+		01FEFCC934CC988DED178170 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		2FE634299918A178D9145FFC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5EAFF54E8D049A3AF7F3B48 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E649FEBB1CE8481600A0447F /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E649FEBF1CE8481600A0447F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E649FECF1CE8481600A0447F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E649FED41CE8481600A0447F /* MYWeiChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MYWeiChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E649FED81CE8481600A0447F /* MYWeiChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWeiChatTests.m; sourceTree = "<group>"; };
+		E649FEDA1CE8481600A0447F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E649FEDF1CE8481600A0447F /* MYWeiChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MYWeiChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWeiChatUITests.m; sourceTree = "<group>"; };
+		E649FEE51CE8481600A0447F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E69069221CE84BF60014FE63 /* ZSRContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsViewController.h; sourceTree = "<group>"; };
+		E69069231CE84BF60014FE63 /* ZSRContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsViewController.m; sourceTree = "<group>"; };
+		E69069251CE84BF60014FE63 /* ZSRFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriend.h; sourceTree = "<group>"; };
+		E69069261CE84BF60014FE63 /* ZSRFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriend.m; sourceTree = "<group>"; };
+		E69069271CE84BF60014FE63 /* ZSRFriendGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriendGroup.h; sourceTree = "<group>"; };
+		E69069281CE84BF60014FE63 /* ZSRFriendGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriendGroup.m; sourceTree = "<group>"; };
+		E690692A1CE84BF60014FE63 /* ZSRFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRFriendCell.h; sourceTree = "<group>"; };
+		E690692B1CE84BF60014FE63 /* ZSRFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRFriendCell.m; sourceTree = "<group>"; };
+		E690692C1CE84BF60014FE63 /* ZSRHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRHeaderView.h; sourceTree = "<group>"; };
+		E690692D1CE84BF60014FE63 /* ZSRHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRHeaderView.m; sourceTree = "<group>"; };
+		E690692F1CE84BF60014FE63 /* ZSRDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRDiscoverViewController.h; sourceTree = "<group>"; };
+		E69069301CE84BF60014FE63 /* ZSRDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRDiscoverViewController.m; sourceTree = "<group>"; };
+		E69069331CE84BF60014FE63 /* ZSRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRLoginViewController.h; sourceTree = "<group>"; };
+		E69069341CE84BF60014FE63 /* ZSRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRLoginViewController.m; sourceTree = "<group>"; };
+		E69069351CE84BF60014FE63 /* ZSRRegisgerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRRegisgerViewController.h; sourceTree = "<group>"; };
+		E69069361CE84BF60014FE63 /* ZSRRegisgerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRRegisgerViewController.m; sourceTree = "<group>"; };
+		E69069371CE84BF60014FE63 /* ZSRStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRStartViewController.h; sourceTree = "<group>"; };
+		E69069381CE84BF60014FE63 /* ZSRStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRStartViewController.m; sourceTree = "<group>"; };
+		E690693B1CE84BF60014FE63 /* ZSRNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRNavigationViewController.h; sourceTree = "<group>"; };
+		E690693C1CE84BF60014FE63 /* ZSRNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRNavigationViewController.m; sourceTree = "<group>"; };
+		E690693D1CE84BF60014FE63 /* ZSRTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTabBarViewController.h; sourceTree = "<group>"; };
+		E690693E1CE84BF60014FE63 /* ZSRTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTabBarViewController.m; sourceTree = "<group>"; };
+		E69069401CE84BF60014FE63 /* ZSRMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMeViewController.h; sourceTree = "<group>"; };
+		E69069411CE84BF60014FE63 /* ZSRMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMeViewController.m; sourceTree = "<group>"; };
+		E69069431CE84BF60014FE63 /* ZSRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageViewController.h; sourceTree = "<group>"; };
+		E69069441CE84BF60014FE63 /* ZSRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageViewController.m; sourceTree = "<group>"; };
+		E69069461CE84BF60014FE63 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E69069471CE84BF60014FE63 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E69069481CE84BF60014FE63 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E69069491CE84BF60014FE63 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
+		E690694A1CE84BF60014FE63 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E6525C3A1C511141008B00EC /* Frameworks */ = {
+		E649FEB81CE8481600A0447F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB9F3BA344DB3F85AE088D7C /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E649FED11CE8481600A0447F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6525C531C511142008B00EC /* Frameworks */ = {
+		E649FEDC1CE8481600A0447F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -97,228 +118,236 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E60F936C1C525204009305B7 /* Common */ = {
+		01165C22FF02ECA67DECE014 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E60F936D1C525259009305B7 /* Singleton */,
-				E60F936E1C525259009305B7 /* Tool */,
+				2FE634299918A178D9145FFC /* libPods.a */,
 			);
-			path = Common;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E60F936D1C525259009305B7 /* Singleton */ = {
+		E5B4C122C0562699535B764D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				01FEFCC934CC988DED178170 /* Pods.debug.xcconfig */,
+				E5EAFF54E8D049A3AF7F3B48 /* Pods.release.xcconfig */,
 			);
-			path = Singleton;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		E60F936E1C525259009305B7 /* Tool */ = {
+		E649FEB21CE8481600A0447F = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
-		E6525C341C511141008B00EC = {
-			isa = PBXGroup;
-			children = (
-				E6525C3F1C511141008B00EC /* MYWeiChat */,
-				E6525C591C511142008B00EC /* MYWeiChatTests */,
-				E6525C3E1C511141008B00EC /* Products */,
+				E649FEBD1CE8481600A0447F /* MYWeiChat */,
+				E649FED71CE8481600A0447F /* MYWeiChatTests */,
+				E649FEE21CE8481600A0447F /* MYWeiChatUITests */,
+				E649FEBC1CE8481600A0447F /* Products */,
+				E5B4C122C0562699535B764D /* Pods */,
+				01165C22FF02ECA67DECE014 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		E6525C3E1C511141008B00EC /* Products */ = {
+		E649FEBC1CE8481600A0447F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E6525C3D1C511141008B00EC /* MYWeiChat.app */,
-				E6525C561C511142008B00EC /* MYWeiChatTests.xctest */,
+				E649FEBB1CE8481600A0447F /* MYWeiChat.app */,
+				E649FED41CE8481600A0447F /* MYWeiChatTests.xctest */,
+				E649FEDF1CE8481600A0447F /* MYWeiChatUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E6525C3F1C511141008B00EC /* MYWeiChat */ = {
+		E649FEBD1CE8481600A0447F /* MYWeiChat */ = {
 			isa = PBXGroup;
 			children = (
-				E63465DF1C52875B00FA9E5E /* LaunchImage.png */,
-				E6525C661C51118C008B00EC /* CLasses */,
-				E6525C4D1C511142008B00EC /* Images.xcassets */,
-				E6525C401C511141008B00EC /* Supporting Files */,
+				E690691E1CE84BF60014FE63 /* CLasses */,
+				E69069481CE84BF60014FE63 /* Images.xcassets */,
+				E69069491CE84BF60014FE63 /* LaunchImage.png */,
+				E690694A1CE84BF60014FE63 /* PrefixHeader.pch */,
+				E649FECF1CE8481600A0447F /* Info.plist */,
+				E649FEBE1CE8481600A0447F /* Supporting Files */,
 			);
 			path = MYWeiChat;
 			sourceTree = "<group>";
 		};
-		E6525C401C511141008B00EC /* Supporting Files */ = {
+		E649FEBE1CE8481600A0447F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E63FF9A21CDF6A6700820F6B /* friends.plist */,
-				E6525C411C511141008B00EC /* Info.plist */,
-				E6525C421C511141008B00EC /* main.m */,
-				E65261D51C5113F6008B00EC /* PrefixHeader.pch */,
+				E649FEBF1CE8481600A0447F /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E6525C591C511142008B00EC /* MYWeiChatTests */ = {
+		E649FED71CE8481600A0447F /* MYWeiChatTests */ = {
 			isa = PBXGroup;
 			children = (
-				E6525C5C1C511142008B00EC /* MYWeiChatTests.m */,
-				E6525C5A1C511142008B00EC /* Supporting Files */,
+				E649FED81CE8481600A0447F /* MYWeiChatTests.m */,
+				E649FEDA1CE8481600A0447F /* Info.plist */,
 			);
 			path = MYWeiChatTests;
 			sourceTree = "<group>";
 		};
-		E6525C5A1C511142008B00EC /* Supporting Files */ = {
+		E649FEE21CE8481600A0447F /* MYWeiChatUITests */ = {
 			isa = PBXGroup;
 			children = (
-				E6525C5B1C511142008B00EC /* Info.plist */,
+				E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */,
+				E649FEE51CE8481600A0447F /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = MYWeiChatUITests;
 			sourceTree = "<group>";
 		};
-		E6525C661C51118C008B00EC /* CLasses */ = {
+		E690691E1CE84BF60014FE63 /* CLasses */ = {
 			isa = PBXGroup;
 			children = (
-				E60F936C1C525204009305B7 /* Common */,
-				E69C08321CDE465800D03B3B /* Message */,
-				E69C08261CDE45B500D03B3B /* Contacts */,
-				E69C08271CDE45B500D03B3B /* Discover */,
-				E69C08281CDE45B500D03B3B /* Me */,
-				E65261D61C5114C0008B00EC /* Login */,
-				E65261D81C5114C0008B00EC /* Main */,
-				E65261D91C5114C0008B00EC /* Other */,
+				E690691F1CE84BF60014FE63 /* Common */,
+				E69069201CE84BF60014FE63 /* Contacts */,
+				E690692E1CE84BF60014FE63 /* Discover */,
+				E69069311CE84BF60014FE63 /* Login */,
+				E69069391CE84BF60014FE63 /* Main */,
+				E690693F1CE84BF60014FE63 /* Me */,
+				E69069421CE84BF60014FE63 /* Message */,
+				E69069451CE84BF60014FE63 /* Other */,
 			);
 			path = CLasses;
 			sourceTree = "<group>";
 		};
-		E65261D61C5114C0008B00EC /* Login */ = {
+		E690691F1CE84BF60014FE63 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E65261D71C5114C0008B00EC /* Controller */,
 			);
-			path = Login;
+			path = Common;
 			sourceTree = "<group>";
 		};
-		E65261D71C5114C0008B00EC /* Controller */ = {
+		E69069201CE84BF60014FE63 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				E61994D01C526F3700199806 /* ZSRLoginViewController.h */,
-				E61994D11C526F3700199806 /* ZSRLoginViewController.m */,
-				E61994CB1C52560E00199806 /* ZSRStartViewController.h */,
-				E61994CC1C52560E00199806 /* ZSRStartViewController.m */,
-				E69C08211CDE30C500D03B3B /* ZSRRegisgerViewController.h */,
-				E69C08221CDE30C500D03B3B /* ZSRRegisgerViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		E65261D81C5114C0008B00EC /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				E65267991C511978008B00EC /* Controller */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		E65261D91C5114C0008B00EC /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				E65267961C511626008B00EC /* AppDelegate.h */,
-				E65267971C511626008B00EC /* AppDelegate.m */,
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
-		E65267991C511978008B00EC /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				E6D869421C511B2000581206 /* ZSRNavigationViewController.h */,
-				E6D869431C511B2000581206 /* ZSRNavigationViewController.m */,
-				E6D8693F1C511A4100581206 /* ZSRTabBarViewController.h */,
-				E6D869401C511A4100581206 /* ZSRTabBarViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		E69C08261CDE45B500D03B3B /* Contacts */ = {
-			isa = PBXGroup;
-			children = (
-				E69C08361CDE46FB00D03B3B /* Controller */,
-				E69C08391CDE46FB00D03B3B /* Model */,
-				E69C083A1CDE46FB00D03B3B /* View */,
+				E69069211CE84BF60014FE63 /* Controller */,
+				E69069241CE84BF60014FE63 /* Model */,
+				E69069291CE84BF60014FE63 /* View */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
 		};
-		E69C08271CDE45B500D03B3B /* Discover */ = {
+		E69069211CE84BF60014FE63 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E69C082C1CDE462C00D03B3B /* ZSRDiscoverViewController.h */,
-				E69C082D1CDE462C00D03B3B /* ZSRDiscoverViewController.m */,
-			);
-			path = Discover;
-			sourceTree = "<group>";
-		};
-		E69C08281CDE45B500D03B3B /* Me */ = {
-			isa = PBXGroup;
-			children = (
-				E69C08291CDE462300D03B3B /* ZSRMeViewController.h */,
-				E69C082A1CDE462300D03B3B /* ZSRMeViewController.m */,
-			);
-			path = Me;
-			sourceTree = "<group>";
-		};
-		E69C08321CDE465800D03B3B /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				E69C08331CDE465800D03B3B /* ZSRMessageViewController.h */,
-				E69C08341CDE465800D03B3B /* ZSRMessageViewController.m */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
-		E69C08361CDE46FB00D03B3B /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				E69C08371CDE46FB00D03B3B /* ZSRContactsViewController.h */,
-				E69C08381CDE46FB00D03B3B /* ZSRContactsViewController.m */,
+				E69069221CE84BF60014FE63 /* ZSRContactsViewController.h */,
+				E69069231CE84BF60014FE63 /* ZSRContactsViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E69C08391CDE46FB00D03B3B /* Model */ = {
+		E69069241CE84BF60014FE63 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E69C083C1CDE474600D03B3B /* ZSRFriend.h */,
-				E69C083D1CDE474600D03B3B /* ZSRFriend.m */,
-				E69C083F1CDE479D00D03B3B /* ZSRFriendGroup.h */,
-				E69C08401CDE479D00D03B3B /* ZSRFriendGroup.m */,
+				E69069251CE84BF60014FE63 /* ZSRFriend.h */,
+				E69069261CE84BF60014FE63 /* ZSRFriend.m */,
+				E69069271CE84BF60014FE63 /* ZSRFriendGroup.h */,
+				E69069281CE84BF60014FE63 /* ZSRFriendGroup.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		E69C083A1CDE46FB00D03B3B /* View */ = {
+		E69069291CE84BF60014FE63 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E69C08421CDE4A0100D03B3B /* ZSRFriendCell.h */,
-				E69C08431CDE4A0100D03B3B /* ZSRFriendCell.m */,
-				E69C08451CDE4DC100D03B3B /* ZSRHeaderView.h */,
-				E69C08461CDE4DC100D03B3B /* ZSRHeaderView.m */,
+				E690692A1CE84BF60014FE63 /* ZSRFriendCell.h */,
+				E690692B1CE84BF60014FE63 /* ZSRFriendCell.m */,
+				E690692C1CE84BF60014FE63 /* ZSRHeaderView.h */,
+				E690692D1CE84BF60014FE63 /* ZSRHeaderView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E690692E1CE84BF60014FE63 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				E690692F1CE84BF60014FE63 /* ZSRDiscoverViewController.h */,
+				E69069301CE84BF60014FE63 /* ZSRDiscoverViewController.m */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		E69069311CE84BF60014FE63 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E69069321CE84BF60014FE63 /* Controller */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E69069321CE84BF60014FE63 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E69069331CE84BF60014FE63 /* ZSRLoginViewController.h */,
+				E69069341CE84BF60014FE63 /* ZSRLoginViewController.m */,
+				E69069351CE84BF60014FE63 /* ZSRRegisgerViewController.h */,
+				E69069361CE84BF60014FE63 /* ZSRRegisgerViewController.m */,
+				E69069371CE84BF60014FE63 /* ZSRStartViewController.h */,
+				E69069381CE84BF60014FE63 /* ZSRStartViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E69069391CE84BF60014FE63 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E690693A1CE84BF60014FE63 /* Controller */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		E690693A1CE84BF60014FE63 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E690693B1CE84BF60014FE63 /* ZSRNavigationViewController.h */,
+				E690693C1CE84BF60014FE63 /* ZSRNavigationViewController.m */,
+				E690693D1CE84BF60014FE63 /* ZSRTabBarViewController.h */,
+				E690693E1CE84BF60014FE63 /* ZSRTabBarViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E690693F1CE84BF60014FE63 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				E69069401CE84BF60014FE63 /* ZSRMeViewController.h */,
+				E69069411CE84BF60014FE63 /* ZSRMeViewController.m */,
+			);
+			path = Me;
+			sourceTree = "<group>";
+		};
+		E69069421CE84BF60014FE63 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				E69069431CE84BF60014FE63 /* ZSRMessageViewController.h */,
+				E69069441CE84BF60014FE63 /* ZSRMessageViewController.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		E69069451CE84BF60014FE63 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				E69069461CE84BF60014FE63 /* AppDelegate.h */,
+				E69069471CE84BF60014FE63 /* AppDelegate.m */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E6525C3C1C511141008B00EC /* MYWeiChat */ = {
+		E649FEBA1CE8481600A0447F /* MYWeiChat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E6525C601C511142008B00EC /* Build configuration list for PBXNativeTarget "MYWeiChat" */;
+			buildConfigurationList = E649FEE81CE8481600A0447F /* Build configuration list for PBXNativeTarget "MYWeiChat" */;
 			buildPhases = (
-				E6525C391C511141008B00EC /* Sources */,
-				E6525C3A1C511141008B00EC /* Frameworks */,
-				E6525C3B1C511141008B00EC /* Resources */,
+				6C652EFA26A890A8B1F399F2 /* Check Pods Manifest.lock */,
+				E649FEB71CE8481600A0447F /* Sources */,
+				E649FEB81CE8481600A0447F /* Frameworks */,
+				E649FEB91CE8481600A0447F /* Resources */,
+				2D348058D4AA409CBE01824F /* Embed Pods Frameworks */,
+				3A6E835BB2E123F3F178D274 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -326,47 +355,68 @@
 			);
 			name = MYWeiChat;
 			productName = MYWeiChat;
-			productReference = E6525C3D1C511141008B00EC /* MYWeiChat.app */;
+			productReference = E649FEBB1CE8481600A0447F /* MYWeiChat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E6525C551C511142008B00EC /* MYWeiChatTests */ = {
+		E649FED31CE8481600A0447F /* MYWeiChatTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E6525C631C511142008B00EC /* Build configuration list for PBXNativeTarget "MYWeiChatTests" */;
+			buildConfigurationList = E649FEEB1CE8481600A0447F /* Build configuration list for PBXNativeTarget "MYWeiChatTests" */;
 			buildPhases = (
-				E6525C521C511142008B00EC /* Sources */,
-				E6525C531C511142008B00EC /* Frameworks */,
-				E6525C541C511142008B00EC /* Resources */,
+				E649FED01CE8481600A0447F /* Sources */,
+				E649FED11CE8481600A0447F /* Frameworks */,
+				E649FED21CE8481600A0447F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E6525C581C511142008B00EC /* PBXTargetDependency */,
+				E649FED61CE8481600A0447F /* PBXTargetDependency */,
 			);
 			name = MYWeiChatTests;
 			productName = MYWeiChatTests;
-			productReference = E6525C561C511142008B00EC /* MYWeiChatTests.xctest */;
+			productReference = E649FED41CE8481600A0447F /* MYWeiChatTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E649FEDE1CE8481600A0447F /* MYWeiChatUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E649FEEE1CE8481600A0447F /* Build configuration list for PBXNativeTarget "MYWeiChatUITests" */;
+			buildPhases = (
+				E649FEDB1CE8481600A0447F /* Sources */,
+				E649FEDC1CE8481600A0447F /* Frameworks */,
+				E649FEDD1CE8481600A0447F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E649FEE11CE8481600A0447F /* PBXTargetDependency */,
+			);
+			name = MYWeiChatUITests;
+			productName = MYWeiChatUITests;
+			productReference = E649FEDF1CE8481600A0447F /* MYWeiChatUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E6525C351C511141008B00EC /* Project object */ = {
+		E649FEB31CE8481600A0447F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = ZSR;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = hp;
 				TargetAttributes = {
-					E6525C3C1C511141008B00EC = {
-						CreatedOnToolsVersion = 6.4;
+					E649FEBA1CE8481600A0447F = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
-					E6525C551C511142008B00EC = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = E6525C3C1C511141008B00EC;
+					E649FED31CE8481600A0447F = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = E649FEBA1CE8481600A0447F;
+					};
+					E649FEDE1CE8481600A0447F = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = E649FEBA1CE8481600A0447F;
 					};
 				};
 			};
-			buildConfigurationList = E6525C381C511141008B00EC /* Build configuration list for PBXProject "MYWeiChat" */;
+			buildConfigurationList = E649FEB61CE8481600A0447F /* Build configuration list for PBXProject "MYWeiChat" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -374,29 +424,36 @@
 				en,
 				Base,
 			);
-			mainGroup = E6525C341C511141008B00EC;
-			productRefGroup = E6525C3E1C511141008B00EC /* Products */;
+			mainGroup = E649FEB21CE8481600A0447F;
+			productRefGroup = E649FEBC1CE8481600A0447F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E6525C3C1C511141008B00EC /* MYWeiChat */,
-				E6525C551C511142008B00EC /* MYWeiChatTests */,
+				E649FEBA1CE8481600A0447F /* MYWeiChat */,
+				E649FED31CE8481600A0447F /* MYWeiChatTests */,
+				E649FEDE1CE8481600A0447F /* MYWeiChatUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E6525C3B1C511141008B00EC /* Resources */ = {
+		E649FEB91CE8481600A0447F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E63465E01C52875B00FA9E5E /* LaunchImage.png in Resources */,
-				E6525C4E1C511142008B00EC /* Images.xcassets in Resources */,
-				E63FF9A31CDF6A6700820F6B /* friends.plist in Resources */,
+				E690695A1CE84BF60014FE63 /* LaunchImage.png in Resources */,
+				E69069591CE84BF60014FE63 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6525C541C511142008B00EC /* Resources */ = {
+		E649FED21CE8481600A0447F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E649FEDD1CE8481600A0447F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -405,52 +462,114 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2D348058D4AA409CBE01824F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A6E835BB2E123F3F178D274 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6C652EFA26A890A8B1F399F2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		E6525C391C511141008B00EC /* Sources */ = {
+		E649FEB71CE8481600A0447F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E69C082B1CDE462300D03B3B /* ZSRMeViewController.m in Sources */,
-				E69C08441CDE4A0100D03B3B /* ZSRFriendCell.m in Sources */,
-				E69C08351CDE465800D03B3B /* ZSRMessageViewController.m in Sources */,
-				E69C08471CDE4DC100D03B3B /* ZSRHeaderView.m in Sources */,
-				E65267981C511626008B00EC /* AppDelegate.m in Sources */,
-				E69C082E1CDE462C00D03B3B /* ZSRDiscoverViewController.m in Sources */,
-				E61994D21C526F3700199806 /* ZSRLoginViewController.m in Sources */,
-				E69C08411CDE479D00D03B3B /* ZSRFriendGroup.m in Sources */,
-				E69C083E1CDE474600D03B3B /* ZSRFriend.m in Sources */,
-				E6D869441C511B2000581206 /* ZSRNavigationViewController.m in Sources */,
-				E69C08231CDE30C500D03B3B /* ZSRRegisgerViewController.m in Sources */,
-				E61994CD1C52560E00199806 /* ZSRStartViewController.m in Sources */,
-				E6525C431C511141008B00EC /* main.m in Sources */,
-				E6D869411C511A4100581206 /* ZSRTabBarViewController.m in Sources */,
-				E69C083B1CDE46FB00D03B3B /* ZSRContactsViewController.m in Sources */,
+				E69069501CE84BF60014FE63 /* ZSRDiscoverViewController.m in Sources */,
+				E649FEC01CE8481600A0447F /* main.m in Sources */,
+				E69069511CE84BF60014FE63 /* ZSRLoginViewController.m in Sources */,
+				E69069531CE84BF60014FE63 /* ZSRStartViewController.m in Sources */,
+				E69069521CE84BF60014FE63 /* ZSRRegisgerViewController.m in Sources */,
+				E69069561CE84BF60014FE63 /* ZSRMeViewController.m in Sources */,
+				E690694B1CE84BF60014FE63 /* ZSRContactsViewController.m in Sources */,
+				E690694E1CE84BF60014FE63 /* ZSRFriendCell.m in Sources */,
+				E69069571CE84BF60014FE63 /* ZSRMessageViewController.m in Sources */,
+				E690694F1CE84BF60014FE63 /* ZSRHeaderView.m in Sources */,
+				E690694C1CE84BF60014FE63 /* ZSRFriend.m in Sources */,
+				E690694D1CE84BF60014FE63 /* ZSRFriendGroup.m in Sources */,
+				E69069551CE84BF60014FE63 /* ZSRTabBarViewController.m in Sources */,
+				E69069541CE84BF60014FE63 /* ZSRNavigationViewController.m in Sources */,
+				E69069581CE84BF60014FE63 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6525C521C511142008B00EC /* Sources */ = {
+		E649FED01CE8481600A0447F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6525C5D1C511142008B00EC /* MYWeiChatTests.m in Sources */,
+				E649FED91CE8481600A0447F /* MYWeiChatTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E649FEDB1CE8481600A0447F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E649FEE41CE8481600A0447F /* MYWeiChatUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E6525C581C511142008B00EC /* PBXTargetDependency */ = {
+		E649FED61CE8481600A0447F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E6525C3C1C511141008B00EC /* MYWeiChat */;
-			targetProxy = E6525C571C511142008B00EC /* PBXContainerItemProxy */;
+			target = E649FEBA1CE8481600A0447F /* MYWeiChat */;
+			targetProxy = E649FED51CE8481600A0447F /* PBXContainerItemProxy */;
+		};
+		E649FEE11CE8481600A0447F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E649FEBA1CE8481600A0447F /* MYWeiChat */;
+			targetProxy = E649FEE01CE8481600A0447F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		E6525C5E1C511142008B00EC /* Debug */ = {
+		E649FEE61CE8481600A0447F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -466,8 +585,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -476,14 +596,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -491,10 +610,11 @@
 			};
 			name = Debug;
 		};
-		E6525C5F1C511142008B00EC /* Release */ = {
+		E649FEE71CE8481600A0447F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -521,7 +641,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -529,121 +649,122 @@
 			};
 			name = Release;
 		};
-		E6525C611C511142008B00EC /* Debug */ = {
+		E649FEE91CE8481600A0447F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01FEFCC934CC988DED178170 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/MYWeiChat/PrefixHeader.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode6.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/usr/include/libxml2,
-				);
+				GCC_PREFIX_HEADER = "${SRCROOT}/MYWeiChat/PrefixHeader.pch";
 				INFOPLIST_FILE = MYWeiChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MYWeiChat/CLasses/XMPP/Vendor/libidn",
-					"$(PROJECT_DIR)/MYWeiChat/CLasses/Lib/XXMP/Vendor/libidn",
-					"$(PROJECT_DIR)/MYWeiChat/CLasses/Lib/XMPP/Vendor/libidn",
-				);
-				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		E6525C621C511142008B00EC /* Release */ = {
+		E649FEEA1CE8481600A0447F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5EAFF54E8D049A3AF7F3B48 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/MYWeiChat/PrefixHeader.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode6.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/usr/include/libxml2,
-				);
+				GCC_PREFIX_HEADER = "${SRCROOT}/MYWeiChat/PrefixHeader.pch";
 				INFOPLIST_FILE = MYWeiChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MYWeiChat/CLasses/XMPP/Vendor/libidn",
-					"$(PROJECT_DIR)/MYWeiChat/CLasses/Lib/XXMP/Vendor/libidn",
-					"$(PROJECT_DIR)/MYWeiChat/CLasses/Lib/XMPP/Vendor/libidn",
-				);
-				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
-		E6525C641C511142008B00EC /* Debug */ = {
+		E649FEEC1CE8481600A0447F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = MYWeiChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChatTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MYWeiChat.app/MYWeiChat";
 			};
 			name = Debug;
 		};
-		E6525C651C511142008B00EC /* Release */ = {
+		E649FEED1CE8481600A0447F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = MYWeiChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChatTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MYWeiChat.app/MYWeiChat";
+			};
+			name = Release;
+		};
+		E649FEEF1CE8481600A0447F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MYWeiChatUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MYWeiChat;
+			};
+			name = Debug;
+		};
+		E649FEF01CE8481600A0447F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MYWeiChatUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhang.MYWeiChatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MYWeiChat;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E6525C381C511141008B00EC /* Build configuration list for PBXProject "MYWeiChat" */ = {
+		E649FEB61CE8481600A0447F /* Build configuration list for PBXProject "MYWeiChat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E6525C5E1C511142008B00EC /* Debug */,
-				E6525C5F1C511142008B00EC /* Release */,
+				E649FEE61CE8481600A0447F /* Debug */,
+				E649FEE71CE8481600A0447F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E6525C601C511142008B00EC /* Build configuration list for PBXNativeTarget "MYWeiChat" */ = {
+		E649FEE81CE8481600A0447F /* Build configuration list for PBXNativeTarget "MYWeiChat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E6525C611C511142008B00EC /* Debug */,
-				E6525C621C511142008B00EC /* Release */,
+				E649FEE91CE8481600A0447F /* Debug */,
+				E649FEEA1CE8481600A0447F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E6525C631C511142008B00EC /* Build configuration list for PBXNativeTarget "MYWeiChatTests" */ = {
+		E649FEEB1CE8481600A0447F /* Build configuration list for PBXNativeTarget "MYWeiChatTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E6525C641C511142008B00EC /* Debug */,
-				E6525C651C511142008B00EC /* Release */,
+				E649FEEC1CE8481600A0447F /* Debug */,
+				E649FEED1CE8481600A0447F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E649FEEE1CE8481600A0447F /* Build configuration list for PBXNativeTarget "MYWeiChatUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E649FEEF1CE8481600A0447F /* Debug */,
+				E649FEF01CE8481600A0447F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = E6525C351C511141008B00EC /* Project object */;
+	rootObject = E649FEB31CE8481600A0447F /* Project object */;
 }
