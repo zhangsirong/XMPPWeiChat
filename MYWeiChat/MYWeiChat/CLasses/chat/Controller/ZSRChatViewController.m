@@ -11,10 +11,15 @@
 #import "ZSRMessageCell.h"
 #import "ZSRMessageModel.h"
 #import "ZSRMessageFrameModel.h"
+#import "EMCDDeviceManager.h"
 
-@interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 
-@property (nonatomic, strong) NSLayoutConstraint *inputViewConstraint;//inputView底部约束
+
+@interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EMChatManagerDelegate,ZSRInputViewDelegate>
+
+@property (nonatomic, strong) NSLayoutConstraint *inputViewBottomConstraint;//inputView底部约束
+@property (nonatomic, strong) NSLayoutConstraint *inputViewHegihtConstraint;//inputView高度约束
+@property (nonatomic, weak) ZSRInputView *inputView;
 @property (nonatomic, weak) UITableView *tableView;
 
 /**
@@ -41,6 +46,10 @@
     self.title = self.buddy.username;
     self.view.backgroundColor = [UIColor whiteColor];
     
+    // 设置聊天管理器的代理
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    
+    
     //1.监听键盘弹出，把inputToolbar(输入工具条)往上移
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -51,9 +60,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbDidShow:) name:UIKeyboardDidShowNotification object:nil];
     
     [self scrollToBottom];
-
 }
-
 
 -(void)loadLocalChatRecords{
     
@@ -66,7 +73,7 @@
     NSArray *msgS = [conversation loadAllMessages];
     
     for (EMMessage *msg in msgS) {
-        NSLog(@"%@",msg);
+        ZSRLog(@"%@",msg);
         //1.时间
         ZSRMessageModel *message = [[ZSRMessageModel alloc] init];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:msg.timestamp];
@@ -107,9 +114,13 @@
     // 创建输入框View
     ZSRInputView *inputView = [ZSRInputView inputView];
     inputView.translatesAutoresizingMaskIntoConstraints = NO;
+    inputView.delegate = self;
     // 设置TextView代理
     inputView.textView.delegate = self;
     [self.view addSubview:inputView];
+    
+    self.inputView = inputView;
+
     
     // 自动布局
     
@@ -129,9 +140,56 @@
     // 垂直方向的约束
     NSArray *vContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableview]-0-[inputView(46)]-0-|" options:0 metrics:nil views:views];
     [self.view addConstraints:vContraints];
-    self.inputViewConstraint = [vContraints lastObject];
-//    NSLog(@"%@",vContraints);
+    self.inputViewBottomConstraint = [vContraints lastObject];
+    self.inputViewHegihtConstraint = vContraints[vContraints.count-2] ;
+    ZSRLog(@"%@",vContraints);
 }
+
+#pragma mark -ZSRInputView代理
+- (void)inputView:(ZSRInputView *)inputView didClickVoiceButton:(UIButton *)button
+{
+        inputView.recordBtn.hidden = !inputView.recordBtn.hidden;
+}
+
+- (void)inputView:(ZSRInputView *)inputView didBeginRecord:(UIButton *)button{
+    // 文件名以时间命名
+    int x = arc4random() % 100000;
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    NSString *fileName = [NSString stringWithFormat:@"%d%d",(int)time,x];
+    
+    ZSRLog(@"按钮点下去开始录音");
+    [[EMCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error) {
+        if (!error) {
+            ZSRLog(@"开始录音成功");
+        }
+    }];
+
+}
+
+-(void)inputView:(ZSRInputView *)inputView didEndRecord:(UIButton *)button
+{
+    ZSRLog(@"手指从按钮松开结束录音");
+    [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
+        if (!error) {
+            ZSRLog(@"录音成功");
+            ZSRLog(@"%@",recordPath);
+            // 发送语音给服务器
+                        [self sendVoice:recordPath duration:aDuration];
+            
+        }else{
+            ZSRLog(@"== %@",error);
+            
+        }
+    }];
+}
+
+-(void)inputView:(ZSRInputView *)inputView didCancelRecord:(UIButton *)button
+{
+    [[EMCDDeviceManager sharedInstance] cancelCurrentRecording];
+    [MBProgressHUD showSuccess:@"录音已取消"];
+}
+
+
 
 #pragma mark -表格的数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -165,7 +223,7 @@
     
     
     //2.更改inputToolbar 底部约束
-    self.inputViewConstraint.constant = kbHeight;
+    self.inputViewBottomConstraint.constant = kbHeight;
     //添加动画
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
@@ -176,7 +234,8 @@
 #pragma mark 键盘退出时会触发的方法
 -(void)kbWillHide:(NSNotification *)noti{
     //inputToolbar恢复原位
-    self.inputViewConstraint.constant = 0;
+    self.inputViewBottomConstraint.constant = 0;
+    
 }
 
 
@@ -194,28 +253,60 @@
 
 #pragma mark - UITextView代理
 -(void)textViewDidChange:(UITextView *)textView{
+    
+    ZSRLog(@"contentOffset %@",NSStringFromCGPoint(textView.contentOffset));
+    // 1.计算TextView的高度，
+    CGFloat textViewH = 0;
+    CGFloat minHeight = 33;//textView最小的高度
+    CGFloat maxHeight = 68;//textView最大的高度
+    
+    // 获取contentSize的高度
+    CGFloat contentHeight = textView.contentSize.height;
+    if (contentHeight < minHeight) {
+        textViewH = minHeight;
+    }else if (contentHeight > maxHeight){
+        textViewH = maxHeight;
+    }else{
+        textViewH = contentHeight;
+    }
+    
+    
+    
     NSString *text = textView.text;
     // 换行就等于点击了的send
     if ([text rangeOfString:@"\n"].location!= 0 && [text rangeOfString:@"\n"].location != NSNotFound) {
-        NSLog(@"发送数据 %@",text);
+        ZSRLog(@"发送数据 %@",text);
         // 去除换行字符
         text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         [self sendMessage:text];
         //清空数据
         textView.text = nil;
+        // 发送时，textViewH的高度为33
+        textViewH = minHeight;
         
     }else{
-        NSLog(@"%@",textView.text);
+        ZSRLog(@"%@",textView.text);
         
     }
     
+    // 3.调整整个InputToolBar 高度
+    self.inputViewHegihtConstraint.constant = 6 + 7 + textViewH;
+    // 加个动画
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+    
+    // 4.记光标回到原位
+#warning 技巧
+    [textView setContentOffset:CGPointZero animated:YES];
+    [textView scrollRangeToVisible:textView.selectedRange];
+    
 }
-/**
- *  发送消息
- *
- *  @param text
- */
+
+
+#pragma mark 发送文本消息
 -(void)sendMessage:(NSString *)text{
     
     //1. 添加模型数据
@@ -248,7 +339,7 @@
     //    EMLocationMessageBody 位置消息体
     //    EMImageMessageBody 图片消息体
     
-    NSLog(@"要发送给 %@",self.buddy.username);
+    ZSRLog(@"要发送给 %@",self.buddy.username);
     
     //    return;
     // 创建一个聊天文本对象
@@ -262,14 +353,43 @@
     
     // 2.发送消息
     [[EaseMob sharedInstance].chatManager asyncSendMessage:msgObj progress:nil prepare:^(EMMessage *message, EMError *error) {
-        NSLog(@"准备发送消息");
+        ZSRLog(@"准备发送消息");
     } onQueue:nil completion:^(EMMessage *message, EMError *error) {
-        NSLog(@"完成消息发送 %@",error);
+        ZSRLog(@"完成消息发送 %@",error);
     } onQueue:nil];
     // 4.把消息显示在顶部
     [self scrollToBottom];
     
 }
+
+#pragma mark 发送语音消息
+-(void)sendVoice:(NSString *)recordPath duration:(NSInteger)duration{
+    // 1.构造一个 语音消息体
+    EMChatVoice *chatVoice = [[EMChatVoice alloc] initWithFile:recordPath displayName:@"[语音]"];
+    //    chatVoice.duration = duration;
+    
+    EMVoiceMessageBody *voiceBody = [[EMVoiceMessageBody alloc] initWithChatObject:chatVoice];
+    voiceBody.duration = duration;
+    
+    // 2.构造一个消息对象
+    EMMessage *msgObj = [[EMMessage alloc] initWithReceiver:self.buddy.username bodies:@[voiceBody]];
+    //聊天的类型 单聊
+    msgObj.messageType = eMessageTypeChat;
+    
+    // 3.发送
+    [[EaseMob sharedInstance].chatManager asyncSendMessage:msgObj progress:nil prepare:^(EMMessage *message, EMError *error) {
+        NSLog(@"准备发送语音");
+        
+    } onQueue:nil completion:^(EMMessage *message, EMError *error) {
+        if (!error) {
+            NSLog(@"语音发送成功");
+        }else{
+            NSLog(@"语音发送失败");
+        }
+    } onQueue:nil];
+    
+}
+
 
 /**
  *  将message模型转为MessageFrame模型
@@ -294,5 +414,48 @@
     NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:self.messagesFrames.count - 1 inSection:0];
     
     [self.tableView scrollToRowAtIndexPath:lastIndex atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+#pragma mark 接收好友回复消息
+-(void)didReceiveMessage:(EMMessage *)message{
+#warning from 一定等于当前聊天用户才可以刷新数据
+    if ([message.from isEqualToString:self.buddy.username]) {
+        //1.把接收的消息添加到数据源
+        
+        //1. 添加模型数据
+        ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+
+        NSDate *date  = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"HH:MM"];
+        NSString *dateString = [dateFormatter stringFromDate:date];
+        //设置数据的值
+        msgModel.time = dateString;
+        
+        //3.文本
+        id<IEMMessageBody> msgBody = message.messageBodies.firstObject;
+        
+        msgModel.text = ((EMTextMessageBody *)msgBody).text;
+        msgModel.isOutgoing = NO;
+        
+        //设置内容的frame
+        ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
+        //将msg 赋值给 fm 中的message
+        fm.message = msgModel;
+        [self.messagesFrames addObject:fm];
+
+        //2.刷新表格
+        [self.tableView reloadData];
+        
+        //3.显示数据到底部
+        [self scrollToBottom];
+        
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.inputView.textView resignFirstResponder];
+
 }
 @end

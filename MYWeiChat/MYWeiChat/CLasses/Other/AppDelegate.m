@@ -30,6 +30,8 @@
     
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
+    
+    [[EaseMob sharedInstance].chatManager setIsAutoFetchBuddyList:YES];
     self.window =[[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     ZSRNavigationViewController *navVc = [[ZSRNavigationViewController alloc] initWithRootViewController:[[ZSRStartViewController alloc] init]];
