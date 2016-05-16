@@ -8,6 +8,7 @@
 
 #import "ZSRContactsViewController.h"
 #import "ZSRAddFriendViewController.h"
+#import "ZSRChatViewController.h"
 #import "EaseMob.h"
 
 @interface ZSRContactsViewController ()<EMChatManagerDelegate>
@@ -137,6 +138,15 @@
         // 删除好友
         [[EaseMob sharedInstance].chatManager removeBuddy:deleteUsername removeFromRemote:YES error:nil];
     }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //获取好友
+    EMBuddy *buddy = self.buddyList[indexPath.row];
+    ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
+    vc.title = buddy.username;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
