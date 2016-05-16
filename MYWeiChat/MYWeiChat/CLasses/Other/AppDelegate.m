@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    ZSRLog(@"%@",NSHomeDirectory());
+
     //registerSDKWithAppKey:注册的appKey，详细见下面注释。
     //apnsCertName:推送证书名(不需要加后缀)，详细见下面注释。
     [[EaseMob sharedInstance] registerSDKWithAppKey:@"lpzsrong#chatapp" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:@(NO)}];
@@ -27,11 +29,10 @@
     
     
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-
+    
     self.window =[[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     ZSRNavigationViewController *navVc = [[ZSRNavigationViewController alloc] initWithRootViewController:[[ZSRStartViewController alloc] init]];
-
     self.window.rootViewController = navVc;
     
     // 3.如果登录过，直接来到主界面

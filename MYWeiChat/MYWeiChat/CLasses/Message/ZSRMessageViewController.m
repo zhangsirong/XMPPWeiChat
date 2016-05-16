@@ -7,26 +7,52 @@
 //
 
 #import "ZSRMessageViewController.h"
+#import "EaseMob.h"
 
-@interface ZSRMessageViewController ()
-
+@interface ZSRMessageViewController ()<EMChatManagerDelegate>
+/** 好友的名称 */
+@property (nonatomic, copy) NSString *buddyUsername;
 @end
+
 
 @implementation ZSRMessageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    //设置代理
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+    //2.监听自动连接的状态
+}
+#pragma mark - chatManager代理方法
+//1.监听网络状态
+- (void)didConnectionStateChanged:(EMConnectionState)connectionState{
+    //    eEMConnectionConnected,   //连接成功
+    //    eEMConnectionDisconnected,//未连接
+    if (connectionState == eEMConnectionDisconnected) {
+        NSLog(@"网络断开，未连接...");
+//        self.title = @"未连接.";
+    }else{
+        NSLog(@"网络通了...");
+    }
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void)willAutoReconnect{
+    NSLog(@"将自动重连接...");
+//    self.title = @"连接中....";
+}
+
+-(void)didAutoReconnectFinishedWithError:(NSError *)error{
+    if (!error) {
+        NSLog(@"自动重连接成功...");
+    }else{
+        NSLog(@"自动重连接失败... %@",error);
+    }
 }
 
 #pragma mark - Table view data source
@@ -43,58 +69,66 @@
     return 0;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+
+#pragma mark 自动登录的回调
+-(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
+    if (!error) {
+//        NSLog(@"%s 自动登录成功 %@",__FUNCTION__, loginInfo);
+    }else{
+        NSLog(@"自动登录失败 %@",error);
+    }
     
-    // Configure the cell...
+}
+
+
+#pragma mark - 好友添加的代理方法
+#pragma mark 好友请求被同意
+-(void)didAcceptedByBuddy:(NSString *)username{
     
-    return cell;
+    // 提醒用户，好友请求被同意
+    NSString *message = [NSString stringWithFormat:@"%@ 同意了你的好友请求",username];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加消息" message:message delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    [alert show];
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+#pragma mark 好友请求被拒绝
+-(void)didRejectedByBuddy:(NSString *)username{
+    // 提醒用户，好友请求被同意
+    NSString *message = [NSString stringWithFormat:@"%@ 拒绝了你的好友请求",username];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加消息" message:message delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    [alert show];
+    
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+
+#pragma mark 接收好友的添加请求
+-(void)didReceiveBuddyRequest:(NSString *)username message:(NSString *)message{
+    
+    // 赋值
+    self.buddyUsername = username;
+    
+    // 对话框
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加请求" message:message delegate:self cancelButtonTitle:@"拒绝" otherButtonTitles:@"同意", nil];
+    [alert show];
+    
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 0) {//拒绝好友请求
+        [[EaseMob sharedInstance].chatManager rejectBuddyRequest:self.buddyUsername reason:@"我不认识你" error:nil];
+    }else{//同意好友请求
+        [[EaseMob sharedInstance].chatManager acceptBuddyRequest:self.buddyUsername error:nil];
+        
+    }
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+
+
+- (void)dealloc
+{
+    //移除聊天管理器的代理
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
 }
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
