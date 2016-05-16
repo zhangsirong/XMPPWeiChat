@@ -13,6 +13,8 @@
 #import <Foundation/Foundation.h>
 #import "UIView+Extension.h"
 #import "MBProgressHUD+ZSR.h"
+#import "EaseMob.h"
+
 // RGB颜色
 
 #define ZSRColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

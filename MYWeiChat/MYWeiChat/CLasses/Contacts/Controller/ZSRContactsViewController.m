@@ -21,6 +21,8 @@
 @implementation ZSRContactsViewController
 
 - (void)viewDidLoad {
+    [self loadBuddyListFromServer];
+
     [super viewDidLoad];
     self.tableView.rowHeight = 80;
     
@@ -145,7 +147,7 @@
     //获取好友
     EMBuddy *buddy = self.buddyList[indexPath.row];
     ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
-    vc.title = buddy.username;
+    vc.buddy = buddy;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

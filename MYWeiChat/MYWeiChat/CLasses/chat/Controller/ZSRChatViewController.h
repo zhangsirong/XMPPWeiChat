@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ZSRChatViewController : UIViewController
-
+/** 好友 */
+@property (nonatomic, strong) EMBuddy *buddy;
 @end
