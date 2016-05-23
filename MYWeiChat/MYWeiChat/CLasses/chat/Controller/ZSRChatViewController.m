@@ -75,20 +75,23 @@
     for (EMMessage *msg in msgS) {
         ZSRLog(@"%@",msg);
         //1.时间
-        ZSRMessageModel *message = [[ZSRMessageModel alloc] init];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:msg.timestamp];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"HH:MM"];
-        NSString *dateString = [dateFormatter stringFromDate:date];
-        message.time = dateString;
+        ZSRMessageModel *msgModel = [[ZSRMessageModel alloc] init];
         
         //2.谁发的
-        message.isOutgoing = ![msg.from isEqualToString:self.buddy.username];//发送方
-
+        msgModel.isSender = ![msg.from isEqualToString:self.buddy.username];//发送方
         //3.文本
-        id<IEMMessageBody> msgBody = msg.messageBodies.firstObject;
-        message.text = ((EMTextMessageBody *)msgBody).text;
-        [messages addObject:message];
+        msgModel.message = msg;
+        
+        
+        
+        //取出上一个模型
+        ZSRMessageModel *lastMsg = [messages lastObject];
+        //
+        //            //隐藏时间
+        msgModel.hideTime = [msgModel.time isEqualToString:lastMsg.time];
+        //
+
+        [messages addObject:msgModel];
         
     }
     // 添加到数据源
@@ -148,7 +151,14 @@
 #pragma mark -ZSRInputView代理
 - (void)inputView:(ZSRInputView *)inputView didClickVoiceButton:(UIButton *)button
 {
-        inputView.recordBtn.hidden = !inputView.recordBtn.hidden;
+    inputView.recordBtn.hidden = !inputView.recordBtn.hidden;
+    
+    if (!inputView.recordBtn.hidden){
+        [self.inputView.textView resignFirstResponder];
+    }else{
+        [self.inputView.textView becomeFirstResponder];
+    }
+
 }
 
 - (void)inputView:(ZSRInputView *)inputView didBeginRecord:(UIButton *)button{
@@ -174,7 +184,7 @@
             ZSRLog(@"录音成功");
             ZSRLog(@"%@",recordPath);
             // 发送语音给服务器
-                        [self sendVoice:recordPath duration:aDuration];
+            [self sendVoice:recordPath duration:aDuration];
             
         }else{
             ZSRLog(@"== %@",error);
@@ -309,29 +319,7 @@
 #pragma mark 发送文本消息
 -(void)sendMessage:(NSString *)text{
     
-    //1. 添加模型数据
-    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
-    
-    NSDate *date  = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"HH:MM"];
-    NSString *dateString = [dateFormatter stringFromDate:date];
-    //设置数据的值
-    msgModel.time = dateString;
-    msgModel.text = text;
-    msgModel.isOutgoing = YES;
-    
-    //设置内容的frame
-    ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
-    //将msg 赋值给 fm 中的message
-    fm.message = msgModel;
-    [self.messagesFrames addObject:fm];
-    
-    //2.刷新表格
-    [self.tableView reloadData];
-
-    
-       //消息 ＝ 消息头 + 消息体
+        //消息 ＝ 消息头 + 消息体
 #warning 每一种消息类型对象不同的消息体
     //    EMTextMessageBody 文本消息体
     //    EMVoiceMessageBody 录音消息体
@@ -357,6 +345,30 @@
     } onQueue:nil completion:^(EMMessage *message, EMError *error) {
         ZSRLog(@"完成消息发送 %@",error);
     } onQueue:nil];
+    
+    
+    
+    //1. 添加模型数据
+    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+    msgModel.message= msgObj;
+    msgModel.isSender = YES;
+    
+
+    
+    //取出上一个模型
+    ZSRMessageFrameModel *lastMsgFrame = [self.messagesFrames lastObject];
+    //隐藏时间
+    msgModel.hideTime = [msgModel.time isEqualToString:lastMsgFrame.msgModel.time];
+    
+    //设置内容的frame
+    ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
+    //将msg 赋值给 fm 中的message
+    fm.msgModel = msgModel;
+    
+    [self.messagesFrames addObject:fm];
+    
+    //2.刷新表格
+    [self.tableView reloadData];
     // 4.把消息显示在顶部
     [self scrollToBottom];
     
@@ -380,9 +392,26 @@
     [[EaseMob sharedInstance].chatManager asyncSendMessage:msgObj progress:nil prepare:^(EMMessage *message, EMError *error) {
         NSLog(@"准备发送语音");
         
+        
     } onQueue:nil completion:^(EMMessage *message, EMError *error) {
         if (!error) {
             NSLog(@"语音发送成功");
+            //1. 添加模型数据
+            ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+            msgModel.message= msgObj;
+            msgModel.isSender = YES;
+            
+            //设置内容的frame
+            ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
+            //将msg 赋值给 fm 中的message
+            fm.msgModel = msgModel;
+            fm.msgModel.message= msgObj;
+            [self.messagesFrames addObject:fm];
+            
+            //2.刷新表格
+            [self.tableView reloadData];
+            // 4.把消息显示在顶部
+            [self scrollToBottom];
         }else{
             NSLog(@"语音发送失败");
         }
@@ -397,9 +426,9 @@
 - (NSMutableArray *)messageFramesWithMessage:(NSArray *)messages
 {
     NSMutableArray *frames = [NSMutableArray array];
-    for (ZSRMessageModel *message in messages) {
+    for (ZSRMessageModel *msgModel in messages) {
         ZSRMessageFrameModel *f = [[ZSRMessageFrameModel alloc] init];
-        f.message = message;
+        f.msgModel = msgModel;
         [frames addObject:f];
     }
     return frames;
@@ -418,39 +447,69 @@
 
 #pragma mark 接收好友回复消息
 -(void)didReceiveMessage:(EMMessage *)message{
+    id<IEMMessageBody> msgBody = message.messageBodies.firstObject;
+    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+
+    switch (msgBody.messageBodyType) {
+        case eMessageBodyType_Text:
+        {
+            // 收到的文字消息
 #warning from 一定等于当前聊天用户才可以刷新数据
-    if ([message.from isEqualToString:self.buddy.username]) {
-        //1.把接收的消息添加到数据源
-        
-        //1. 添加模型数据
-        ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+            if ([message.from isEqualToString:self.buddy.username]) {
+                //1. 添加模型数据
+                msgModel.message = message;
+                msgModel.text = ((EMTextMessageBody *)msgBody).text;
+                msgModel.isSender = NO;
+               
 
-        NSDate *date  = [NSDate date];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"HH:MM"];
-        NSString *dateString = [dateFormatter stringFromDate:date];
-        //设置数据的值
-        msgModel.time = dateString;
-        
-        //3.文本
-        id<IEMMessageBody> msgBody = message.messageBodies.firstObject;
-        
-        msgModel.text = ((EMTextMessageBody *)msgBody).text;
-        msgModel.isOutgoing = NO;
-        
-        //设置内容的frame
-        ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
-        //将msg 赋值给 fm 中的message
-        fm.message = msgModel;
-        [self.messagesFrames addObject:fm];
+            }
+        }
+            break;
+        case eMessageBodyType_Image:
+        {
+            
+        }
+            break;
+        case eMessageBodyType_Location:
+        {
+            
+        }
+            break;
+        case eMessageBodyType_Voice:
+        {
+            
+            EMVoiceMessageBody *body = (EMVoiceMessageBody *)msgBody;
+            msgModel.message = message;
 
-        //2.刷新表格
-        [self.tableView reloadData];
-        
-        //3.显示数据到底部
-        [self scrollToBottom];
-        
+        }
+            break;
+        case eMessageBodyType_Video:
+        {
+           
+        }
+            break;
+        case eMessageBodyType_File:
+        {
+                   }
+            break;
+            
+        default:
+            break;
     }
+    
+    
+    //设置内容的frame
+    ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
+    //将msg 赋值给 fm 中的message
+    fm.msgModel = msgModel;
+    [self.messagesFrames addObject:fm];
+    
+    //2.刷新表格
+    [self.tableView reloadData];
+    
+    //3.显示数据到底部
+    [self scrollToBottom];
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

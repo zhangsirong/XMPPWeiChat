@@ -14,6 +14,10 @@
 
 #define bIconH 50
 
+#define bVoiceW 40
+
+#define bVoiceH 40
+
 #define bImageW 100
 
 #define bImageH 200

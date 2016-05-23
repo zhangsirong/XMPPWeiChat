@@ -10,13 +10,13 @@
 #import "Constant.h"
 #import "ZSRMessageModel.h"
 @implementation ZSRMessageFrameModel
-- (void)setMessage:(ZSRMessageModel *)message
+- (void)setMsgModel:(ZSRMessageModel *)msgModel
 {
-    _message = message;
+    _msgModel = msgModel;
     
     CGFloat padding = 10;
     //1. 时间
-    if (message.hideTime == NO) {
+    if (msgModel.hideTime == NO) {
         CGFloat timeX = 0;
         CGFloat timeY = 0;
         CGFloat timeW = ScreenW;
@@ -24,73 +24,109 @@
         
         _timeF = CGRectMake(timeX, timeY, timeW, timeH);
     }
-    
-    
-    
-    
     //2.头像
-    CGFloat iconX;
-    CGFloat iconY = CGRectGetMaxY(_timeF);
-    CGFloat iconW = bIconW;
-    CGFloat iconH = bIconH;
+    CGFloat headImageX;
+    CGFloat headImageY = CGRectGetMaxY(_timeF);
+    CGFloat headImageW = bIconW;
+    CGFloat headImageH = bIconH;
     
-    if (message.isOutgoing) {//自己发的
+    if (msgModel.isSender) {//自己发的
         
-        iconX = ScreenW - iconW - padding;
-        
+        headImageX = ScreenW - headImageW - padding;
     }else{//别人发的
-        iconX = padding;
+        headImageX = padding;
     }
-    
-    _iconF =  CGRectMake(iconX, iconY, iconW, iconH);
-    
+    _headImageF =  CGRectMake(headImageX, headImageY, headImageW, headImageH);
     
     
-    if (message.photo) {
-        //4图像
-        CGFloat imageX;
-        CGFloat imageY = iconY+ padding;
-        CGFloat imageW = bImageW;
-        CGFloat imageH = bImageH;
-        
-        if (message.isOutgoing) {//自己发的
+    //3.消息
+    switch (msgModel.type) {
+        case eMessageBodyType_Text: //文字
+        {
+            CGFloat textX;
+            CGFloat textY = headImageY+ padding;
             
-            imageX = bScreenWidth - iconW - padding;
+            CGSize textMaxSize = CGSizeMake(150, MAXFLOAT);
+            CGSize textRealSize = [msgModel.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:bBtnFont} context:nil].size;
             
-        }else{//别人发的
-            imageX = padding + iconW * 2;
+            CGSize btnSize = CGSizeMake(textRealSize.width + 40, textRealSize.height + 40);
+            
+            if (msgModel.isSender) {
+                textX = bScreenWidth - headImageW - padding*2 - btnSize.width;
+            }else{
+                textX = padding + headImageW;
+            }
+            
+            //    _textViewF = CGRectMake(textX, textY, <#CGFloat width#>, <#CGFloat height#>)
+            _textViewF = (CGRect){{textX,textY},btnSize};
         }
-        _imageViewF =  CGRectMake(imageX, imageY, imageW, imageH);
-    } else {
-        //3.正文
-        
-        CGFloat textX;
-        CGFloat textY = iconY+ padding;
-        
-        CGSize textMaxSize = CGSizeMake(150, MAXFLOAT);
-        CGSize textRealSize = [message.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:bBtnFont} context:nil].size;
-        
-        CGSize btnSize = CGSizeMake(textRealSize.width + 40, textRealSize.height + 40);
-        
-        if (message.isOutgoing) {
-            textX = bScreenWidth - iconW - padding*2 - btnSize.width;
-        }else{
-            textX = padding + iconW;
+            break;
+        case eMessageBodyType_Voice://语音
+        {
+            
+            CGFloat textX;
+            CGFloat textY = headImageY+ padding;
+            CGSize btnSize = CGSizeMake(70, 60);
+
+            CGFloat voiceX;
+            CGFloat voiceY = headImageY+ padding * 2;
+            CGFloat voiceW = bVoiceW;
+            CGFloat voiceH = bVoiceH;
+            
+            CGFloat voiceTimeX;
+            CGFloat voiceTimeY = headImageY+ padding * 2;
+            CGFloat voiceTimeW = bVoiceW;
+            CGFloat voiceTimeH = bVoiceH;
+            
+            if (msgModel.isSender) {//自己发的
+                
+                textX = bScreenWidth - headImageW - padding * 2 - btnSize.width;
+                voiceX = bScreenWidth - headImageW - padding * 3 - bVoiceW;
+                voiceTimeX = bScreenWidth - headImageW - padding * 4 - btnSize.width;
+                
+            }else{//别人发的
+                textX = padding + headImageW;
+                voiceX = padding * 2 + headImageW;
+                voiceTimeX = headImageW + btnSize.width - padding;
+
+            }
+            _textViewF = (CGRect){{textX,textY},btnSize};
+            _voiceImageF =  CGRectMake(voiceX, voiceY, voiceW, voiceH);
+            _voiceTimeF = CGRectMake(voiceTimeX, voiceTimeY, voiceTimeW, voiceTimeH);
+
         }
-        
-        //    _textViewF = CGRectMake(textX, textY, <#CGFloat width#>, <#CGFloat height#>)
-        _textViewF = (CGRect){{textX,textY},btnSize};
-        
+            break;
+        case eMessageBodyType_Image://图片
+        {
+            CGFloat imageX;
+            CGFloat imageY = headImageY+ padding;
+            CGFloat imageW = bImageW;
+            CGFloat imageH = bImageH;
+            
+            if (msgModel.isSender) {//自己发的
+                
+                imageX = bScreenWidth - headImageW - padding;
+                
+            }else{//别人发的
+                imageX = padding + headImageW * 2;
+            }
+            _imageViewF =  CGRectMake(imageX, imageY, imageW, imageH);
+
+        }
+            break;
+      
+        case eMessageBodyType_Video://视频
+            break;
+        case eMessageBodyType_Location://位置
+            
+        default:
+            ZSRLog(@"未知类型");
+            break;
     }
-    
-    
-    //4.cell高度
-    
-    CGFloat iconMaxY = CGRectGetMaxY(_iconF);
+        //4.cell高度
+    CGFloat iconMaxY = CGRectGetMaxY(_headImageF);
     CGFloat textMaxY = MAX(CGRectGetMaxY(_textViewF), CGRectGetMaxY(_imageViewF));
     
     _cellH = MAX(iconMaxY, textMaxY);
-    
-    
 }
 @end

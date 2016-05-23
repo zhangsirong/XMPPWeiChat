@@ -18,14 +18,18 @@
 @property (nonatomic, assign,readonly)CGRect textViewF;
 
 //头像
-@property (nonatomic, assign,readonly)CGRect iconF;
+@property (nonatomic, assign,readonly)CGRect headImageF;
+
+//声音
+@property (nonatomic, assign,readonly)CGRect voiceImageF;
+@property (nonatomic, assign,readonly)CGRect voiceTimeF;
 
 //图片
 @property (nonatomic, assign,readonly)CGRect imageViewF;
 
-//cell
+//cellH
 @property (nonatomic, assign,readonly)CGFloat cellH;
 
 //数据模型
-@property (nonatomic, strong)ZSRMessageModel *message;
+@property (nonatomic, strong)ZSRMessageModel* msgModel;
 @end
