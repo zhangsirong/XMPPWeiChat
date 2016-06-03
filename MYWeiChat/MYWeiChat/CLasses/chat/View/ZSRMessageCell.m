@@ -11,6 +11,7 @@
 #import "ZSRMessageModel.h"
 #import "Constant.h"
 #import "UIImage+ResizImage.h"
+#import "ZSRAudioPlayTool.h"
 
 @interface ZSRMessageCell()
 //时间
@@ -75,6 +76,8 @@
         [self.contentView addSubview:voiceView];
         self.voiceView = voiceView;
         
+        [self.voiceView addTarget:self action:@selector(voiceViewAction) forControlEvents:UIControlEventTouchUpInside];
+        
         UILabel *voiceTimeLabel = [[UILabel alloc]init];
         voiceTimeLabel.textAlignment = NSTextAlignmentCenter;
         voiceTimeLabel.font = [UIFont systemFontOfSize:13.0f];
@@ -84,6 +87,13 @@
         self.backgroundColor = [UIColor clearColor];//请cell的背景颜色，contentView 是只读的
     }
     return self;
+}
+
+- (void)voiceViewAction{
+    
+    BOOL isSend = self.frameMessage.msgModel.isSender;
+    [ZSRAudioPlayTool playWithMessage:self.frameMessage.msgModel.message msgButton:self.voiceView isSend:isSend];
+    NSLog(@"播放语音");
 }
 
 //设置内容和frame
@@ -144,7 +154,6 @@
     NSMutableAttributedString *voiceAttM = [[NSMutableAttributedString alloc] init];
     
     // 1.接收方： 富文本 ＝ 图片 + 时间
-//    if ([self.reuseIdentifier isEqualToString:ReceiverCell]) {
     if (!self.frameMessage.msgModel.isSender) {
         // 1.1接收方的语音图片
         UIImage *receiverImg = [UIImage imageNamed:@"chat_receiver_audio_playing_full"];
