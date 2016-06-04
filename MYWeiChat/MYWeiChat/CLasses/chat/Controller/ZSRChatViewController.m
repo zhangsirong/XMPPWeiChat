@@ -28,6 +28,8 @@
  */
 @property (nonatomic, strong) NSMutableArray *messagesFrames;
 
+/** 当前会话对象 */
+@property (nonatomic, strong) EMConversation *conversation;
 
 @end
 
@@ -67,12 +69,11 @@
     // 要获取本地聊天记录使用 会话对象
     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.buddy.username conversationType:eConversationTypeChat];
     
+    self.conversation = conversation;
+
     // 加载与当前聊天用户所有聊天记录
     NSArray *msgS = [conversation loadAllMessages];
-    
     for (EMMessage *msg in msgS) {
-//        ZSRLog(@"%@",msg);
-        
         [self didAddMessage:msg];
     }
 }
@@ -397,6 +398,7 @@
 /**添加一条消息*/
 - (void)didAddMessage:(EMMessage *)message{
     
+    
     ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
     msgModel.message = message;
     
@@ -407,7 +409,6 @@
     
     msgModel.isSender = ![message.from isEqualToString:self.buddy.username];//发送方
 
-    
     //设置内容的frame
     ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
     //将msg 赋值给 fm 中的message
@@ -419,6 +420,10 @@
     
     //3.显示数据到底部
     [self scrollToBottom];
+    
+    //4.设置消息为已读取
+    [self.conversation markMessageWithId:message.messageId asRead:YES];
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

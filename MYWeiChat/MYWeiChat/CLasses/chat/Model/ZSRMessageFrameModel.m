@@ -38,7 +38,9 @@
     }
     _headImageF =  CGRectMake(headImageX, headImageY, headImageW, headImageH);
     
-    
+    CGFloat backgroundX;
+    CGFloat backgroundY = headImageY+ padding;
+    CGSize backgSize;
     //3.消息
     switch (msgModel.type) {
         case eMessageBodyType_Text: //文字
@@ -49,25 +51,23 @@
             CGSize textMaxSize = CGSizeMake(150, MAXFLOAT);
             CGSize textRealSize = [msgModel.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:bBtnFont} context:nil].size;
             
-            CGSize btnSize = CGSizeMake(textRealSize.width + 40, textRealSize.height + 40);
+           backgSize = CGSizeMake(textRealSize.width + 40, textRealSize.height + 40);
             
             if (msgModel.isSender) {
-                textX = bScreenWidth - headImageW - padding*2 - btnSize.width;
+                textX = bScreenWidth - headImageW - padding*2 - backgSize.width;
+                backgroundX = bScreenWidth - headImageW - padding*2 - backgSize.width;
             }else{
                 textX = padding + headImageW;
+                backgroundX = padding + headImageW;
             }
             
             //    _textViewF = CGRectMake(textX, textY, <#CGFloat width#>, <#CGFloat height#>)
-            _textViewF = (CGRect){{textX,textY},btnSize};
+            _textViewF = (CGRect){{textX,textY},backgSize};
         }
             break;
         case eMessageBodyType_Voice://语音
         {
-            
-            CGFloat textX;
-            CGFloat textY = headImageY+ padding;
-            CGSize btnSize = CGSizeMake(70, 60);
-
+            backgSize = CGSizeMake(70, 60);
             CGFloat voiceX;
             CGFloat voiceY = headImageY+ padding * 2;
             CGFloat voiceW = bVoiceW;
@@ -79,18 +79,16 @@
             CGFloat voiceTimeH = bVoiceH;
             
             if (msgModel.isSender) {//自己发的
-                
-                textX = bScreenWidth - headImageW - padding * 2 - btnSize.width;
+                backgroundX = bScreenWidth - headImageW - padding * 2 - backgSize.width;
                 voiceX = bScreenWidth - headImageW - padding * 3 - bVoiceW;
-                voiceTimeX = bScreenWidth - headImageW - padding * 4 - btnSize.width;
+                voiceTimeX = bScreenWidth - headImageW - padding * 4 - backgSize.width;
                 
             }else{//别人发的
-                textX = padding + headImageW;
+                backgroundX = padding + headImageW;
                 voiceX = padding * 2 + headImageW;
-                voiceTimeX = headImageW + btnSize.width - padding;
+                voiceTimeX = headImageW + backgSize.width - padding;
 
             }
-            _textViewF = (CGRect){{textX,textY},btnSize};
             _voiceImageF =  CGRectMake(voiceX, voiceY, voiceW, voiceH);
             _voiceTimeF = CGRectMake(voiceTimeX, voiceTimeY, voiceTimeW, voiceTimeH);
 
@@ -99,19 +97,20 @@
         case eMessageBodyType_Image://图片
         {
             CGFloat imageX;
-            CGFloat imageY = headImageY+ padding;
+            CGFloat imageY = headImageY+ padding * 2.5;
             CGFloat imageW = msgModel.thumbnailSize.width;
             CGFloat imageH = msgModel.thumbnailSize.height;
-            
+            backgSize = CGSizeMake(imageW + 30, imageH + 30);
             if (msgModel.isSender) {//自己发的
                 
-                imageX = bScreenWidth - headImageW - padding * 2 - imageW;
-                
+                imageX = bScreenWidth - headImageW - padding * 4.5 - imageW;
+                backgroundX = bScreenWidth - headImageW - padding * 6  - imageW;
             }else{//别人发的
-                imageX = padding * 2 + headImageW;
+                imageX = padding * 2.5 + headImageW;
+                backgroundX = headImageW + padding;
+
             }
             _imageViewF =  CGRectMake(imageX, imageY, imageW, imageH);
-
         }
             break;
       
@@ -123,9 +122,12 @@
             ZSRLog(@"未知类型");
             break;
     }
-        //4.cell高度
+    
+    _backgroundF = (CGRect){{backgroundX,backgroundY},backgSize};
+    
+    //4.cell高度
     CGFloat iconMaxY = CGRectGetMaxY(_headImageF);
-    CGFloat textMaxY = MAX(CGRectGetMaxY(_textViewF), CGRectGetMaxY(_imageViewF) + padding);
+    CGFloat textMaxY = MAX(CGRectGetMaxY(_backgroundF), CGRectGetMaxY(_imageViewF) + padding);
     
     _cellH = MAX(iconMaxY, textMaxY);
 }

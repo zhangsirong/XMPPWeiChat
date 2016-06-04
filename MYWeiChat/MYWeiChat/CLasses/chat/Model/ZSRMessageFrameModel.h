@@ -14,6 +14,10 @@
 //时间的frame
 @property (nonatomic, assign,readonly)CGRect timeF;
 
+
+//背景frame
+@property (nonatomic, assign,readonly)CGRect backgroundF;
+
 //正文的frame
 @property (nonatomic, assign,readonly)CGRect textViewF;
 

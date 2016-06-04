@@ -19,8 +19,13 @@
 @interface ZSRMessageCell()
 //时间
 @property (nonatomic, weak)UILabel *time;
-//正文
+
+//背景
 @property (nonatomic, weak)UIButton *textView;
+
+//正文
+@property (nonatomic, weak)UIButton *backgView;
+
 //语音
 @property (nonatomic, weak)UIButton *voiceView;
 @property (nonatomic, weak)UILabel *voiceTimeLabel;
@@ -56,7 +61,22 @@
         [self.contentView addSubview:time];
         self.time = time;
         
-        //2.正文
+        //2.头像
+        UIImageView *icon = [[UIImageView alloc]init];
+        [self.contentView addSubview:icon];
+        self.iconView = icon;
+        
+        //3.背景
+        UIButton *backgView = [[UIButton alloc]init];
+        backgView.titleLabel.font = bBtnFont;
+        backgView.titleLabel.numberOfLines = 0;//自动换行
+        backgView.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+        [backgView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        backgView.backgroundColor = [UIColor redColor];
+        [self.contentView addSubview:backgView];
+        self.backgView = backgView;
+        
+        //4.正文
         UIButton *textView = [[UIButton alloc]init];
         textView.titleLabel.font = bBtnFont;
         textView.titleLabel.numberOfLines = 0;//自动换行
@@ -65,12 +85,8 @@
         [self.contentView addSubview:textView];
         self.textView = textView;
         
-        //3.头像
-        UIImageView *icon = [[UIImageView alloc]init];
-        [self.contentView addSubview:icon];
-        self.iconView = icon;
-        
-        //4.语音
+
+        //5.语音
         UIButton *voiceView = [[UIButton alloc]init];
         voiceView.titleLabel.font = bBtnFont;
         voiceView.titleLabel.numberOfLines = 0;//自动换行
@@ -87,7 +103,7 @@
         [self.contentView addSubview:voiceTimeLabel];
         self.voiceTimeLabel = voiceTimeLabel;
         
-        //5.图片
+        //6.图片
         UIImageView *imgView = [[UIImageView alloc] init];
         [self.contentView addSubview:imgView];
         self.chatImgView = imgView;
@@ -125,12 +141,25 @@
         self.iconView.image = [UIImage imageNamed:@"Jobs"];
     }
     
+    
     //3.正文
+    self.backgView.frame = frameMessage.backgroundF;
     self.textView.frame = frameMessage.textViewF;
     self.voiceView.frame = frameMessage.voiceImageF;
     self.voiceTimeLabel.frame = frameMessage.voiceTimeF;
     self.chatImgView.frame = frameMessage.imageViewF;
     
+    if (model.isSender) {
+        //设置正文的背景图片
+        [self.backgView setBackgroundImage:[UIImage resizeWithImageName:@"chat_send_nor"] forState:UIControlStateNormal];
+        
+        [self.voiceView setBackgroundImage:[UIImage imageNamed:@"chat_sender_audio_playing_full"] forState:UIControlStateNormal];
+    }else{
+        //设置正文的背景图片
+        [self.backgView setBackgroundImage:[UIImage resizeWithImageName:@"chat_recive_nor"] forState:UIControlStateNormal];
+        [self.voiceView setBackgroundImage:[UIImage imageNamed:@"chat_receiver_audio_playing_full"] forState:UIControlStateNormal];
+        
+    }
     switch (model.type) {
             
         case eMessageBodyType_Text:
@@ -160,17 +189,7 @@
         break;
     }
  
-    if (model.isSender) {
-        //设置正文的背景图片
-        [self.textView setBackgroundImage:[UIImage resizeWithImageName:@"chat_send_nor"] forState:UIControlStateNormal];
 
-        [self.voiceView setBackgroundImage:[UIImage imageNamed:@"chat_sender_audio_playing_full"] forState:UIControlStateNormal];
-    }else{
-        //设置正文的背景图片
-        [self.textView setBackgroundImage:[UIImage resizeWithImageName:@"chat_recive_nor"] forState:UIControlStateNormal];
-        [self.voiceView setBackgroundImage:[UIImage imageNamed:@"chat_receiver_audio_playing_full"] forState:UIControlStateNormal];
-
-    }
 }
 
 
