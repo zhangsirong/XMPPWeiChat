@@ -1,10 +1,14 @@
 PODS:
   - EaseMobSDKFull (2.2.4)
   - MBProgressHUD (0.9.2)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
 
 DEPENDENCIES:
   - EaseMobSDKFull (from `https://github.com/easemob/sdk-ios-cocoapods-integration.git`)
   - MBProgressHUD (~> 0.9.2)
+  - SDWebImage (~> 3.7.6)
 
 EXTERNAL SOURCES:
   EaseMobSDKFull:
@@ -18,5 +22,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   EaseMobSDKFull: 1dc72f02f80b9d101054655603fa7e8fe5bafc83
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
 
 COCOAPODS: 0.39.0

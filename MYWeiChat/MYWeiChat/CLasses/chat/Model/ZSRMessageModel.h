@@ -36,8 +36,10 @@
 //image
 @property (nonatomic) CGSize size;
 @property (nonatomic) CGSize thumbnailSize;
-@property (nonatomic, strong) NSURL *imageRemoteURL;
-@property (nonatomic, strong) NSURL *thumbnailRemoteURL;
+@property (nonatomic, strong) NSString  *imageRemotePath;
+@property (nonatomic, strong) NSString *thumbnailRemotePath;
+@property (nonatomic, strong) NSString *thumbnailLocalPath;
+
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *thumbnailImage;
 

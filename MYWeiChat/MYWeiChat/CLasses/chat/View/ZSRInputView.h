@@ -17,6 +17,8 @@
 - (void)inputView:(ZSRInputView *)inputView didBeginRecord:(UIButton *)button;
 - (void)inputView:(ZSRInputView *)inputView didEndRecord:(UIButton *)button;
 - (void)inputView:(ZSRInputView *)inputView didCancelRecord:(UIButton *)button;
+- (void)inputView:(ZSRInputView *)inputView didPickImage:(UIButton *)button;
+
 
 
 @end

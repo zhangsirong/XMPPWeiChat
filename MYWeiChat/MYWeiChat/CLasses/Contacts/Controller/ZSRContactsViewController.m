@@ -21,7 +21,7 @@
 @implementation ZSRContactsViewController
 
 - (void)viewDidLoad {
-    [self loadBuddyListFromServer];
+//    [self loadBuddyListFromServer];
 
     [super viewDidLoad];
     self.tableView.rowHeight = 80;
@@ -39,13 +39,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

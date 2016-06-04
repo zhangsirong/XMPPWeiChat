@@ -100,15 +100,15 @@
         {
             CGFloat imageX;
             CGFloat imageY = headImageY+ padding;
-            CGFloat imageW = bImageW;
-            CGFloat imageH = bImageH;
+            CGFloat imageW = msgModel.thumbnailSize.width;
+            CGFloat imageH = msgModel.thumbnailSize.height;
             
             if (msgModel.isSender) {//自己发的
                 
-                imageX = bScreenWidth - headImageW - padding;
+                imageX = bScreenWidth - headImageW - padding * 2 - imageW;
                 
             }else{//别人发的
-                imageX = padding + headImageW * 2;
+                imageX = padding * 2 + headImageW;
             }
             _imageViewF =  CGRectMake(imageX, imageY, imageW, imageH);
 
@@ -125,7 +125,7 @@
     }
         //4.cell高度
     CGFloat iconMaxY = CGRectGetMaxY(_headImageF);
-    CGFloat textMaxY = MAX(CGRectGetMaxY(_textViewF), CGRectGetMaxY(_imageViewF));
+    CGFloat textMaxY = MAX(CGRectGetMaxY(_textViewF), CGRectGetMaxY(_imageViewF) + padding);
     
     _cellH = MAX(iconMaxY, textMaxY);
 }

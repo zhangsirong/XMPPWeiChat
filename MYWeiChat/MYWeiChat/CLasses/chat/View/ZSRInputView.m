@@ -48,4 +48,11 @@
     }
 }
 
+- (IBAction)showImgPickerAction:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(inputView:didPickImage:)]) {
+        [self.delegate inputView:self didPickImage:self.moreBtn];
+    }
+}
+
+
 @end

@@ -61,4 +61,28 @@
 
 }
 
+-(CGSize)size
+{
+    return ((EMImageMessageBody *)self.messageBody).size;
+}
+
+- (CGSize)thumbnailSize
+{
+    return ((EMImageMessageBody *)self.messageBody).thumbnailSize;
+
+}
+
+- (NSString *)thumbnailLocalPath
+{
+    return ((EMImageMessageBody *)self.messageBody).thumbnailLocalPath;
+
+}
+
+-(NSString *)thumbnailRemoteURL
+{
+    return ((EMImageMessageBody *)self.messageBody).thumbnailRemotePath;
+
+}
+
+
 @end

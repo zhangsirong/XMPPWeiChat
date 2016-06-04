@@ -15,7 +15,8 @@
 
 
 
-@interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EMChatManagerDelegate,ZSRInputViewDelegate>
+
+@interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EMChatManagerDelegate,ZSRInputViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSLayoutConstraint *inputViewBottomConstraint;//inputView底部约束
 @property (nonatomic, strong) NSLayoutConstraint *inputViewHegihtConstraint;//inputView高度约束
@@ -63,9 +64,6 @@
 }
 
 -(void)loadLocalChatRecords{
-    
-    NSMutableArray *messages = [NSMutableArray array];
-
     // 要获取本地聊天记录使用 会话对象
     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.buddy.username conversationType:eConversationTypeChat];
     
@@ -73,29 +71,10 @@
     NSArray *msgS = [conversation loadAllMessages];
     
     for (EMMessage *msg in msgS) {
-        ZSRLog(@"%@",msg);
-        //1.时间
-        ZSRMessageModel *msgModel = [[ZSRMessageModel alloc] init];
+//        ZSRLog(@"%@",msg);
         
-        //2.谁发的
-        msgModel.isSender = ![msg.from isEqualToString:self.buddy.username];//发送方
-        //3.文本
-        msgModel.message = msg;
-        
-        
-        
-        //取出上一个模型
-        ZSRMessageModel *lastMsg = [messages lastObject];
-        //
-        //            //隐藏时间
-        msgModel.hideTime = [msgModel.time isEqualToString:lastMsg.time];
-        //
-
-        [messages addObject:msgModel];
-        
+        [self didAddMessage:msg];
     }
-    // 添加到数据源
-    self.messagesFrames = [self messageFramesWithMessage:messages];
 }
 
 -(void)setupView{
@@ -145,7 +124,6 @@
     [self.view addConstraints:vContraints];
     self.inputViewBottomConstraint = [vContraints lastObject];
     self.inputViewHegihtConstraint = vContraints[vContraints.count-2] ;
-    ZSRLog(@"%@",vContraints);
 }
 
 #pragma mark -ZSRInputView代理
@@ -198,8 +176,32 @@
     [[EMCDDeviceManager sharedInstance] cancelCurrentRecording];
     [MBProgressHUD showSuccess:@"录音已取消"];
 }
+- (void)inputView:(ZSRInputView *)inputView didPickImage:(UIButton *)button
+{
+    //显示图片选择的控制器
+    UIImagePickerController *imgPicker = [[UIImagePickerController alloc] init];
+    
+    // 设置源
+    imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imgPicker.delegate = self;
+    
+    [self presentViewController:imgPicker animated:YES completion:NULL];
 
+}
 
+/**用户选中图片的回调*/
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
+    //1.获取用户选中的图片
+    UIImage *selectedImg =  info[UIImagePickerControllerOriginalImage];
+    
+    //2.发送图片
+    [self sendImg:selectedImg];
+    
+    //3.隐藏当前图片选择控制器
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+}
 
 #pragma mark -表格的数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -289,7 +291,7 @@
         // 去除换行字符
         text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        [self sendMessage:text];
+        [self sendText:text];
         //清空数据
         textView.text = nil;
         // 发送时，textViewH的高度为33
@@ -307,7 +309,6 @@
         [self.view layoutIfNeeded];
     }];
     
-    
     // 4.记光标回到原位
 #warning 技巧
     [textView setContentOffset:CGPointZero animated:YES];
@@ -317,60 +318,33 @@
 
 
 #pragma mark 发送文本消息
--(void)sendMessage:(NSString *)text{
+-(void)sendText:(NSString *)text{
     
-        //消息 ＝ 消息头 + 消息体
-#warning 每一种消息类型对象不同的消息体
-    //    EMTextMessageBody 文本消息体
-    //    EMVoiceMessageBody 录音消息体
-    //    EMVideoMessageBody 视频消息体
-    //    EMLocationMessageBody 位置消息体
-    //    EMImageMessageBody 图片消息体
-    
-    ZSRLog(@"要发送给 %@",self.buddy.username);
-    
-    //    return;
     // 创建一个聊天文本对象
     EMChatText *chatText = [[EMChatText alloc] initWithText:text];
     
     //创建一个文本消息体
     EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
     
-    //1.创建一个消息对象
-    EMMessage *msgObj = [[EMMessage alloc] initWithReceiver:self.buddy.username bodies:@[textBody]];
-    
-    // 2.发送消息
-    [[EaseMob sharedInstance].chatManager asyncSendMessage:msgObj progress:nil prepare:^(EMMessage *message, EMError *error) {
-        ZSRLog(@"准备发送消息");
-    } onQueue:nil completion:^(EMMessage *message, EMError *error) {
-        ZSRLog(@"完成消息发送 %@",error);
-    } onQueue:nil];
+    [self sendMessage:textBody];
     
     
-    
-    //1. 添加模型数据
-    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
-    msgModel.message= msgObj;
-    msgModel.isSender = YES;
-    
+}
 
+
+#pragma mark 发送图片
+-(void)sendImg:(UIImage *)selectedImg{
     
-    //取出上一个模型
-    ZSRMessageFrameModel *lastMsgFrame = [self.messagesFrames lastObject];
-    //隐藏时间
-    msgModel.hideTime = [msgModel.time isEqualToString:lastMsgFrame.msgModel.time];
+    //1.构造图片消息体
+    /*
+     * 第一个参数：原始大小的图片对象 1000 * 1000
+     * 第二个参数: 缩略图的图片对象  120 * 120
+     */
+    EMChatImage *orginalChatImg = [[EMChatImage alloc] initWithUIImage:selectedImg displayName:@"【图片】"];
     
-    //设置内容的frame
-    ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
-    //将msg 赋值给 fm 中的message
-    fm.msgModel = msgModel;
+    EMImageMessageBody *imgBody = [[EMImageMessageBody alloc] initWithImage:orginalChatImg thumbnailImage:nil];
     
-    [self.messagesFrames addObject:fm];
-    
-    //2.刷新表格
-    [self.tableView reloadData];
-    // 4.把消息显示在顶部
-    [self scrollToBottom];
+    [self sendMessage:imgBody];
     
 }
 
@@ -383,55 +357,25 @@
     EMVoiceMessageBody *voiceBody = [[EMVoiceMessageBody alloc] initWithChatObject:chatVoice];
     voiceBody.duration = duration;
     
-    // 2.构造一个消息对象
-    EMMessage *msgObj = [[EMMessage alloc] initWithReceiver:self.buddy.username bodies:@[voiceBody]];
-    //聊天的类型 单聊
-    msgObj.messageType = eMessageTypeChat;
-    
-    // 3.发送
-    [[EaseMob sharedInstance].chatManager asyncSendMessage:msgObj progress:nil prepare:^(EMMessage *message, EMError *error) {
-        NSLog(@"准备发送语音");
-        
-        
-    } onQueue:nil completion:^(EMMessage *message, EMError *error) {
-        if (!error) {
-            NSLog(@"语音发送成功");
-            //1. 添加模型数据
-            ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
-            msgModel.message= msgObj;
-            msgModel.isSender = YES;
-            
-            //设置内容的frame
-            ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
-            //将msg 赋值给 fm 中的message
-            fm.msgModel = msgModel;
-            fm.msgModel.message= msgObj;
-            [self.messagesFrames addObject:fm];
-            
-            //2.刷新表格
-            [self.tableView reloadData];
-            // 4.把消息显示在顶部
-            [self scrollToBottom];
-        }else{
-            NSLog(@"语音发送失败");
-        }
-    } onQueue:nil];
+    [self sendMessage:voiceBody];
     
 }
 
-
-/**
- *  将message模型转为MessageFrame模型
- */
-- (NSMutableArray *)messageFramesWithMessage:(NSArray *)messages
-{
-    NSMutableArray *frames = [NSMutableArray array];
-    for (ZSRMessageModel *msgModel in messages) {
-        ZSRMessageFrameModel *f = [[ZSRMessageFrameModel alloc] init];
-        f.msgModel = msgModel;
-        [frames addObject:f];
-    }
-    return frames;
+-(void)sendMessage:(id<IEMMessageBody>)body{
+    //1.构造消息对象
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:self.buddy.username bodies:@[body]];
+    message.messageType = eMessageTypeChat;
+    
+    //2.发送消息
+    [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:nil prepare:^(EMMessage *message, EMError *error) {
+        NSLog(@"准备发送");
+    } onQueue:nil completion:^(EMMessage *message, EMError *error) {
+        NSLog(@"发送成功 %@",error);
+    } onQueue:nil];
+    
+    
+    [self didAddMessage:message];
+   
 }
 
 -(void)scrollToBottom{
@@ -447,56 +391,22 @@
 
 #pragma mark 接收好友回复消息
 -(void)didReceiveMessage:(EMMessage *)message{
-    id<IEMMessageBody> msgBody = message.messageBodies.firstObject;
-    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+    [self didAddMessage:message];
+}
 
-    switch (msgBody.messageBodyType) {
-        case eMessageBodyType_Text:
-        {
-            // 收到的文字消息
-#warning from 一定等于当前聊天用户才可以刷新数据
-            if ([message.from isEqualToString:self.buddy.username]) {
-                //1. 添加模型数据
-                msgModel.message = message;
-                msgModel.text = ((EMTextMessageBody *)msgBody).text;
-                msgModel.isSender = NO;
-               
-
-            }
-        }
-            break;
-        case eMessageBodyType_Image:
-        {
-            
-        }
-            break;
-        case eMessageBodyType_Location:
-        {
-            
-        }
-            break;
-        case eMessageBodyType_Voice:
-        {
-            
-            EMVoiceMessageBody *body = (EMVoiceMessageBody *)msgBody;
-            msgModel.message = message;
-
-        }
-            break;
-        case eMessageBodyType_Video:
-        {
-           
-        }
-            break;
-        case eMessageBodyType_File:
-        {
-                   }
-            break;
-            
-        default:
-            break;
-    }
+/**添加一条消息*/
+- (void)didAddMessage:(EMMessage *)message{
     
+    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+    msgModel.message = message;
+    
+    //取出上一个模型
+    ZSRMessageFrameModel *lastMsgFrame = [self.messagesFrames lastObject];
+    //隐藏时间
+    msgModel.hideTime = [msgModel.time isEqualToString:lastMsgFrame.msgModel.time];
+    
+    msgModel.isSender = ![message.from isEqualToString:self.buddy.username];//发送方
+
     
     //设置内容的frame
     ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
@@ -509,7 +419,6 @@
     
     //3.显示数据到底部
     [self scrollToBottom];
-    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

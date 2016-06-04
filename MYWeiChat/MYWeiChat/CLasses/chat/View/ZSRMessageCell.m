@@ -12,6 +12,9 @@
 #import "Constant.h"
 #import "UIImage+ResizImage.h"
 #import "ZSRAudioPlayTool.h"
+//#import "EMCDDeviceManager.h"
+#import "UIImageView+WebCache.h"
+
 
 @interface ZSRMessageCell()
 //时间
@@ -23,7 +26,7 @@
 @property (nonatomic, weak)UILabel *voiceTimeLabel;
 
 //图片
-@property (nonatomic, weak)UIImageView *imageView;
+@property (nonatomic, weak)UIImageView *chatImgView;
 
 //用户头像
 @property (nonatomic, weak)UIImageView *iconView;
@@ -84,6 +87,11 @@
         [self.contentView addSubview:voiceTimeLabel];
         self.voiceTimeLabel = voiceTimeLabel;
         
+        //5.图片
+        UIImageView *imgView = [[UIImageView alloc] init];
+        [self.contentView addSubview:imgView];
+        self.chatImgView = imgView;
+        
         self.backgroundColor = [UIColor clearColor];//请cell的背景颜色，contentView 是只读的
     }
     return self;
@@ -121,6 +129,8 @@
     self.textView.frame = frameMessage.textViewF;
     self.voiceView.frame = frameMessage.voiceImageF;
     self.voiceTimeLabel.frame = frameMessage.voiceTimeF;
+    self.chatImgView.frame = frameMessage.imageViewF;
+    
     switch (model.type) {
             
         case eMessageBodyType_Text:
@@ -131,6 +141,20 @@
             [self.textView setTitle:@"" forState:UIControlStateNormal];
             self.voiceTimeLabel.text = [NSString stringWithFormat:@"%ld\"",model.voiceTime];
         break;
+            
+        case eMessageBodyType_Image:{
+            NSFileManager *manager = [NSFileManager defaultManager];
+            // 如果本地图片存在，直接从本地显示图片
+            UIImage *palceImg = [UIImage imageNamed:@"downloading"];
+            if ([manager fileExistsAtPath:model.thumbnailLocalPath]) {
+                [self.chatImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.thumbnailLocalPath] placeholderImage:palceImg];
+            }else{
+                // 如果本地图片不存，从网络加载图片
+                [self.chatImgView sd_setImageWithURL:[NSURL URLWithString:model.thumbnailRemotePath] placeholderImage:palceImg];
+            }
+        }
+        break;
+            
         default:
             ZSRLog(@"未知类型");
         break;
@@ -148,6 +172,9 @@
 
     }
 }
+
+
+
 #pragma mark 返回语音富文本
 -(NSAttributedString *)voiceAtt{
     // 创建一个可变的富文本
@@ -197,9 +224,6 @@
         [voiceAttM appendAttributedString:imgAtt];
         
     }
-    
     return [voiceAttM copy];
-    
 }
-
 @end
