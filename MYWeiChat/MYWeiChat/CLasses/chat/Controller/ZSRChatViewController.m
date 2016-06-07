@@ -6,26 +6,47 @@
 //  Copyright © 2016 hp. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
 #import "ZSRChatViewController.h"
-#import "ZSRInputView.h"
+#import "ZSRMessageToolBar.h"
 #import "ZSRMessageCell.h"
 #import "ZSRMessageModel.h"
 #import "ZSRMessageFrameModel.h"
 #import "EMCDDeviceManager.h"
+#import "DXChatBarMoreView.h"
 
 
+@interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,EMChatManagerDelegate,ZSRMessageToolBarDelegate,EMCDDeviceManagerDelegate,DXChatBarMoreViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+{
+    UIMenuController *_menuController;
+    UIMenuItem *_copyMenuItem;
+    UIMenuItem *_deleteMenuItem;
+    NSIndexPath *_longPressIndexPath;
+    
+    NSInteger _recordingCount;
+    
+    dispatch_queue_t _messageQueue;
+    
+    NSMutableArray *_messages;
+    BOOL _isScrollToBottom;
+}
+
+@property (nonatomic) BOOL isChatGroup;
+@property (nonatomic) BOOL isScrollToBottom;
+@property (nonatomic) BOOL isPlayingAudio;
+@property (nonatomic) BOOL isKicked;
+@property (nonatomic) BOOL isRobot;
+
+@property (nonatomic, strong) ZSRMessageToolBar *chatToolBar;
+@property (nonatomic, strong) UITableView *tableView;
+
+@property (strong, nonatomic) UIImagePickerController *imagePicker;
 
 
-@interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EMChatManagerDelegate,ZSRInputViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-
-@property (nonatomic, strong) NSLayoutConstraint *inputViewBottomConstraint;//inputView底部约束
-@property (nonatomic, strong) NSLayoutConstraint *inputViewHegihtConstraint;//inputView高度约束
-@property (nonatomic, weak) ZSRInputView *inputView;
-@property (nonatomic, weak) UITableView *tableView;
-
-/**
- *  消息数组（里面放的都是ZSRMessageFrameModel模型，一个ZSRMessageFrameModel对象就代表一条消息）
- */
+/**  消息数组（里面放的都是ZSRMessageFrameModel模型，一个ZSRMessageFrameModel对象就代表一条消息）*/
 @property (nonatomic, strong) NSMutableArray *messagesFrames;
 
 /** 当前会话对象 */
@@ -34,6 +55,100 @@
 @end
 
 @implementation ZSRChatViewController
+
+
+#pragma mark - helper
+- (NSString *)convert2Mp4:(NSURL *)movUrl {
+    NSURL *mp4Url = nil;
+    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:movUrl options:nil];
+    NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
+    
+    if ([compatiblePresets containsObject:AVAssetExportPresetHighestQuality]) {
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]initWithAsset:avAsset
+                                                                              presetName:AVAssetExportPresetHighestQuality];
+        mp4Url = [movUrl copy];
+        mp4Url = [mp4Url URLByDeletingPathExtension];
+        mp4Url = [mp4Url URLByAppendingPathExtension:@"mp4"];
+        exportSession.outputURL = mp4Url;
+        exportSession.shouldOptimizeForNetworkUse = YES;
+        exportSession.outputFileType = AVFileTypeMPEG4;
+        dispatch_semaphore_t wait = dispatch_semaphore_create(0l);
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            switch ([exportSession status]) {
+                case AVAssetExportSessionStatusFailed: {
+                    NSLog(@"failed, error:%@.", exportSession.error);
+                } break;
+                case AVAssetExportSessionStatusCancelled: {
+                    NSLog(@"cancelled.");
+                } break;
+                case AVAssetExportSessionStatusCompleted: {
+                    NSLog(@"completed.");
+                } break;
+                default: {
+                    NSLog(@"others.");
+                } break;
+            }
+            dispatch_semaphore_signal(wait);
+        }];
+        long timeout = dispatch_semaphore_wait(wait, DISPATCH_TIME_FOREVER);
+        if (timeout) {
+            NSLog(@"timeout.");
+        }
+        if (wait) {
+            //dispatch_release(wait);
+            wait = nil;
+        }
+    }
+    
+    return [mp4Url relativePath];
+}
+
+
+#pragma mark - getter
+
+- (ZSRMessageToolBar *)chatToolBar
+{
+    if (_chatToolBar == nil) {
+        _chatToolBar = [[ZSRMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [ZSRMessageToolBar defaultHeight], self.view.frame.size.width, [ZSRMessageToolBar defaultHeight])];
+        ZSRLog(@"_chatToolBar%@",NSStringFromCGRect(_chatToolBar.frame));
+
+        _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+        _chatToolBar.delegate = self;
+        ChatMoreType type = self.isChatGroup == YES ? ChatMoreTypeGroupChat : ChatMoreTypeChat;
+        _chatToolBar.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), _chatToolBar.frame.size.width, 80) type:type];
+        _chatToolBar.moreView.backgroundColor = ZSRColor(240, 242,247);
+        _chatToolBar.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    }
+    
+    return _chatToolBar;
+}
+
+- (UITableView *)tableView
+{
+    if (_tableView == nil) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = ZSRColor(248, 248, 248);
+        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+    }
+    return _tableView;
+}
+
+- (UIImagePickerController *)imagePicker
+{
+    if (_imagePicker == nil) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.modalPresentationStyle= UIModalPresentationOverFullScreen;
+        _imagePicker.delegate = self;
+    }
+    
+    return _imagePicker;
+}
 
 -(NSMutableArray *)messagesFrames{
     if (!_messagesFrames) {
@@ -44,25 +159,21 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self setupView];
+    
+    [self.view addSubview:self.chatToolBar];
+    [self.view addSubview:self.tableView];
     [self loadLocalChatRecords];
     self.title = self.buddy.username;
-    self.view.backgroundColor = [UIColor whiteColor];
     
     // 设置聊天管理器的代理
+    [EMCDDeviceManager sharedInstance].delegate = self;
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    //注册为SDK的ChatManager的delegate
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    
-    
-    //1.监听键盘弹出，把inputToolbar(输入工具条)往上移
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-    //2.监听键盘退出，inputToolbar恢复原位
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
-    //3.监听键盘完全弹出，inputToolbar恢复原位
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    
-    [self scrollToBottom];
+    //将self注册为chatToolBar的moreView的代理
+    if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
+        [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
+    }
 }
 
 -(void)loadLocalChatRecords{
@@ -75,73 +186,41 @@
     NSArray *msgS = [conversation loadAllMessages];
     for (EMMessage *msg in msgS) {
         [self didAddMessage:msg];
+        NSLog(@"%@",msg);
     }
 }
 
--(void)setupView{
-    // 代码方式实现自动布局 VFL
-    // 创建一个Tableview;
-    UITableView *tableView = [[UITableView alloc] init];
-    //cell 不可选中
-    tableView.allowsSelection = NO;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    tableView.backgroundColor = [UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-#warning 代码实现自动布局，要设置下面的属性为NO
-    tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:tableView];
-    self.tableView = tableView;
-    
-    // 创建输入框View
-    ZSRInputView *inputView = [ZSRInputView inputView];
-    inputView.translatesAutoresizingMaskIntoConstraints = NO;
-    inputView.delegate = self;
-    // 设置TextView代理
-    inputView.textView.delegate = self;
-    [self.view addSubview:inputView];
-    
-    self.inputView = inputView;
-
-    
-    // 自动布局
-    
-    // 水平方向的约束
-    NSDictionary *views = @{@"tableview":tableView,
-                            @"inputView":inputView};
-    
-    // 1.tabview水平方向的约束
-    NSArray *tabviewHConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableview]-0-|" options:0 metrics:nil views:views];
-    [self.view addConstraints:tabviewHConstraints];
-    
-    // 2.inputView水平方向的约束
-    NSArray *inputViewHConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[inputView]-0-|" options:0 metrics:nil views:views];
-    [self.view addConstraints:inputViewHConstraints];
-    
-    
-    // 垂直方向的约束
-    NSArray *vContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableview]-0-[inputView(46)]-0-|" options:0 metrics:nil views:views];
-    [self.view addConstraints:vContraints];
-    self.inputViewBottomConstraint = [vContraints lastObject];
-    self.inputViewHegihtConstraint = vContraints[vContraints.count-2] ;
+#pragma mark - ZSRMessageToolBarDelegate
+- (void)inputTextViewWillBeginEditing:(XHMessageTextView *)messageInputTextView{
+    [_menuController setMenuItems:nil];
 }
 
-#pragma mark -ZSRInputView代理
-- (void)inputView:(ZSRInputView *)inputView didClickVoiceButton:(UIButton *)button
+- (void)didChangeFrameToHeight:(CGFloat)toHeight
 {
-    inputView.recordBtn.hidden = !inputView.recordBtn.hidden;
-    
-    if (!inputView.recordBtn.hidden){
-        [self.inputView.textView resignFirstResponder];
-    }else{
-        [self.inputView.textView becomeFirstResponder];
-    }
-
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rect = self.tableView.frame;
+        rect.origin.y = 0;
+        rect.size.height = self.view.frame.size.height - toHeight;
+        self.tableView.frame = rect;
+    }];
+    [self scrollToBottom];
 }
 
-- (void)inputView:(ZSRInputView *)inputView didBeginRecord:(UIButton *)button{
-    // 文件名以时间命名
+- (void)didSendText:(NSString *)text
+{
+    if (text && text.length > 0) {
+        [self sendText:text];
+    }
+}
+
+/** 按下录音按钮开始录音*/
+- (void)didStartRecordingVoiceAction:(UIView *)recordView
+{
+    
+    DXRecordView *tmpView = (DXRecordView *)recordView;
+    tmpView.center = self.view.center;
+    [self.view addSubview:tmpView];
+    [self.view bringSubviewToFront:recordView];    // 文件名以时间命名
     int x = arc4random() % 100000;
     NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
     NSString *fileName = [NSString stringWithFormat:@"%d%d",(int)time,x];
@@ -152,11 +231,12 @@
             ZSRLog(@"开始录音成功");
         }
     }];
-
 }
 
--(void)inputView:(ZSRInputView *)inputView didEndRecord:(UIButton *)button
+/**  松开手指完成录音*/
+- (void)didFinishRecoingVoiceAction:(UIView *)recordView
 {
+    
     ZSRLog(@"手指从按钮松开结束录音");
     [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
         if (!error) {
@@ -166,43 +246,18 @@
             [self sendVoice:recordPath duration:aDuration];
             
         }else{
-            ZSRLog(@"== %@",error);
-            
+            [MBProgressHUD showSuccess:@"录音太短了"];
         }
     }];
 }
 
--(void)inputView:(ZSRInputView *)inputView didCancelRecord:(UIButton *)button
+/** 手指向上滑动取消录音 */
+- (void)didCancelRecordingVoiceAction:(UIView *)recordView
 {
     [[EMCDDeviceManager sharedInstance] cancelCurrentRecording];
-    [MBProgressHUD showSuccess:@"录音已取消"];
-}
-- (void)inputView:(ZSRInputView *)inputView didPickImage:(UIButton *)button
-{
-    //显示图片选择的控制器
-    UIImagePickerController *imgPicker = [[UIImagePickerController alloc] init];
-    
-    // 设置源
-    imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imgPicker.delegate = self;
-    
-    [self presentViewController:imgPicker animated:YES completion:NULL];
-
 }
 
-/**用户选中图片的回调*/
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    
-    //1.获取用户选中的图片
-    UIImage *selectedImg =  info[UIImagePickerControllerOriginalImage];
-    
-    //2.发送图片
-    [self sendImg:selectedImg];
-    
-    //3.隐藏当前图片选择控制器
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    
-}
+
 
 #pragma mark -表格的数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -225,98 +280,9 @@
     return model.cellH;//cell 的高度
 }
 
-#pragma mark 键盘显示时会触发的方法
--(void)kbWillShow:(NSNotification *)noti{
-
-    
-    //1.获取键盘高度
-    //1.1获取键盘结束时候的位置
-    CGRect kbEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat kbHeight = kbEndFrm.size.height;
-    
-    
-    //2.更改inputToolbar 底部约束
-    self.inputViewBottomConstraint.constant = kbHeight;
-    //添加动画
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.view layoutIfNeeded];
-    }];
-    
-    
-}
-#pragma mark 键盘退出时会触发的方法
--(void)kbWillHide:(NSNotification *)noti{
-    //inputToolbar恢复原位
-    self.inputViewBottomConstraint.constant = 0;
-    
-}
-
-
-
-#pragma mark 键盘完全显示时会触发的方法
--(void)kbDidShow:(NSNotification *)noti{
-    [self scrollToBottom];
-}
-
-
-
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-#pragma mark - UITextView代理
--(void)textViewDidChange:(UITextView *)textView{
-    
-    ZSRLog(@"contentOffset %@",NSStringFromCGPoint(textView.contentOffset));
-    // 1.计算TextView的高度，
-    CGFloat textViewH = 0;
-    CGFloat minHeight = 33;//textView最小的高度
-    CGFloat maxHeight = 68;//textView最大的高度
-    
-    // 获取contentSize的高度
-    CGFloat contentHeight = textView.contentSize.height;
-    if (contentHeight < minHeight) {
-        textViewH = minHeight;
-    }else if (contentHeight > maxHeight){
-        textViewH = maxHeight;
-    }else{
-        textViewH = contentHeight;
-    }
-    
-    
-    
-    NSString *text = textView.text;
-    // 换行就等于点击了的send
-    if ([text rangeOfString:@"\n"].location!= 0 && [text rangeOfString:@"\n"].location != NSNotFound) {
-        ZSRLog(@"发送数据 %@",text);
-        // 去除换行字符
-        text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        [self sendText:text];
-        //清空数据
-        textView.text = nil;
-        // 发送时，textViewH的高度为33
-        textViewH = minHeight;
-        
-    }else{
-        ZSRLog(@"%@",textView.text);
-        
-    }
-    
-    // 3.调整整个InputToolBar 高度
-    self.inputViewHegihtConstraint.constant = 6 + 7 + textViewH;
-    // 加个动画
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.view layoutIfNeeded];
-    }];
-    
-    // 4.记光标回到原位
-#warning 技巧
-    [textView setContentOffset:CGPointZero animated:YES];
-    [textView scrollRangeToVisible:textView.selectedRange];
-    
-}
-
 
 #pragma mark 发送文本消息
 -(void)sendText:(NSString *)text{
@@ -328,8 +294,7 @@
     EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
     
     [self sendMessage:textBody];
-    
-    
+
 }
 
 
@@ -349,7 +314,7 @@
     
 }
 
-#pragma mark 发送语音消息
+#pragma mark 发送语音消息*
 -(void)sendVoice:(NSString *)recordPath duration:(NSInteger)duration{
     // 1.构造一个 语音消息体
     EMChatVoice *chatVoice = [[EMChatVoice alloc] initWithFile:recordPath displayName:@"[语音]"];
@@ -359,6 +324,18 @@
     voiceBody.duration = duration;
     
     [self sendMessage:voiceBody];
+    
+}
+
+#pragma mark 发送视频消息
+-(void)sendVideo:(NSString *)localPath{
+    
+    // 创建一个聊天视频对象
+    EMChatVideo *videoChat = [[EMChatVideo alloc] initWithFile:localPath displayName:@"[视频]"];
+    //创建一个文本消息体
+    EMVideoMessageBody *body = [[EMVideoMessageBody alloc] initWithChatObject:videoChat];
+    
+    [self sendMessage:body];
     
 }
 
@@ -384,15 +361,18 @@
     if (self.messagesFrames.count == 0) {
         return;
     }
-    
     NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:self.messagesFrames.count - 1 inSection:0];
-    
-    [self.tableView scrollToRowAtIndexPath:lastIndex atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.tableView scrollToRowAtIndexPath:lastIndex atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
+
+
+
 
 #pragma mark 接收好友回复消息
 -(void)didReceiveMessage:(EMMessage *)message{
-    [self didAddMessage:message];
+    if ([message.from isEqualToString:self.buddy.username]){
+        [self didAddMessage:message];
+    }
 }
 
 /**添加一条消息*/
@@ -426,9 +406,94 @@
     
 }
 
+
+#pragma mark - EMChatBarMoreViewDelegate
+
+-(void)moreViewPhotoAction:(DXChatBarMoreView *)moreView{
+    // 弹出照片选择
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.imagePicker.delegate = self;
+    [self presentViewController:self.imagePicker animated:YES completion:NULL];}
+
+- (void)moreViewVideoAction:(DXChatBarMoreView *)moreView
+{
+    // 弹出照片选择
+    NSArray *availableTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    if ([availableTypes containsObject:(__bridge NSString *)kUTTypeMovie]) {
+        [self.imagePicker setMediaTypes:@[(__bridge NSString *)kUTTypeMovie]];
+    }
+    self.imagePicker.delegate = self;
+    [self presentViewController:self.imagePicker animated:YES completion:NULL];
+}
+
+
+#pragma mark - UIImagePickerControllerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        NSURL *videoURL = info[UIImagePickerControllerMediaURL];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+        
+        // video url:   9
+        // we will convert it to mp4 format
+        NSString *mp4 = [self convert2Mp4:videoURL];
+        NSFileManager *fileman = [NSFileManager defaultManager];
+        if ([fileman fileExistsAtPath:videoURL.path]) {
+            NSError *error = nil;
+            [fileman removeItemAtURL:videoURL error:&error];
+            if (error) {
+                NSLog(@"failed to remove file, error:%@.", error);
+            }
+        }
+        [self sendVideo:mp4];
+        
+    }else{
+        UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+         [self sendImg:orgImage];
+    }
+//    //1.获取用户选中的图片
+//    UIImage *selectedImg =  info[UIImagePickerControllerOriginalImage];
+//    
+//    //2.发送图片
+//    [self sendImg:selectedImg];
+    
+    //3.隐藏当前图片选择控制器
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - GestureRecognizer
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.inputView.textView resignFirstResponder];
+    [self.chatToolBar.inputTextView resignFirstResponder];
+}
 
+
+// 点击背景隐藏
+-(void)keyBoardHidden
+{
+    [self.chatToolBar endEditing:YES];
+}
+
+#pragma mark - EMCDDeviceManagerDelegate
+- (void)proximitySensorChanged:(BOOL)isCloseToUser{
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    if (isCloseToUser)
+    {
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    } else {
+        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+        if (!_isPlayingAudio) {
+            [[EMCDDeviceManager sharedInstance] disableProximitySensor];
+        }
+    }
+    [audioSession setActive:YES error:nil];
 }
 @end

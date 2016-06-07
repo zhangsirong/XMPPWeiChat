@@ -34,11 +34,12 @@
 @property (nonatomic, strong) NSString *text;
 
 //image
-@property (nonatomic) CGSize size;
-@property (nonatomic) CGSize thumbnailSize;
+@property (nonatomic) CGSize imageSize;
+@property (nonatomic) CGSize thumbImageSize;
+
 @property (nonatomic, strong) NSString  *imageRemotePath;
-@property (nonatomic, strong) NSString *thumbnailRemotePath;
-@property (nonatomic, strong) NSString *thumbnailLocalPath;
+@property (nonatomic, strong) NSString *thumbImageRemotePath;
+@property (nonatomic, strong) NSString *thumbImageLocalPath;
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *thumbnailImage;
@@ -50,6 +51,19 @@
 @property (nonatomic, strong) EMChatVoice *chatVoice;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isPlayed;
+
+//video
+@property (nonatomic) CGSize videoSize;
+@property (nonatomic, strong) NSString  *videoRemotePath;
+
+@property (nonatomic, strong) NSString *thumbVideoRemotePath;
+
+
+@property (nonatomic, strong) UIImage *thumbVideoImage;
+@property (nonatomic, strong) NSString *thumbVideoImageLocalPath;
+@property (nonatomic, strong) NSString *thumbVideoImageRemotePath;
+
+
 
 //location
 @property (nonatomic, strong) NSString *address;

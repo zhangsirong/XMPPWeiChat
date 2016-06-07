@@ -15,7 +15,6 @@
 //#import "EMCDDeviceManager.h"
 #import "UIImageView+WebCache.h"
 
-
 @interface ZSRMessageCell()
 //时间
 @property (nonatomic, weak)UILabel *time;
@@ -33,6 +32,9 @@
 //图片
 @property (nonatomic, weak)UIImageView *chatImgView;
 
+//视频图片
+@property (nonatomic, weak)UIImageView *videoImgView;
+
 //用户头像
 @property (nonatomic, weak)UIImageView *iconView;
 
@@ -44,7 +46,10 @@
     static NSString *ID = @"messageCell";
     ZSRMessageCell *cell = [tableview dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
+        
         cell = [[self alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+       
     }
     
     return cell;
@@ -108,6 +113,11 @@
         [self.contentView addSubview:imgView];
         self.chatImgView = imgView;
         
+        //6.视频图片
+        UIImageView *videoImgView = [[UIImageView alloc] init];
+        [self.contentView addSubview:videoImgView];
+        self.videoImgView = videoImgView;
+        
         self.backgroundColor = [UIColor clearColor];//请cell的背景颜色，contentView 是只读的
     }
     return self;
@@ -148,7 +158,8 @@
     self.voiceView.frame = frameMessage.voiceImageF;
     self.voiceTimeLabel.frame = frameMessage.voiceTimeF;
     self.chatImgView.frame = frameMessage.imageViewF;
-    
+    self.videoImgView.frame = frameMessage.videoViewF;
+
     if (model.isSender) {
         //设置正文的背景图片
         [self.backgView setBackgroundImage:[UIImage resizeWithImageName:@"chat_send_nor"] forState:UIControlStateNormal];
@@ -172,14 +183,27 @@
         break;
             
         case eMessageBodyType_Image:{
+           
             NSFileManager *manager = [NSFileManager defaultManager];
             // 如果本地图片存在，直接从本地显示图片
             UIImage *palceImg = [UIImage imageNamed:@"downloading"];
-            if ([manager fileExistsAtPath:model.thumbnailLocalPath]) {
-                [self.chatImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.thumbnailLocalPath] placeholderImage:palceImg];
+            if ([manager fileExistsAtPath:model.thumbImageLocalPath]) {
+                [self.chatImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.thumbImageLocalPath] placeholderImage:palceImg];
             }else{
                 // 如果本地图片不存，从网络加载图片
-                [self.chatImgView sd_setImageWithURL:[NSURL URLWithString:model.thumbnailRemotePath] placeholderImage:palceImg];
+                [self.chatImgView sd_setImageWithURL:[NSURL URLWithString:model.thumbImageRemotePath] placeholderImage:palceImg];
+            }
+        }
+        break;
+        case eMessageBodyType_Video:{
+            NSFileManager *manager = [NSFileManager defaultManager];
+            // 如果本地图片存在，直接从本地显示图片
+            UIImage *palceImg = [UIImage imageNamed:@"downloading"];
+            if ([manager fileExistsAtPath:model.thumbVideoImageLocalPath]) {
+                [self.videoImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.thumbVideoImageLocalPath] placeholderImage:palceImg];
+            }else{
+                // 如果本地图片不存，从网络加载图片
+                [self.videoImgView sd_setImageWithURL:[NSURL URLWithString:model.thumbVideoImageRemotePath] placeholderImage:palceImg];
             }
         }
         break;
@@ -188,61 +212,5 @@
             ZSRLog(@"未知类型");
         break;
     }
- 
-
-}
-
-
-
-#pragma mark 返回语音富文本
--(NSAttributedString *)voiceAtt{
-    // 创建一个可变的富文本
-    NSMutableAttributedString *voiceAttM = [[NSMutableAttributedString alloc] init];
-    
-    // 1.接收方： 富文本 ＝ 图片 + 时间
-    if (!self.frameMessage.msgModel.isSender) {
-        // 1.1接收方的语音图片
-        UIImage *receiverImg = [UIImage imageNamed:@"chat_receiver_audio_playing_full"];
-        
-        // 1.2创建图片附件
-        NSTextAttachment *imgAttachment = [[NSTextAttachment alloc] init];
-        imgAttachment.image = receiverImg;
-        imgAttachment.bounds = CGRectMake(0, -7, 30, 30);
-        // 1.3图片富文本
-        NSAttributedString *imgAtt = [NSAttributedString attributedStringWithAttachment:imgAttachment];
-        [voiceAttM appendAttributedString:imgAtt];
-        
-        // 1.4.创建时间富文本
-        // 获取时间
-        EMVoiceMessageBody *voiceBody =  (EMVoiceMessageBody *)self.frameMessage.msgModel.messageBody;
-        NSInteger duration = voiceBody.duration;
-        NSString *timeStr = [NSString stringWithFormat:@"%ld'",duration];
-        NSAttributedString *timeAtt = [[NSAttributedString alloc] initWithString:timeStr];
-        [voiceAttM appendAttributedString:timeAtt];
-        
-    }else{
-        // 2.发送方：富文本 ＝ 时间 + 图片
-        // 2.1 拼接时间
-        // 获取时间
-        EMVoiceMessageBody *voiceBody = (EMVoiceMessageBody *)self.frameMessage.msgModel.messageBody;
-        NSInteger duration = voiceBody.duration;
-        NSString *timeStr = [NSString stringWithFormat:@"%ld'",duration];
-        NSAttributedString *timeAtt = [[NSAttributedString alloc] initWithString:timeStr];
-        [voiceAttM appendAttributedString:timeAtt];
-        
-        
-        // 2.1拼接图片
-        UIImage *receiverImg = [UIImage imageNamed:@"chat_sender_audio_playing_full"];
-        
-        // 创建图片附件
-        NSTextAttachment *imgAttachment = [[NSTextAttachment alloc] init];
-        imgAttachment.image = receiverImg;
-        imgAttachment.bounds = CGRectMake(0, -7, 30, 30);
-        // 图片富文本
-        NSAttributedString *imgAtt = [NSAttributedString attributedStringWithAttachment:imgAttachment];
-        [voiceAttM appendAttributedString:imgAtt];
-        
-    }
-    return [voiceAttM copy];
 }
 @end

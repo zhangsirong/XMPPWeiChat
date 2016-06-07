@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		DB9F3BA344DB3F85AE088D7C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE634299918A178D9145FFC /* libPods.a */; };
+		E633D36B1D02C8BC002911AD /* XHMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D36A1D02C8BC002911AD /* XHMessageTextView.m */; };
+		E633D3701D02D57C002911AD /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D36D1D02D57C002911AD /* DXFaceView.m */; };
+		E633D3711D02D57C002911AD /* FacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D36F1D02D57C002911AD /* FacialView.m */; };
+		E633D3741D02D584002911AD /* DXChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D3731D02D584002911AD /* DXChatBarMoreView.m */; };
+		E633D3771D02D589002911AD /* DXRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D3761D02D589002911AD /* DXRecordView.m */; };
+		E633D37D1D02D604002911AD /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D37A1D02D604002911AD /* Emoji.m */; };
+		E633D37E1D02D604002911AD /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D37C1D02D604002911AD /* EmojiEmoticons.m */; };
 		E649FEC01CE8481600A0447F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEBF1CE8481600A0447F /* main.m */; };
 		E649FED91CE8481600A0447F /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FED81CE8481600A0447F /* MYWeiChatTests.m */; };
 		E649FEE41CE8481600A0447F /* MYWeiChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */; };
@@ -16,8 +23,7 @@
 		E66F42661CE89EE6001217F6 /* ZSRAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66F42651CE89EE6001217F6 /* ZSRAddFriendViewController.m */; };
 		E66F42691CE8A42C001217F6 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E66F42681CE8A42C001217F6 /* UIView+Extension.m */; };
 		E682768D1CE97FF8009F911A /* ZSRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E682768A1CE97FF8009F911A /* ZSRChatViewController.m */; };
-		E68276921CE9806B009F911A /* ZSRInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68276911CE9806B009F911A /* ZSRInputView.m */; };
-		E68276941CE98075009F911A /* ZSRInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68276931CE98075009F911A /* ZSRInputView.xib */; };
+		E68276921CE9806B009F911A /* ZSRMessageToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E68276911CE9806B009F911A /* ZSRMessageToolBar.m */; };
 		E682769A1CE9A4AE009F911A /* ZSRMessageFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68276991CE9A4AE009F911A /* ZSRMessageFrameModel.m */; };
 		E682769D1CE9A4EC009F911A /* ZSRMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E682769C1CE9A4EC009F911A /* ZSRMessageCell.m */; };
 		E68276A11CE9A960009F911A /* UIImage+ResizImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E68276A01CE9A960009F911A /* UIImage+ResizImage.m */; };
@@ -75,6 +81,20 @@
 		01FEFCC934CC988DED178170 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2FE634299918A178D9145FFC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5EAFF54E8D049A3AF7F3B48 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E633D3691D02C8BC002911AD /* XHMessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMessageTextView.h; sourceTree = "<group>"; };
+		E633D36A1D02C8BC002911AD /* XHMessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHMessageTextView.m; sourceTree = "<group>"; };
+		E633D36C1D02D57C002911AD /* DXFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXFaceView.h; sourceTree = "<group>"; };
+		E633D36D1D02D57C002911AD /* DXFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXFaceView.m; sourceTree = "<group>"; };
+		E633D36E1D02D57C002911AD /* FacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacialView.h; sourceTree = "<group>"; };
+		E633D36F1D02D57C002911AD /* FacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacialView.m; sourceTree = "<group>"; };
+		E633D3721D02D584002911AD /* DXChatBarMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreView.h; sourceTree = "<group>"; };
+		E633D3731D02D584002911AD /* DXChatBarMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreView.m; sourceTree = "<group>"; };
+		E633D3751D02D589002911AD /* DXRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXRecordView.h; sourceTree = "<group>"; };
+		E633D3761D02D589002911AD /* DXRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXRecordView.m; sourceTree = "<group>"; };
+		E633D3791D02D604002911AD /* Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emoji.h; sourceTree = "<group>"; };
+		E633D37A1D02D604002911AD /* Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emoji.m; sourceTree = "<group>"; };
+		E633D37B1D02D604002911AD /* EmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiEmoticons.h; sourceTree = "<group>"; };
+		E633D37C1D02D604002911AD /* EmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiEmoticons.m; sourceTree = "<group>"; };
 		E649FEBB1CE8481600A0447F /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E649FEBF1CE8481600A0447F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E649FECF1CE8481600A0447F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,9 +113,8 @@
 		E66F42681CE8A42C001217F6 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E68276891CE97FF8009F911A /* ZSRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRChatViewController.h; sourceTree = "<group>"; };
 		E682768A1CE97FF8009F911A /* ZSRChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRChatViewController.m; sourceTree = "<group>"; };
-		E68276901CE9806B009F911A /* ZSRInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRInputView.h; sourceTree = "<group>"; };
-		E68276911CE9806B009F911A /* ZSRInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRInputView.m; sourceTree = "<group>"; };
-		E68276931CE98075009F911A /* ZSRInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZSRInputView.xib; sourceTree = "<group>"; };
+		E68276901CE9806B009F911A /* ZSRMessageToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageToolBar.h; sourceTree = "<group>"; };
+		E68276911CE9806B009F911A /* ZSRMessageToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageToolBar.m; sourceTree = "<group>"; };
 		E68276981CE9A4AE009F911A /* ZSRMessageFrameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageFrameModel.h; sourceTree = "<group>"; };
 		E68276991CE9A4AE009F911A /* ZSRMessageFrameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRMessageFrameModel.m; sourceTree = "<group>"; };
 		E682769B1CE9A4EC009F911A /* ZSRMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRMessageCell.h; sourceTree = "<group>"; };
@@ -217,6 +236,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E633D3781D02D604002911AD /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				E633D3791D02D604002911AD /* Emoji.h */,
+				E633D37A1D02D604002911AD /* Emoji.m */,
+				E633D37B1D02D604002911AD /* EmojiEmoticons.h */,
+				E633D37C1D02D604002911AD /* EmojiEmoticons.m */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
 		E649FEB21CE8481600A0447F = {
 			isa = PBXGroup;
 			children = (
@@ -326,11 +356,20 @@
 		E682768C1CE97FF8009F911A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E633D3751D02D589002911AD /* DXRecordView.h */,
+				E633D3761D02D589002911AD /* DXRecordView.m */,
+				E633D3721D02D584002911AD /* DXChatBarMoreView.h */,
+				E633D3731D02D584002911AD /* DXChatBarMoreView.m */,
+				E633D36C1D02D57C002911AD /* DXFaceView.h */,
+				E633D36D1D02D57C002911AD /* DXFaceView.m */,
+				E633D36E1D02D57C002911AD /* FacialView.h */,
+				E633D36F1D02D57C002911AD /* FacialView.m */,
+				E633D3691D02C8BC002911AD /* XHMessageTextView.h */,
+				E633D36A1D02C8BC002911AD /* XHMessageTextView.m */,
 				E682769B1CE9A4EC009F911A /* ZSRMessageCell.h */,
 				E682769C1CE9A4EC009F911A /* ZSRMessageCell.m */,
-				E68276901CE9806B009F911A /* ZSRInputView.h */,
-				E68276911CE9806B009F911A /* ZSRInputView.m */,
-				E68276931CE98075009F911A /* ZSRInputView.xib */,
+				E68276901CE9806B009F911A /* ZSRMessageToolBar.h */,
+				E68276911CE9806B009F911A /* ZSRMessageToolBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,6 +533,7 @@
 		E6EC8D411CEA1C5E0098679D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				E633D3781D02D604002911AD /* Emoji */,
 				E6EC8D5E1CEA1D910098679D /* VoiceConvert */,
 				E6EC8D421CEA1C5E0098679D /* DeviceUtil */,
 			);
@@ -695,7 +735,6 @@
 				E690695A1CE84BF60014FE63 /* LaunchImage.png in Resources */,
 				E69069591CE84BF60014FE63 /* Images.xcassets in Resources */,
 				E66F42631CE870F4001217F6 /* friends.plist in Resources */,
-				E68276941CE98075009F911A /* ZSRInputView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,15 +807,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E633D36B1D02C8BC002911AD /* XHMessageTextView.m in Sources */,
 				E6EC8D571CEA1C5E0098679D /* EMAudioPlayerUtil.m in Sources */,
 				E66F42691CE8A42C001217F6 /* UIView+Extension.m in Sources */,
 				E68276A41CE9B0A3009F911A /* ZSRMessageModel.m in Sources */,
+				E633D3711D02D57C002911AD /* FacialView.m in Sources */,
+				E633D3741D02D584002911AD /* DXChatBarMoreView.m in Sources */,
 				E66F42611CE86D7A001217F6 /* MBProgressHUD+ZSR.m in Sources */,
 				E6EC8D5A1CEA1C5E0098679D /* EMCDDeviceManager+Microphone.m in Sources */,
 				E6EC8D701CEA1D910098679D /* EMVoiceConverter.mm in Sources */,
 				E6EC8D581CEA1C5E0098679D /* EMAudioRecorderUtil.m in Sources */,
 				E69069501CE84BF60014FE63 /* ZSRDiscoverViewController.m in Sources */,
 				E6EC8D591CEA1C5E0098679D /* EMCDDeviceManager+Media.m in Sources */,
+				E633D37D1D02D604002911AD /* Emoji.m in Sources */,
 				E682769A1CE9A4AE009F911A /* ZSRMessageFrameModel.m in Sources */,
 				E66F42661CE89EE6001217F6 /* ZSRAddFriendViewController.m in Sources */,
 				E682769D1CE9A4EC009F911A /* ZSRMessageCell.m in Sources */,
@@ -786,14 +829,17 @@
 				E6EC8D5D1CEA1C5E0098679D /* EMCDDeviceManagerBase.m in Sources */,
 				E69069531CE84BF60014FE63 /* ZSRStartViewController.m in Sources */,
 				E6EC8D6F1CEA1D910098679D /* wav.mm in Sources */,
-				E68276921CE9806B009F911A /* ZSRInputView.m in Sources */,
+				E68276921CE9806B009F911A /* ZSRMessageToolBar.m in Sources */,
 				E68276A11CE9A960009F911A /* UIImage+ResizImage.m in Sources */,
+				E633D3701D02D57C002911AD /* DXFaceView.m in Sources */,
 				E69069521CE84BF60014FE63 /* ZSRRegisgerViewController.m in Sources */,
 				E69069561CE84BF60014FE63 /* ZSRMeViewController.m in Sources */,
 				E690694B1CE84BF60014FE63 /* ZSRContactsViewController.m in Sources */,
 				E6EC8D6E1CEA1D910098679D /* amrFileCodec.mm in Sources */,
+				E633D3771D02D589002911AD /* DXRecordView.m in Sources */,
 				E690694E1CE84BF60014FE63 /* ZSRFriendCell.m in Sources */,
 				E69069571CE84BF60014FE63 /* ZSRMessageViewController.m in Sources */,
+				E633D37E1D02D604002911AD /* EmojiEmoticons.m in Sources */,
 				E6C1FE091CF3557000C068DB /* ZSRTimeTool.m in Sources */,
 				E682768D1CE97FF8009F911A /* ZSRChatViewController.m in Sources */,
 				E690694F1CE84BF60014FE63 /* ZSRHeaderView.m in Sources */,

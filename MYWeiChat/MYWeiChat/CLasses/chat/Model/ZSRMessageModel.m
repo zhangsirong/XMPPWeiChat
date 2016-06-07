@@ -61,27 +61,52 @@
 
 }
 
--(CGSize)size
+-(CGSize)imageSize
 {
     return ((EMImageMessageBody *)self.messageBody).size;
 }
 
-- (CGSize)thumbnailSize
+- (CGSize)thumbImageSize
 {
     return ((EMImageMessageBody *)self.messageBody).thumbnailSize;
 
 }
 
-- (NSString *)thumbnailLocalPath
+- (NSString *)thumbImageLocalPath
 {
     return ((EMImageMessageBody *)self.messageBody).thumbnailLocalPath;
 
 }
 
--(NSString *)thumbnailRemoteURL
+-(NSString *)thumbImageRemotePath
 {
     return ((EMImageMessageBody *)self.messageBody).thumbnailRemotePath;
 
+}
+
+-(CGSize)videoSize{
+    
+    return ((EMVideoMessageBody *)self.messageBody).size;
+}
+
+- (NSString *)videoRemotePath
+{
+    return ((EMVideoMessageBody *)self.messageBody).remotePath;
+}
+
+-(NSString *)thumbVideoImageLocalPath
+{
+    return ((EMVideoMessageBody *)self.messageBody).thumbnailLocalPath;
+}
+
+- (NSString *)thumbVideoImageRemotePath{
+    return ((EMVideoMessageBody *)self.messageBody).thumbnailRemotePath;
+
+}
+
+- (UIImage *)thumbVideoImage
+{
+    return [UIImage imageWithContentsOfFile:((EMVideoMessageBody *)self.messageBody).thumbnailRemotePath];
 }
 
 

@@ -64,7 +64,7 @@
             //    _textViewF = CGRectMake(textX, textY, <#CGFloat width#>, <#CGFloat height#>)
             _textViewF = (CGRect){{textX,textY},backgSize};
         }
-            break;
+        break;
         case eMessageBodyType_Voice://语音
         {
             backgSize = CGSizeMake(70, 60);
@@ -93,13 +93,16 @@
             _voiceTimeF = CGRectMake(voiceTimeX, voiceTimeY, voiceTimeW, voiceTimeH);
 
         }
-            break;
+        break;
         case eMessageBodyType_Image://图片
         {
+            
+            
+            
             CGFloat imageX;
             CGFloat imageY = headImageY+ padding * 2.5;
-            CGFloat imageW = msgModel.thumbnailSize.width;
-            CGFloat imageH = msgModel.thumbnailSize.height;
+            CGFloat imageW = msgModel.thumbImageSize.width;
+            CGFloat imageH = msgModel.thumbImageSize.height;
             backgSize = CGSizeMake(imageW + 30, imageH + 30);
             if (msgModel.isSender) {//自己发的
                 
@@ -108,19 +111,38 @@
             }else{//别人发的
                 imageX = padding * 2.5 + headImageW;
                 backgroundX = headImageW + padding;
-
+                
             }
             _imageViewF =  CGRectMake(imageX, imageY, imageW, imageH);
+           
         }
-            break;
+        break;
       
         case eMessageBodyType_Video://视频
-            break;
+        {
+            CGFloat videoX;
+            CGFloat videoY = headImageY+ padding * 2.5;
+            CGFloat videoW = msgModel.videoSize.width;
+            CGFloat videoH = msgModel.videoSize.height;
+            backgSize = CGSizeMake(videoW + 30, videoH + 30);
+            if (msgModel.isSender) {//自己发的
+                
+                videoX = bScreenWidth - headImageW - padding * 4.5 - videoW;
+                backgroundX = bScreenWidth - headImageW - padding * 6  - videoW;
+            }else{//别人发的
+                videoX = padding * 2.5 + headImageW;
+                backgroundX = headImageW + padding;
+                
+            }
+            _videoViewF =  CGRectMake(videoX, videoY, videoW, videoH);
+        }
+            
+        break;
         case eMessageBodyType_Location://位置
             
         default:
             ZSRLog(@"未知类型");
-            break;
+        break;
     }
     
     _backgroundF = (CGRect){{backgroundX,backgroundY},backgSize};
@@ -128,6 +150,8 @@
     //4.cell高度
     CGFloat iconMaxY = CGRectGetMaxY(_headImageF);
     CGFloat textMaxY = MAX(CGRectGetMaxY(_backgroundF), CGRectGetMaxY(_imageViewF) + padding);
+//    CGFloat textMaxY = CGRectGetMaxY(_backgroundF);
+
     
     _cellH = MAX(iconMaxY, textMaxY);
 }

@@ -31,6 +31,9 @@
 //图片
 @property (nonatomic, assign,readonly)CGRect imageViewF;
 
+//视频
+@property (nonatomic, assign,readonly)CGRect videoViewF;
+
 //cellH
 @property (nonatomic, assign,readonly)CGFloat cellH;
 
