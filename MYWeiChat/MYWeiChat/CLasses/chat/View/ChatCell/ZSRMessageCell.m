@@ -12,13 +12,17 @@
 #import "Constant.h"
 #import "UIImage+ResizImage.h"
 #import "ZSRAudioPlayTool.h"
-//#import "EMCDDeviceManager.h"
+#import "EMCDDeviceManager.h"
 #import "UIImageView+WebCache.h"
+#import "UIResponder+Router.h"
 
 @interface ZSRMessageCell()
-//时间
-@property (nonatomic, weak)UILabel *time;
 
+//时间
+@property (nonatomic, weak)UILabel *timeLabel;
+
+//用户头像
+@property (nonatomic, weak)UIImageView *headImageView;
 //背景
 @property (nonatomic, weak)UIButton *textView;
 
@@ -35,8 +39,10 @@
 //视频图片
 @property (nonatomic, weak)UIImageView *videoImgView;
 
-//用户头像
-@property (nonatomic, weak)UIImageView *iconView;
+
+
+@property (nonatomic, strong)NSMutableArray *photos;
+
 
 @end
 
@@ -60,16 +66,20 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         //1.时间
-        UILabel *time = [[UILabel alloc]init];
-        time.textAlignment = NSTextAlignmentCenter;
-        time.font = [UIFont systemFontOfSize:13.0f];
-        [self.contentView addSubview:time];
-        self.time = time;
+        UILabel *timeLabel = [[UILabel alloc]init];
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.font = [UIFont systemFontOfSize:13.0f];
+        [self.contentView addSubview:timeLabel];
+        self.timeLabel = timeLabel;
         
+        UITapGestureRecognizer *headImageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImagePressed:)];
         //2.头像
-        UIImageView *icon = [[UIImageView alloc]init];
-        [self.contentView addSubview:icon];
-        self.iconView = icon;
+        UIImageView *headImageView = [[UIImageView alloc]init];
+        [headImageView addGestureRecognizer:headImageTap];
+        headImageView.userInteractionEnabled = YES;
+        headImageView.multipleTouchEnabled = YES;
+        [self.contentView addSubview:headImageView];
+        self.headImageView = headImageView;
         
         //3.背景
         UIButton *backgView = [[UIButton alloc]init];
@@ -77,7 +87,6 @@
         backgView.titleLabel.numberOfLines = 0;//自动换行
         backgView.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         [backgView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        backgView.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:backgView];
         self.backgView = backgView;
         
@@ -90,16 +99,12 @@
         [self.contentView addSubview:textView];
         self.textView = textView;
         
-
         //5.语音
         UIButton *voiceView = [[UIButton alloc]init];
-        voiceView.titleLabel.font = bBtnFont;
-        voiceView.titleLabel.numberOfLines = 0;//自动换行
         voiceView.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         [voiceView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:voiceView];
         self.voiceView = voiceView;
-        
         [self.voiceView addTarget:self action:@selector(voiceViewAction) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *voiceTimeLabel = [[UILabel alloc]init];
@@ -109,46 +114,84 @@
         self.voiceTimeLabel = voiceTimeLabel;
         
         //6.图片
+        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imagePressed:)];
+
         UIImageView *imgView = [[UIImageView alloc] init];
+        [imgView addGestureRecognizer:imageTap];
+        imgView.userInteractionEnabled = YES;
+        imgView.multipleTouchEnabled = YES;
         [self.contentView addSubview:imgView];
         self.chatImgView = imgView;
+
         
         //6.视频图片
+        
+        UITapGestureRecognizer *videoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(videoPressed:)];
+
         UIImageView *videoImgView = [[UIImageView alloc] init];
+        [videoImgView addGestureRecognizer:videoTap];
+        videoImgView.userInteractionEnabled = YES;
+        videoImgView.multipleTouchEnabled = YES;
         [self.contentView addSubview:videoImgView];
         self.videoImgView = videoImgView;
-        
         self.backgroundColor = [UIColor clearColor];//请cell的背景颜色，contentView 是只读的
     }
     return self;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
 }
 
 - (void)voiceViewAction{
     
     BOOL isSend = self.frameMessage.msgModel.isSender;
     [ZSRAudioPlayTool playWithMessage:self.frameMessage.msgModel.message msgButton:self.voiceView isSend:isSend];
-    NSLog(@"播放语音");
+    ZSRLog(@"播放语音");
+//    [super routerEventWithName:kRouterEventAudioBubbleTapEventType userInfo:@{KMESSAGEKEY:self.frameMessage.msgModel}];
+
+}
+
+- (void)routerEventWithName:(ZSRRouterpEventType)eventName userInfo:(NSDictionary *)userInfo
+{
+    [super routerEventWithName:eventName userInfo:userInfo];
+}
+
+-(void)headImagePressed:(id)sender
+{
+    [super routerEventWithName:kRouterEventChatHeadImageTapEventType userInfo:@{KMESSAGEKEY:self.frameMessage.msgModel}];
+}
+
+-(void)imagePressed:(id)sender{
+    [super routerEventWithName:kRouterEventImageBubbleTapEventType userInfo:@{KMESSAGEKEY:self.frameMessage.msgModel}];
+
+}
+
+-(void)videoPressed:(id)sender
+{
+    [super routerEventWithName:kRouterEventChatCellVideoTapEventType userInfo:@{KMESSAGEKEY:self.frameMessage.msgModel}];
 }
 
 //设置内容和frame
 - (void)setFrameMessage:(ZSRMessageFrameModel *)frameMessage
 {
-    //这行必须带上
     _frameMessage = frameMessage;
-    
     ZSRMessageModel *model = frameMessage.msgModel;
     
     //1.时间
-    self.time.frame = frameMessage.timeF;
-    self.time.text = model.time;
+    self.timeLabel.frame = frameMessage.timeF;
+    self.timeLabel.text = model.time;
     
     //2.头像
-    self.iconView.frame = frameMessage.headImageF;
+    self.headImageView.frame = frameMessage.headImageF;
     
     if (model.isSender) {
-        self.iconView.image = [UIImage imageNamed:@"Gatsby"];
+        self.headImageView.image = [UIImage imageNamed:@"Gatsby"];
     }else{
-        self.iconView.image = [UIImage imageNamed:@"Jobs"];
+        self.headImageView.image = [UIImage imageNamed:@"Jobs"];
     }
     
     
@@ -174,36 +217,39 @@
     switch (model.type) {
             
         case eMessageBodyType_Text:
-            [self.textView setTitle:model.text forState:UIControlStateNormal];
+            [self.textView setTitle:model.content forState:UIControlStateNormal];
         break;
             
         case eMessageBodyType_Voice:
-            [self.textView setTitle:@"" forState:UIControlStateNormal];
-            self.voiceTimeLabel.text = [NSString stringWithFormat:@"%ld\"",model.voiceTime];
+//            [self.textView setTitle:@"" forState:UIControlStateNormal];
+            self.voiceTimeLabel.text = [NSString stringWithFormat:@"%ld\"",model.audioTime];
         break;
             
         case eMessageBodyType_Image:{
-           
-            NSFileManager *manager = [NSFileManager defaultManager];
-            // 如果本地图片存在，直接从本地显示图片
-            UIImage *palceImg = [UIImage imageNamed:@"downloading"];
-            if ([manager fileExistsAtPath:model.thumbImageLocalPath]) {
-                [self.chatImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.thumbImageLocalPath] placeholderImage:palceImg];
-            }else{
-                // 如果本地图片不存，从网络加载图片
-                [self.chatImgView sd_setImageWithURL:[NSURL URLWithString:model.thumbImageRemotePath] placeholderImage:palceImg];
+            UIImage *image = model.isSender ? model.image : model.thumbnailImage;
+            if (!image) {
+                image = model.image;
+                if (!image) {
+                    [self.chatImgView sd_setImageWithURL:model.imageRemoteURL placeholderImage:[UIImage imageNamed:@"imageDownloadFail.png"]];
+                } else {
+                    self.chatImgView.image = image;
+                }
+            } else {
+                self.chatImgView.image = image;
             }
+            
         }
+            
         break;
         case eMessageBodyType_Video:{
             NSFileManager *manager = [NSFileManager defaultManager];
-            // 如果本地图片存在，直接从本地显示图片
+            // 如果本地视频存在，直接从本地显示图片
             UIImage *palceImg = [UIImage imageNamed:@"downloading"];
-            if ([manager fileExistsAtPath:model.thumbVideoImageLocalPath]) {
-                [self.videoImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.thumbVideoImageLocalPath] placeholderImage:palceImg];
+            if ([manager fileExistsAtPath:model.localPath]) {
+                [self.videoImgView sd_setImageWithURL:[NSURL fileURLWithPath:model.localPath] placeholderImage:palceImg];
             }else{
-                // 如果本地图片不存，从网络加载图片
-                [self.videoImgView sd_setImageWithURL:[NSURL URLWithString:model.thumbVideoImageRemotePath] placeholderImage:palceImg];
+                // 如果本地视频不存，从网络加载图片
+                [self.videoImgView sd_setImageWithURL:model.thumbnailRemoteURL placeholderImage:palceImg];
             }
         }
         break;

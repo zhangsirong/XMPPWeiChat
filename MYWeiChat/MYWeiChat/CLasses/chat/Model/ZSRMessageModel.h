@@ -31,39 +31,23 @@
 @property (nonatomic, strong) NSString *username;
 
 //text
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString *content;
 
 //image
-@property (nonatomic) CGSize imageSize;
-@property (nonatomic) CGSize thumbImageSize;
-
-@property (nonatomic, strong) NSString  *imageRemotePath;
-@property (nonatomic, strong) NSString *thumbImageRemotePath;
-@property (nonatomic, strong) NSString *thumbImageLocalPath;
-
+@property (nonatomic) CGSize size;
+@property (nonatomic) CGSize thumbnailSize;
+@property (nonatomic, strong) NSURL *imageRemoteURL;
+@property (nonatomic, strong) NSURL *thumbnailRemoteURL;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *thumbnailImage;
 
 //audio
 @property (nonatomic, strong) NSString *localPath;
 @property (nonatomic, strong) NSString *remotePath;
-@property (nonatomic) NSInteger voiceTime;
+@property (nonatomic) NSInteger audioTime;
 @property (nonatomic, strong) EMChatVoice *chatVoice;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isPlayed;
-
-//video
-@property (nonatomic) CGSize videoSize;
-@property (nonatomic, strong) NSString  *videoRemotePath;
-
-@property (nonatomic, strong) NSString *thumbVideoRemotePath;
-
-
-@property (nonatomic, strong) UIImage *thumbVideoImage;
-@property (nonatomic, strong) NSString *thumbVideoImageLocalPath;
-@property (nonatomic, strong) NSString *thumbVideoImageRemotePath;
-
-
 
 //location
 @property (nonatomic, strong) NSString *address;

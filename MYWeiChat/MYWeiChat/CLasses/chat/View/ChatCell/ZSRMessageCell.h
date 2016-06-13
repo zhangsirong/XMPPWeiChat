@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIResponder+Router.h"
+
+#define KMESSAGEKEY @"message"
+
 @class ZSRMessageFrameModel;
 @interface ZSRMessageCell : UITableViewCell
 + (instancetype)messageCellWithTableView:(UITableView *)tableview;

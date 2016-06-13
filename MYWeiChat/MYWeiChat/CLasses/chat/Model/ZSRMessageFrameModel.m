@@ -9,6 +9,7 @@
 #import "ZSRMessageFrameModel.h"
 #import "Constant.h"
 #import "ZSRMessageModel.h"
+
 @implementation ZSRMessageFrameModel
 - (void)setMsgModel:(ZSRMessageModel *)msgModel
 {
@@ -41,6 +42,7 @@
     CGFloat backgroundX;
     CGFloat backgroundY = headImageY+ padding;
     CGSize backgSize;
+    
     //3.消息
     switch (msgModel.type) {
         case eMessageBodyType_Text: //文字
@@ -49,7 +51,7 @@
             CGFloat textY = headImageY+ padding;
             
             CGSize textMaxSize = CGSizeMake(150, MAXFLOAT);
-            CGSize textRealSize = [msgModel.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:bBtnFont} context:nil].size;
+            CGSize textRealSize = [msgModel.content boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:bBtnFont} context:nil].size;
             
            backgSize = CGSizeMake(textRealSize.width + 40, textRealSize.height + 40);
             
@@ -97,12 +99,10 @@
         case eMessageBodyType_Image://图片
         {
             
-            
-            
             CGFloat imageX;
             CGFloat imageY = headImageY+ padding * 2.5;
-            CGFloat imageW = msgModel.thumbImageSize.width;
-            CGFloat imageH = msgModel.thumbImageSize.height;
+            CGFloat imageW = msgModel.thumbnailSize.width;
+            CGFloat imageH = msgModel.thumbnailSize.height;
             backgSize = CGSizeMake(imageW + 30, imageH + 30);
             if (msgModel.isSender) {//自己发的
                 
@@ -122,8 +122,8 @@
         {
             CGFloat videoX;
             CGFloat videoY = headImageY+ padding * 2.5;
-            CGFloat videoW = msgModel.videoSize.width;
-            CGFloat videoH = msgModel.videoSize.height;
+            CGFloat videoW = msgModel.thumbnailSize.width;
+            CGFloat videoH = msgModel.thumbnailSize.height;
             backgSize = CGSizeMake(videoW + 30, videoH + 30);
             if (msgModel.isSender) {//自己发的
                 

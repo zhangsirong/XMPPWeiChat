@@ -29,6 +29,9 @@
 #define ScreenW  [UIScreen mainScreen].bounds.size.width
 #define ScreenH  [UIScreen mainScreen].bounds.size.height
 
+// 是否为iOS7
+#define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
 
 
 #endif

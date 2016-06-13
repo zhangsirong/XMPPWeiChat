@@ -14,11 +14,14 @@
 #import "ZSRMessageToolBar.h"
 #import "ZSRMessageCell.h"
 #import "ZSRMessageModel.h"
+#import "ZSRMessageModelManager.h"
 #import "ZSRMessageFrameModel.h"
 #import "EMCDDeviceManager.h"
 #import "DXChatBarMoreView.h"
+#import "ZSRMessageReadManager.h"
+#import "ZSRAudioPlayTool.h"
 
-
+@import AVKit;
 @interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,EMChatManagerDelegate,ZSRMessageToolBarDelegate,EMCDDeviceManagerDelegate,DXChatBarMoreViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UIMenuController *_menuController;
@@ -44,6 +47,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
+
+@property (strong, nonatomic) ZSRMessageReadManager *messageReadManager;//message阅读的管理者
+
 
 
 /**  消息数组（里面放的都是ZSRMessageFrameModel模型，一个ZSRMessageFrameModel对象就代表一条消息）*/
@@ -150,6 +156,15 @@
     return _imagePicker;
 }
 
+- (ZSRMessageReadManager *)messageReadManager
+{
+    if (_messageReadManager == nil) {
+        _messageReadManager = [ZSRMessageReadManager defaultManager];
+    }
+    
+    return _messageReadManager;
+}
+
 -(NSMutableArray *)messagesFrames{
     if (!_messagesFrames) {
         _messagesFrames = [NSMutableArray array];
@@ -159,6 +174,8 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    _isPlayingAudio = NO;
+
     
     [self.view addSubview:self.chatToolBar];
     [self.view addSubview:self.tableView];
@@ -267,6 +284,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZSRMessageCell *cell = [ZSRMessageCell messageCellWithTableView:tableView];
+//    ZSRChatViewBaseCell *cell = [ZSRChatViewBaseCell messageCellWithTableView:tableView];
     //取出model
     ZSRMessageFrameModel *model = self.messagesFrames[indexPath.row];
     //设置model
@@ -379,7 +397,9 @@
 - (void)didAddMessage:(EMMessage *)message{
     
     
-    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+//    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
+    
+    ZSRMessageModel *msgModel =  [ZSRMessageModelManager modelWithMessage:message];
     msgModel.message = message;
     
     //取出上一个模型
@@ -387,8 +407,6 @@
     //隐藏时间
     msgModel.hideTime = [msgModel.time isEqualToString:lastMsgFrame.msgModel.time];
     
-    msgModel.isSender = ![message.from isEqualToString:self.buddy.username];//发送方
-
     //设置内容的frame
     ZSRMessageFrameModel *fm = [[ZSRMessageFrameModel alloc]init];
     //将msg 赋值给 fm 中的message
@@ -405,6 +423,135 @@
     [self.conversation markMessageWithId:message.messageId asRead:YES];
     
 }
+#pragma mark - UIResponder actions
+
+- (void)routerEventWithName:(ZSRRouterpEventType)eventType userInfo:(NSDictionary *)userInfo
+{
+    ZSRMessageModel *model = [userInfo objectForKey:KMESSAGEKEY];
+    
+    switch (eventType) {
+        case kRouterEventImageBubbleTapEventType:
+            [self chatImageCellBubblePressed:model];
+            break;
+        case kRouterEventAudioBubbleTapEventType:
+            [self chatAudioCellBubblePressed:model];
+            break;
+        case kRouterEventChatCellVideoTapEventType:
+            [self chatVideoeCellBubblePressed:model];
+            break;
+        default:
+            ZSRLog(@"其他点击类型");
+            break;
+    }
+}
+
+-(void)chatImageCellBubblePressed:(ZSRMessageModel *)model
+{
+    __weak ZSRChatViewController *weakSelf = self;
+    id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
+    if ([model.messageBody messageBodyType] == eMessageBodyType_Image) {
+        EMImageMessageBody *imageBody = (EMImageMessageBody *)model.messageBody;
+        if (imageBody.thumbnailDownloadStatus == EMAttachmentDownloadSuccessed) {
+            if (imageBody.attachmentDownloadStatus == EMAttachmentDownloadSuccessed)
+            {
+                NSString *localPath = model.message == nil ? model.localPath : [[model.message.messageBodies firstObject] localPath];
+                if (localPath && localPath.length > 0) {
+                    UIImage *image = [UIImage imageWithContentsOfFile:localPath];
+                    self.isScrollToBottom = NO;
+                    if (image)
+                    {
+                        [self.messageReadManager showBrowserWithImages:@[image]];
+                    }
+                    else
+                    {
+                        NSLog(@"Read %@ failed!", localPath);
+                    }
+                    return ;
+                }
+            }
+            [chatManager asyncFetchMessage:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
+                [MBProgressHUD hideHUD];
+                if (!error) {
+                    NSString *localPath = aMessage == nil ? model.localPath : [[aMessage.messageBodies firstObject] localPath];
+                    if (localPath && localPath.length > 0) {
+                        UIImage *image = [UIImage imageWithContentsOfFile:localPath];
+                        weakSelf.isScrollToBottom = NO;
+                        if (image)
+                        {
+                            [weakSelf.messageReadManager showBrowserWithImages:@[image]];
+                        }
+                        else
+                        {
+                            NSLog(@"Read %@ failed!", localPath);
+                        }
+                        return ;
+                    }
+                }
+                [MBProgressHUD showError:NSLocalizedString(@"message.imageFail", @"image for failure!")];
+            } onQueue:nil];
+        }else{
+            //获取缩略图
+            [chatManager asyncFetchMessageThumbnail:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
+                if (error) {
+                    [MBProgressHUD showError:NSLocalizedString(@"message.imageFail", @"image for failure!")];
+                }
+            } onQueue:nil];
+        }
+    }else if ([model.messageBody messageBodyType] == eMessageBodyType_Video) {
+        //获取缩略图
+        EMVideoMessageBody *videoBody = (EMVideoMessageBody *)model.messageBody;
+        if (videoBody.thumbnailDownloadStatus != EMAttachmentDownloadSuccessed) {
+            [chatManager asyncFetchMessageThumbnail:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
+                if (error) {
+                    [MBProgressHUD showError:NSLocalizedString(@"message.imageFail", @"image for failure!")];
+                }
+            } onQueue:nil];
+        }
+    }
+}
+
+-(void)chatAudioCellBubblePressed:(ZSRMessageModel *)model
+{
+    
+}
+
+-(void)chatVideoeCellBubblePressed:(ZSRMessageModel *)model
+{
+    EMVideoMessageBody *videoBody = (EMVideoMessageBody*)model.messageBody;
+    if (videoBody.attachmentDownloadStatus == EMAttachmentDownloadSuccessed)
+    {
+        NSString *localPath = model.message == nil ? model.localPath : [[model.message.messageBodies firstObject] localPath];
+        if (localPath && localPath.length > 0)
+        {
+            [self playVideoWithVideoPath:localPath];
+            return;
+        }
+    }
+    
+    __weak ZSRChatViewController *weakSelf = self;
+    id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
+    [MBProgressHUD showMessage:@"正在下载。。。"];
+    [chatManager asyncFetchMessage:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
+        [MBProgressHUD hideHUD];
+        if (!error) {
+            NSString *localPath = aMessage == nil ? model.localPath : [[aMessage.messageBodies firstObject] localPath];
+            if (localPath && localPath.length > 0) {
+                [weakSelf playVideoWithVideoPath:localPath];
+            }
+        }
+    } onQueue:nil];
+}
+
+- (void)playVideoWithVideoPath:(NSString *)videoPath
+{
+    _isScrollToBottom = NO;
+    NSURL *videoURL = [NSURL fileURLWithPath:videoPath];
+    AVPlayerViewController *playerController = [[AVPlayerViewController alloc] init];
+    playerController.player = [AVPlayer playerWithURL:videoURL];
+    [self presentViewController:playerController animated:YES completion:NULL];
+
+}
+
 
 
 #pragma mark - EMChatBarMoreViewDelegate
@@ -433,7 +580,6 @@
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
-        [self dismissViewControllerAnimated:YES completion:NULL];
         
         // video url:   9
         // we will convert it to mp4 format
@@ -450,15 +596,8 @@
         
     }else{
         UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
-        [picker dismissViewControllerAnimated:YES completion:NULL];
          [self sendImg:orgImage];
     }
-//    //1.获取用户选中的图片
-//    UIImage *selectedImg =  info[UIImagePickerControllerOriginalImage];
-//    
-//    //2.发送图片
-//    [self sendImg:selectedImg];
-    
     //3.隐藏当前图片选择控制器
     [self dismissViewControllerAnimated:YES completion:NULL];
     
