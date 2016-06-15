@@ -23,6 +23,7 @@
 
 //用户头像
 @property (nonatomic, weak)UIImageView *headImageView;
+
 //背景
 @property (nonatomic, weak)UIButton *textView;
 
@@ -40,8 +41,10 @@
 @property (nonatomic, weak)UIImageView *videoImgView;
 
 
-
 @property (nonatomic, strong)NSMutableArray *photos;
+
+@property (nonatomic, weak)UIButton *videoPlayButton;
+
 
 
 @end
@@ -126,14 +129,17 @@
         
         //6.视频图片
         
-        UITapGestureRecognizer *videoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(videoPressed:)];
-
         UIImageView *videoImgView = [[UIImageView alloc] init];
-        [videoImgView addGestureRecognizer:videoTap];
-        videoImgView.userInteractionEnabled = YES;
-        videoImgView.multipleTouchEnabled = YES;
         [self.contentView addSubview:videoImgView];
         self.videoImgView = videoImgView;
+        
+        
+        UIButton *videoPlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [videoPlayButton addTarget:self action:@selector(videoPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:videoPlayButton];
+
+        self.videoPlayButton = videoPlayButton;
+        
         self.backgroundColor = [UIColor clearColor];//请cell的背景颜色，contentView 是只读的
     }
     return self;
@@ -190,6 +196,7 @@
     
     if (model.isSender) {
         self.headImageView.image = [UIImage imageNamed:@"Gatsby"];
+        
     }else{
         self.headImageView.image = [UIImage imageNamed:@"Jobs"];
     }
@@ -202,7 +209,7 @@
     self.voiceTimeLabel.frame = frameMessage.voiceTimeF;
     self.chatImgView.frame = frameMessage.imageViewF;
     self.videoImgView.frame = frameMessage.videoViewF;
-
+    self.videoPlayButton.frame = frameMessage.videoPlayButtonF;
     if (model.isSender) {
         //设置正文的背景图片
         [self.backgView setBackgroundImage:[UIImage resizeWithImageName:@"chat_send_nor"] forState:UIControlStateNormal];
@@ -238,6 +245,7 @@
                 self.chatImgView.image = image;
             }
             
+            
         }
             
         break;
@@ -251,6 +259,8 @@
                 // 如果本地视频不存，从网络加载图片
                 [self.videoImgView sd_setImageWithURL:model.thumbnailRemoteURL placeholderImage:palceImg];
             }
+            [self.videoPlayButton setBackgroundImage:[UIImage imageNamed:@"chat_video_play"] forState:UIControlStateNormal];
+
         }
         break;
             

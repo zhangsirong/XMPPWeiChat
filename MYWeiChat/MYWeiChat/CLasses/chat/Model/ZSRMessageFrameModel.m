@@ -125,8 +125,10 @@
             CGFloat videoW = msgModel.thumbnailSize.width;
             CGFloat videoH = msgModel.thumbnailSize.height;
             backgSize = CGSizeMake(videoW + 30, videoH + 30);
+            
+            
+            
             if (msgModel.isSender) {//自己发的
-                
                 videoX = bScreenWidth - headImageW - padding * 4.5 - videoW;
                 backgroundX = bScreenWidth - headImageW - padding * 6  - videoW;
             }else{//别人发的
@@ -134,7 +136,14 @@
                 backgroundX = headImageW + padding;
                 
             }
+            
+            CGFloat videoBtnX = videoX + videoW / 2- bIconW/2;
+            CGFloat videoBtnY = videoY + videoH/2 - bIconH/2;
+            CGFloat videoBtnW = bIconW;
+            CGFloat videoBtnH = bIconH;
             _videoViewF =  CGRectMake(videoX, videoY, videoW, videoH);
+            _videoPlayButtonF = CGRectMake(videoBtnX, videoBtnY, videoBtnW, videoBtnH);
+            
         }
             
         break;

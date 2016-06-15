@@ -15,7 +15,8 @@ typedef enum{
     kRouterEventChatCellVideoTapEventType,
     kRouterEventLocationBubbleTapEventType,
     kRouterEventTextURLTapEventType,
-    kRouterEventMenuTapEventType
+    kRouterEventMenuTapEventType,
+    kRouterEventChatCellBubbleTapEventType
     
 } ZSRRouterpEventType;
 

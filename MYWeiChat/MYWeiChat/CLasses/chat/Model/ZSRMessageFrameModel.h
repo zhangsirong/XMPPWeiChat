@@ -33,6 +33,8 @@
 
 //视频
 @property (nonatomic, assign,readonly)CGRect videoViewF;
+//视频
+@property (nonatomic, assign,readonly)CGRect videoPlayButtonF;
 
 //cellH
 @property (nonatomic, assign,readonly)CGFloat cellH;

@@ -20,6 +20,7 @@
 #import "DXChatBarMoreView.h"
 #import "ZSRMessageReadManager.h"
 #import "ZSRAudioPlayTool.h"
+#import "Constant.h"
 
 @import AVKit;
 @interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,EMChatManagerDelegate,ZSRMessageToolBarDelegate,EMCDDeviceManagerDelegate,DXChatBarMoreViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -61,7 +62,6 @@
 @end
 
 @implementation ZSRChatViewController
-
 
 #pragma mark - helper
 - (NSString *)convert2Mp4:(NSURL *)movUrl {
@@ -115,7 +115,7 @@
 - (ZSRMessageToolBar *)chatToolBar
 {
     if (_chatToolBar == nil) {
-        _chatToolBar = [[ZSRMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [ZSRMessageToolBar defaultHeight], self.view.frame.size.width, [ZSRMessageToolBar defaultHeight])];
+        _chatToolBar = [[ZSRMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [ZSRMessageToolBar defaultHeight], bScreenWidth, [ZSRMessageToolBar defaultHeight])];
         ZSRLog(@"_chatToolBar%@",NSStringFromCGRect(_chatToolBar.frame));
 
         _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -133,7 +133,7 @@
 {
     if (_tableView == nil) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, bScreenWidth, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -175,13 +175,12 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     _isPlayingAudio = NO;
-
     
-    [self.view addSubview:self.chatToolBar];
-    [self.view addSubview:self.tableView];
+    [self setupSubView];
     [self loadLocalChatRecords];
     self.title = self.buddy.username;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kOrientationDidChange) name:UIDeviceOrientationDidChangeNotification  object:nil];
     // 设置聊天管理器的代理
     [EMCDDeviceManager sharedInstance].delegate = self;
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
@@ -191,6 +190,16 @@
     if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
     }
+}
+
+- (void)kOrientationDidChange{
+    [self.view layoutSubviews];
+//    [self.view setNeedsDisplay];
+//    [self.view reloadInputViews]
+}
+-(void)setupSubView{
+    [self.view addSubview:self.chatToolBar];
+    [self.view addSubview:self.tableView];
 }
 
 -(void)loadLocalChatRecords{
@@ -300,6 +309,7 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 #pragma mark 发送文本消息

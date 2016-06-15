@@ -10,8 +10,8 @@
 
 
 @implementation UIResponder (Router)
-- (void)routerEventWithName:(ZSRRouterpEventType)eventName userInfo:(NSDictionary *)userInfo
+- (void)routerEventWithName:(ZSRRouterpEventType)eventType userInfo:(NSDictionary *)userInfo
 {
-    [[self nextResponder] routerEventWithName:eventName userInfo:userInfo];
+    [[self nextResponder] routerEventWithName:eventType userInfo:userInfo];
 }
 @end

@@ -24,9 +24,8 @@
 //    [self loadBuddyListFromServer];
 
     [super viewDidLoad];
-    self.tableView.rowHeight = 80;
-    
-    
+    self.tableView.rowHeight = 60;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    self.view.backgroundColor = [UIColor redColor];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFriendAction)];

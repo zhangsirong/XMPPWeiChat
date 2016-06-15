@@ -9,7 +9,7 @@
 #import "ZSRTabBarViewController.h"
 #import "ZSRNavigationViewController.h"
 
-#import "ZSRMessageViewController.h"
+#import "ZSRConversationViewController.h"
 #import "ZSRContactsViewController.h"
 #import "ZSRDiscoverViewController.h"
 #import "ZSRMeViewController.h"
@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    ZSRMessageViewController *messageVc = [[ZSRMessageViewController alloc] init];
+    ZSRConversationViewController *messageVc = [[ZSRConversationViewController alloc] init];
     [self addChildVc:messageVc title:@"微信" image:@"tabbar_mainframe.png" selectedImage:@"tabbar_mainframeHL.png"];
     
     ZSRContactsViewController *contactsVc = [[ZSRContactsViewController alloc] init];
