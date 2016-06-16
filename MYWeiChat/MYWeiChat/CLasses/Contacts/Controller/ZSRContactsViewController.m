@@ -11,12 +11,11 @@
 #import "ZSRChatViewController.h"
 #import "ZSRContactsCell.h"
 #import "EaseMob.h"
-#import "EMSearchBar.h"
 #import "MJRefresh.h"
 #import "ChineseToPinyin.h"
 #import "ZSRUserProfileManager.h"
-
-
+#import "ZSRApplyViewController.h"
+#import "ZSRGroupListViewController.h"
 
 @interface ZSRContactsViewController ()<UITableViewDataSource, UITableViewDelegate,EMChatManagerDelegate,UISearchBarDelegate>
 
@@ -24,9 +23,12 @@
 @property (strong, nonatomic) NSMutableArray *contactsSource;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *sectionTitles;
+@property (strong, nonatomic) UILabel *unapplyCountLabel;
+
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) EMSearchBar *searchBar;
+@property (strong, nonatomic) ZSRGroupListViewController *groupController;
+
 
 @end
 
@@ -46,9 +48,8 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-    self.searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
-    [self.view addSubview:self.searchBar];
-    self.tableView.frame = CGRectMake(0,  self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height - 49);
+
+    self.tableView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height - 49);
     [self.view addSubview:self.tableView];
     
     self.tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -57,8 +58,9 @@
         });
     }];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFriendAction)];
-    // 添加聊天管理器的代理
+
     [self reloadDataSource];
+
     //加载用户好友个人信息
     [[ZSRUserProfileManager sharedInstance] loadUserProfileInBackgroundWithBuddy:self.contactsSource saveToLoacal:YES completion:NULL];
 
@@ -66,7 +68,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    [super viewWillAppear:animated];
+    [self reloadApplyView];
+
 }
 
 
@@ -86,17 +90,21 @@
     return _tableView;
 }
 
-- (UISearchBar *)searchBar
+- (UILabel *)unapplyCountLabel
 {
-    if (_searchBar == nil) {
-        _searchBar = [[EMSearchBar alloc] init];
-        _searchBar.delegate = self;
-        _searchBar.placeholder = NSLocalizedString(@"search", @"Search");
-        _searchBar.backgroundColor = [UIColor colorWithRed:0.747 green:0.756 blue:0.751 alpha:1.000];
+    if (_unapplyCountLabel == nil) {
+        _unapplyCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 5, 20, 20)];
+        _unapplyCountLabel.textAlignment = NSTextAlignmentCenter;
+        _unapplyCountLabel.font = [UIFont systemFontOfSize:11];
+        _unapplyCountLabel.backgroundColor = [UIColor redColor];
+        _unapplyCountLabel.textColor = [UIColor whiteColor];
+        _unapplyCountLabel.layer.cornerRadius = _unapplyCountLabel.frame.size.height / 2;
+        _unapplyCountLabel.hidden = NO;
+        _unapplyCountLabel.clipsToBounds = YES;
     }
-    
-    return _searchBar;
+    return _unapplyCountLabel;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -109,7 +117,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0 ) {
-        return 4;
+        return 2;
     }
     return [[self.dataSource objectAtIndex:(section - 1)] count];
 }
@@ -117,26 +125,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     ZSRContactsCell *cell;
     if (indexPath.section == 0 && indexPath.row == 0) {
         cell = [ZSRContactsCell contactCellWithTableView:tableView reuseIdentifier:@"FriendCell"];
         cell.imageView.image = [UIImage imageNamed:@"newFriends"];
         cell.textLabel.text = @"新的朋友";
+        [cell addSubview:self.unapplyCountLabel];
+
     }else{
         cell = [ZSRContactsCell contactCellWithTableView:tableView];
         cell.indexPath = indexPath;
         if (indexPath.section == 0 && indexPath.row == 1) {
             cell.imageView.image = [UIImage imageNamed:@"groupPrivateHeader"];
             cell.username = @"群聊";
-        }
-        else if (indexPath.section == 0 && indexPath.row == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"groupPublicHeader"];
-            cell.username = @"聊天室";
-        }
-        else if (indexPath.section == 0 && indexPath.row == 3) {
-            cell.imageView.image = [UIImage imageNamed:@"groupPublicHeader"];
-            cell.username = @"聊天助手";
         }
         else{
             EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
@@ -154,31 +155,50 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         // 获取移除好友的名字
-                EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
-//        EMBuddy *buddy = self.buddyList[indexPath.row];
+        EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
         NSString *deleteUsername = buddy.username;
+        NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+        if ([deleteUsername isEqualToString:[loginInfo objectForKey:kSDKUsername]]) {
+            [self showAlertMessage:@"不能删除自己"];
+            return;
+        }
         // 删除好友
         [[EaseMob sharedInstance].chatManager removeBuddy:deleteUsername removeFromRemote:YES error:nil];
     }
 }
 
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //获取好友
-    EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
-    ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
-    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
-    if ([buddy.username isEqualToString:[loginInfo objectForKey:kSDKUsername]]) {
-        UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"提示" message:@"不能和自己聊天" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-        [alertViewController addAction:action];
-        [self presentViewController:alertViewController animated:YES completion:nil];
-        return;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[ZSRApplyViewController shareController] animated:YES];
+        }
+        else if (indexPath.row == 1)
+        {
+            if (_groupController == nil) {
+                _groupController = [[ZSRGroupListViewController alloc] initWithStyle:UITableViewStylePlain];
+            }
+            else{
+//                [_groupController reloadDataSource];
+            }
+            [self.navigationController pushViewController:_groupController animated:YES];
+        }
+
+    }else{
+        //获取好友
+        EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
+        ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
+        NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+        if ([buddy.username isEqualToString:[loginInfo objectForKey:kSDKUsername]]) {
+            [self showAlertMessage:@"不能和自己聊天"];
+            return;
+        }
+        vc.buddy = buddy;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    vc.buddy = buddy;
-    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
@@ -202,6 +222,9 @@
     [contentView addSubview:label];
     return contentView;
 }
+
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -228,8 +251,10 @@
     ZSRAddFriendViewController *vc = [[ZSRAddFriendViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+
 #pragma mark - chatmanger的代理
-#pragma mark - 监听自动登录成功
+// 监听自动登录成功
 -(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
     if (!error) {//自动登录成功，此时buddyList就有值
         NSArray *buddyList = [[EaseMob sharedInstance].chatManager buddyList];
@@ -237,30 +262,71 @@
         [self.tableView reloadData];
     }
 }
-#pragma mark 好友添加请求同意
+
+
+
+#pragma mark - 好友代理方法
+
+//接收好友的添加请求
+-(void)didReceiveBuddyRequest:(NSString *)username message:(NSString *)message{
+    if (!username) {
+        return;
+    }
+    if (!message) {
+        message = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyAddWithName", @"%@ add you as a friend"), username];
+    }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":username, @"username":username, @"applyMessage":message, @"applyStyle":[NSNumber numberWithInteger:ZSRApplyStyleFriend]}];
+    [[ZSRApplyViewController shareController] addNewApply:dic];
+    [self reloadApplyView];
+}
+//好友请求被同意
 -(void)didAcceptedByBuddy:(NSString *)username{
-    // 把新的好友显示到表格
-    NSArray *buddyList = [[EaseMob sharedInstance].chatManager buddyList];
-    NSLog(@"好友添加请求同意 %@",buddyList);
-#warning buddyList的个数，仍然是没有添加好友之前的个数，从新服务器获取
+    
+    // 提醒用户，好友请求被同意
+    NSString *message = [NSString stringWithFormat:@"%@ 同意了你的好友请求",username];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加消息" message:message delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    [alert show];
     [self reloadDataSource];
+
+    
 }
 
-#pragma mark 好友列表数据被更新
+//好友请求被拒绝
+-(void)didRejectedByBuddy:(NSString *)username{
+    // 提醒用户，好友请求被同意
+    NSString *message = [NSString stringWithFormat:@"%@ 拒绝了你的好友请求",username];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加消息" message:message delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    [alert show];
+    
+}
+
+//好友列表数据被更新
 -(void)didUpdateBuddyList:(NSArray *)buddyList changedBuddies:(NSArray *)changedBuddies isAdd:(BOOL)isAdd{
     
     NSLog(@"好友列表数据被更新 %@",buddyList);
     [self reloadDataSource];
 }
 
-#pragma mark 被好友删除
+//被好友删除
 - (void)didRemovedByBuddy:(NSString *)username
 {
     // 刷新表格
     [self reloadDataSource];
 }
 
+
+
 #pragma mark - private
+- (void)showAlertMessage:(NSString *)message {
+    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    [alertViewController addAction:action];
+    [alertViewController addAction:cancelAction];
+    [self presentViewController:alertViewController animated:YES completion:nil];
+}
+
+
 - (NSMutableArray *)sortDataArray:(NSArray *)dataArray
 {
     //建立索引的核心
@@ -332,4 +398,29 @@
     
     [_tableView reloadData];
 }
+
+
+#pragma mark - action
+
+- (void)reloadApplyView
+{
+    NSInteger count = [[[ZSRApplyViewController shareController] dataSource] count];
+    
+    if (count == 0) {
+        self.unapplyCountLabel.hidden = YES;
+    }
+    else
+    {
+        count=1;
+        NSString *tmpStr = [NSString stringWithFormat:@"%i", (int)count];
+        CGSize size = [tmpStr sizeWithFont:self.unapplyCountLabel.font constrainedToSize:CGSizeMake(50, 20) lineBreakMode:NSLineBreakByWordWrapping];
+        CGRect rect = self.unapplyCountLabel.frame;
+        rect.size.width = size.width > 20 ? size.width : 20;
+        self.unapplyCountLabel.text = tmpStr;
+        self.unapplyCountLabel.frame = rect;
+        self.unapplyCountLabel.hidden = NO;
+        [self.tableView reloadData];
+    }
+}
+
 @end

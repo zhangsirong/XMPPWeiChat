@@ -221,47 +221,10 @@
 
 #pragma mark 自动登录的回调
 -(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
-    if (!error) {
-        //        NSLog(@"%s 自动登录成功 %@",__FUNCTION__, loginInfo);
-    }else{
+    if (error) {
         NSLog(@"自动登录失败 %@",error);
     }
-    
 }
-
-
-#pragma mark - 好友添加的代理方法
-#pragma mark 好友请求被同意
--(void)didAcceptedByBuddy:(NSString *)username{
-    
-    // 提醒用户，好友请求被同意
-    NSString *message = [NSString stringWithFormat:@"%@ 同意了你的好友请求",username];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加消息" message:message delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-    [alert show];
-}
-
-#pragma mark 好友请求被拒绝
--(void)didRejectedByBuddy:(NSString *)username{
-    // 提醒用户，好友请求被同意
-    NSString *message = [NSString stringWithFormat:@"%@ 拒绝了你的好友请求",username];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加消息" message:message delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-    [alert show];
-    
-}
-
-
-#pragma mark 接收好友的添加请求
--(void)didReceiveBuddyRequest:(NSString *)username message:(NSString *)message{
-    
-    // 赋值
-    self.buddyUsername = username;
-    
-    // 对话框
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"好友添加请求" message:message delegate:self cancelButtonTitle:@"拒绝" otherButtonTitles:@"同意", nil];
-    [alert show];
-    
-}
-
 
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -317,6 +280,11 @@
         
     }
     self.navigationController.tabBarItem.badgeValue = totalUnreadCount==0?nil:[NSString stringWithFormat:@"%ld",totalUnreadCount];
+    
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    UIApplication *application = [UIApplication sharedApplication];
+    [application setApplicationIconBadgeNumber:totalUnreadCount];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
