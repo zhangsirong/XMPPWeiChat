@@ -56,7 +56,15 @@
         conversations =  [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
     }
     
-    NSArray* sorte = [conversations sortedArrayUsingComparator:
+    NSMutableArray *realConversions = [NSMutableArray array];
+    for (int i = 0; i<[conversations count];i++) {
+        EMConversation  *conversation = conversations[i];
+        if ( conversation.latestMessage) {
+            [realConversions addObject:conversation];
+        }
+    }
+    
+    NSArray* sorte = [realConversions sortedArrayUsingComparator:
                       ^(EMConversation *obj1, EMConversation* obj2){
                           EMMessage *message1 = [obj1 latestMessage];
                           EMMessage *message2 = [obj2 latestMessage];
@@ -316,11 +324,11 @@
     //会话
     EMConversation *conversation = self.conversations[indexPath.row];
     EMBuddy *buddy = [EMBuddy buddyWithUsername:conversation.chatter];
-    
     ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
     vc.buddy = buddy;
+    if (conversation.conversationType == eConversationTypeGroupChat){
+        vc.conversation = conversation;
+    }
     [self.navigationController pushViewController:vc animated:YES];
-    
-    
 }
 @end

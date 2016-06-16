@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZSRContactsViewController : UITableViewController
+@interface ZSRContactsViewController : UIViewController
 
 @end

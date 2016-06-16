@@ -11,4 +11,6 @@
 @interface ZSRChatViewController : UIViewController
 /** 好友 */
 @property (nonatomic, strong) EMBuddy *buddy;
+@property (nonatomic, strong) EMConversation *conversation;
+
 @end

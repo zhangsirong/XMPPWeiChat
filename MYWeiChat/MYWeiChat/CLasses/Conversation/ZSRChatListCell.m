@@ -23,7 +23,7 @@
 
 +(instancetype)chatListCellWithTableView:(UITableView *)tableview
 {
-    static NSString *ID = @"messageCell";
+    static NSString *ID = @"chatListCell";
     ZSRChatListCell *cell = [tableview dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[self alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];

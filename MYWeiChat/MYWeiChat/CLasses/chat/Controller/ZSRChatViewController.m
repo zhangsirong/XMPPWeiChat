@@ -57,7 +57,6 @@
 @property (nonatomic, strong) NSMutableArray *messagesFrames;
 
 /** 当前会话对象 */
-@property (nonatomic, strong) EMConversation *conversation;
 
 @end
 
@@ -178,7 +177,11 @@
     
     [self setupSubView];
     [self loadLocalChatRecords];
-    self.title = self.buddy.username;
+    if(self.conversation.conversationType == eConversationTypeChat){
+        self.title = self.buddy.username;
+    }else if (self.conversation.conversationType == eConversationTypeGroupChat){
+        self.title = [self.conversation.ext objectForKey:@"groupSubject"];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kOrientationDidChange) name:UIDeviceOrientationDidChangeNotification  object:nil];
     // 设置聊天管理器的代理
@@ -204,9 +207,9 @@
 
 -(void)loadLocalChatRecords{
     // 要获取本地聊天记录使用 会话对象
-    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.buddy.username conversationType:eConversationTypeChat];
-    
+     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.buddy.username conversationType:eConversationTypeChat];
     self.conversation = conversation;
+
 
     // 加载与当前聊天用户所有聊天记录
     NSArray *msgS = [conversation loadAllMessages];
@@ -293,7 +296,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZSRMessageCell *cell = [ZSRMessageCell messageCellWithTableView:tableView];
-//    ZSRChatViewBaseCell *cell = [ZSRChatViewBaseCell messageCellWithTableView:tableView];
     //取出model
     ZSRMessageFrameModel *model = self.messagesFrames[indexPath.row];
     //设置model
@@ -406,8 +408,6 @@
 /**添加一条消息*/
 - (void)didAddMessage:(EMMessage *)message{
     
-    
-//    ZSRMessageModel *msgModel = [[ZSRMessageModel alloc]init];
     
     ZSRMessageModel *msgModel =  [ZSRMessageModelManager modelWithMessage:message];
     msgModel.message = message;
@@ -621,7 +621,8 @@
 #pragma mark - GestureRecognizer
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.chatToolBar.inputTextView resignFirstResponder];
+    [self.chatToolBar endEditing:YES];
+
 }
 
 

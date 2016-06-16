@@ -59,10 +59,14 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "EaseMobSDKFull/EaseMobSDKFull/resources/EaseMob.bundle"
+  install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "Parse/Parse/Resources/en.lproj"
   install_resource "${BUILT_PRODUCTS_DIR}/MWPhotoBrowser.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "EaseMobSDKFull/EaseMobSDKFull/resources/EaseMob.bundle"
+  install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "Parse/Parse/Resources/en.lproj"
   install_resource "${BUILT_PRODUCTS_DIR}/MWPhotoBrowser.bundle"
 fi
 
