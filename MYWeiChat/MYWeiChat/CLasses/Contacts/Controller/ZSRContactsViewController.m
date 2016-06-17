@@ -25,7 +25,6 @@
 @property (nonatomic, strong) NSMutableArray *sectionTitles;
 @property (strong, nonatomic) UILabel *unapplyCountLabel;
 
-
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) ZSRGroupListViewController *groupController;
 
@@ -405,21 +404,23 @@
 - (void)reloadApplyView
 {
     NSInteger count = [[[ZSRApplyViewController shareController] dataSource] count];
-    
+   
     if (count == 0) {
         self.unapplyCountLabel.hidden = YES;
+        self.navigationController.tabBarItem.badgeValue = nil;
+
     }
     else
     {
-        count=1;
         NSString *tmpStr = [NSString stringWithFormat:@"%i", (int)count];
-        CGSize size = [tmpStr sizeWithFont:self.unapplyCountLabel.font constrainedToSize:CGSizeMake(50, 20) lineBreakMode:NSLineBreakByWordWrapping];
-        CGRect rect = self.unapplyCountLabel.frame;
-        rect.size.width = size.width > 20 ? size.width : 20;
+        CGRect rect = [tmpStr boundingRectWithSize:CGSizeMake(50, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil];
+        CGRect unapplyRect = self.unapplyCountLabel.frame;
+        unapplyRect.size.width = rect.size.width > 20 ? rect.size.width : 20;
         self.unapplyCountLabel.text = tmpStr;
-        self.unapplyCountLabel.frame = rect;
+        self.unapplyCountLabel.frame = unapplyRect;
         self.unapplyCountLabel.hidden = NO;
         [self.tableView reloadData];
+        self.navigationController.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%ld",count];
     }
 }
 

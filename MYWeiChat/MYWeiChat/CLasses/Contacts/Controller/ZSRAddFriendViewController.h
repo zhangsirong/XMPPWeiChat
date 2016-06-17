@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZSRAddFriendViewController : UIViewController
+@interface ZSRAddFriendViewController : UITableViewController
 
 @end

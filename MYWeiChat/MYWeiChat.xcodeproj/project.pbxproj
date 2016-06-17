@@ -234,6 +234,7 @@
 		E69069581CE84BF60014FE63 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E69069471CE84BF60014FE63 /* AppDelegate.m */; };
 		E69069591CE84BF60014FE63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E69069481CE84BF60014FE63 /* Images.xcassets */; };
 		E690695A1CE84BF60014FE63 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E69069491CE84BF60014FE63 /* LaunchImage.png */; };
+		E6B8BA681D13C2F600D64E2A /* ZSRAddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B8BA671D13C2F600D64E2A /* ZSRAddFriendCell.m */; };
 		E6C1FE091CF3557000C068DB /* ZSRTimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1FE081CF3557000C068DB /* ZSRTimeTool.m */; };
 		E6CAA98D1D125A9D00E76120 /* ChineseToPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA98C1D125A9D00E76120 /* ChineseToPinyin.m */; };
 		E6CAA9921D125BF600E76120 /* ZSRUserProfileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9911D125BF600E76120 /* ZSRUserProfileManager.m */; };
@@ -546,6 +547,8 @@
 		E69069481CE84BF60014FE63 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E69069491CE84BF60014FE63 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		E690694A1CE84BF60014FE63 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		E6B8BA661D13C2F600D64E2A /* ZSRAddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRAddFriendCell.h; sourceTree = "<group>"; };
+		E6B8BA671D13C2F600D64E2A /* ZSRAddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRAddFriendCell.m; sourceTree = "<group>"; };
 		E6C1FE071CF3557000C068DB /* ZSRTimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTimeTool.h; sourceTree = "<group>"; };
 		E6C1FE081CF3557000C068DB /* ZSRTimeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTimeTool.m; sourceTree = "<group>"; };
 		E6CAA98B1D125A9D00E76120 /* ChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyin.h; sourceTree = "<group>"; };
@@ -1217,6 +1220,8 @@
 				E60170451D1179D300431C39 /* ZSRContactsCell.m */,
 				E6CAA9A51D12A2D000E76120 /* ZSRApplyFriendCell.h */,
 				E6CAA9A61D12A2D000E76120 /* ZSRApplyFriendCell.m */,
+				E6B8BA661D13C2F600D64E2A /* ZSRAddFriendCell.h */,
+				E6B8BA671D13C2F600D64E2A /* ZSRAddFriendCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1783,6 +1788,7 @@
 				E68276A41CE9B0A3009F911A /* ZSRMessageModel.m in Sources */,
 				E66F42611CE86D7A001217F6 /* MBProgressHUD+ZSR.m in Sources */,
 				E6CAA9921D125BF600E76120 /* ZSRUserProfileManager.m in Sources */,
+				E6B8BA681D13C2F600D64E2A /* ZSRAddFriendCell.m in Sources */,
 				E665CD0D1D0E7F310015E394 /* UIResponder+Router.m in Sources */,
 				E6EC8D5A1CEA1C5E0098679D /* EMCDDeviceManager+Microphone.m in Sources */,
 				E665CCFF1D0E57AC0015E394 /* ZSRMessageToolBar.m in Sources */,
