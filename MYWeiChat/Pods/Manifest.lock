@@ -10,6 +10,7 @@ PODS:
     - SDWebImage (!= 3.7.2, ~> 3.7)
   - Parse (1.13.0):
     - Bolts/Tasks (~> 1.6)
+  - SCLAlertView-Objective-C (1.0.3)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - MJRefresh (~> 3.1.1)
   - MWPhotoBrowser (~> 2.1.2)
   - Parse (~> 1.13.0)
+  - SCLAlertView-Objective-C (~> 1.0.3)
   - SDWebImage (~> 3.7.6)
 
 EXTERNAL SOURCES:
@@ -39,6 +41,7 @@ SPEC CHECKSUMS:
   MJRefresh: 5c69f11e8bde0664e15326d2e61f61e103c6545f
   MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+  SCLAlertView-Objective-C: e83376218b431109dc5403adc63f8e9787db7b74
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
 
 COCOAPODS: 0.39.0

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ZSRGroupListViewController : UITableViewController
+- (void)reloadDataSource;
 
 @end

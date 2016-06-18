@@ -6,19 +6,19 @@
 //  Copyright © 2016 hp. All rights reserved.
 //
 
-#import "ZSRContactsCell.h"
+#import "ZSRBaseTableViewCell.h"
 
-@implementation ZSRContactsCell
+@implementation ZSRBaseTableViewCell
 
 +(instancetype)contactCellWithTableView:(UITableView *)tableview
 {
     static NSString *ID = @"contactCell";
-    return [ZSRContactsCell contactCellWithTableView:tableview reuseIdentifier:ID];
+    return [ZSRBaseTableViewCell contactCellWithTableView:tableview reuseIdentifier:ID];
 }
 
 +(instancetype)contactCellWithTableView:(UITableView *)tableview reuseIdentifier:(NSString *)ID
 {
-    ZSRContactsCell *cell = [tableview dequeueReusableCellWithIdentifier:ID];
+    ZSRBaseTableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[self alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         

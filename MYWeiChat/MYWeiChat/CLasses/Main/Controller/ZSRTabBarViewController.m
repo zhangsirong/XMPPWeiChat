@@ -42,7 +42,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     ZSRConversationViewController *messageVc = [[ZSRConversationViewController alloc] init];
     [self addChildVc:messageVc title:@"微信" image:@"tabbar_mainframe.png" selectedImage:@"tabbar_mainframeHL.png"];
     

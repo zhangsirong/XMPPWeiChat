@@ -68,6 +68,7 @@
 
 + (void)hideHUDForView:(UIView *)view
 {
+    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     [self hideHUDForView:view animated:YES];
 }
 

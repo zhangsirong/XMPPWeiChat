@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZSRContactsCell : UITableViewCell
+@interface ZSRBaseTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) UIView *bottomLineView;

@@ -197,9 +197,10 @@
 		E60170321D11530700431C39 /* tabbarSelectBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6016F791D11530700431C39 /* tabbarSelectBg@2x.png */; };
 		E601703F1D1153AE00431C39 /* ZSRChatListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E601703C1D1153AE00431C39 /* ZSRChatListCell.m */; };
 		E60170401D1153AE00431C39 /* ZSRConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E601703E1D1153AE00431C39 /* ZSRConversationViewController.m */; };
-		E60170461D1179D300431C39 /* ZSRContactsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E60170451D1179D300431C39 /* ZSRContactsCell.m */; };
+		E60170461D1179D300431C39 /* ZSRBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E60170451D1179D300431C39 /* ZSRBaseTableViewCell.m */; };
 		E633D37D1D02D604002911AD /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D37A1D02D604002911AD /* Emoji.m */; };
 		E633D37E1D02D604002911AD /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D37C1D02D604002911AD /* EmojiEmoticons.m */; };
+		E635DCF01D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E635DCEF1D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m */; };
 		E649FEC01CE8481600A0447F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEBF1CE8481600A0447F /* main.m */; };
 		E649FED91CE8481600A0447F /* MYWeiChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FED81CE8481600A0447F /* MYWeiChatTests.m */; };
 		E649FEE41CE8481600A0447F /* MYWeiChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E649FEE31CE8481600A0447F /* MYWeiChatUITests.m */; };
@@ -235,11 +236,17 @@
 		E69069591CE84BF60014FE63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E69069481CE84BF60014FE63 /* Images.xcassets */; };
 		E690695A1CE84BF60014FE63 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E69069491CE84BF60014FE63 /* LaunchImage.png */; };
 		E6B8BA681D13C2F600D64E2A /* ZSRAddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B8BA671D13C2F600D64E2A /* ZSRAddFriendCell.m */; };
+		E6B8BA6D1D13F9C600D64E2A /* ZSRGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B8BA6C1D13F9C600D64E2A /* ZSRGroupListViewController.m */; };
+		E6B8BA721D14014D00D64E2A /* ZSRPublicGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B8BA711D14014D00D64E2A /* ZSRPublicGroupListViewController.m */; };
+		E6B8BA751D14020A00D64E2A /* ZSRCreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B8BA741D14020A00D64E2A /* ZSRCreateGroupViewController.m */; };
+		E6C1AC371D15786B00583ACA /* ZSRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1AC361D15786B00583ACA /* ZSRTextView.m */; };
+		E6C1AC3A1D158CAF00583ACA /* ZSRChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1AC391D158CAF00583ACA /* ZSRChooseViewController.m */; };
+		E6C1AC401D158EFA00583ACA /* ZSRContactSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1AC3F1D158EFA00583ACA /* ZSRContactSelectionViewController.m */; };
+		E6C1AC431D15945B00583ACA /* ZSRRemarkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1AC421D15945B00583ACA /* ZSRRemarkImageView.m */; };
 		E6C1FE091CF3557000C068DB /* ZSRTimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1FE081CF3557000C068DB /* ZSRTimeTool.m */; };
 		E6CAA98D1D125A9D00E76120 /* ChineseToPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA98C1D125A9D00E76120 /* ChineseToPinyin.m */; };
 		E6CAA9921D125BF600E76120 /* ZSRUserProfileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9911D125BF600E76120 /* ZSRUserProfileManager.m */; };
 		E6CAA9A11D129F7600E76120 /* ZSRApplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9A01D129F7600E76120 /* ZSRApplyViewController.m */; };
-		E6CAA9A41D12A09E00E76120 /* ZSRGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9A31D12A09E00E76120 /* ZSRGroupListViewController.m */; };
 		E6CAA9A71D12A2D000E76120 /* ZSRApplyFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9A61D12A2D000E76120 /* ZSRApplyFriendCell.m */; };
 		E6CAA9AA1D12A5B000E76120 /* ZSRInvitationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9A91D12A5B000E76120 /* ZSRInvitationManager.m */; };
 		E6E762091D0159520024B4C9 /* ZSRAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E762081D0159520024B4C9 /* ZSRAudioPlayTool.m */; };
@@ -471,12 +478,14 @@
 		E601703C1D1153AE00431C39 /* ZSRChatListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRChatListCell.m; sourceTree = "<group>"; };
 		E601703D1D1153AE00431C39 /* ZSRConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRConversationViewController.h; sourceTree = "<group>"; };
 		E601703E1D1153AE00431C39 /* ZSRConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRConversationViewController.m; sourceTree = "<group>"; };
-		E60170441D1179D300431C39 /* ZSRContactsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactsCell.h; sourceTree = "<group>"; };
-		E60170451D1179D300431C39 /* ZSRContactsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactsCell.m; sourceTree = "<group>"; };
+		E60170441D1179D300431C39 /* ZSRBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRBaseTableViewCell.h; sourceTree = "<group>"; };
+		E60170451D1179D300431C39 /* ZSRBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRBaseTableViewCell.m; sourceTree = "<group>"; };
 		E633D3791D02D604002911AD /* Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emoji.h; sourceTree = "<group>"; };
 		E633D37A1D02D604002911AD /* Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emoji.m; sourceTree = "<group>"; };
 		E633D37B1D02D604002911AD /* EmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiEmoticons.h; sourceTree = "<group>"; };
 		E633D37C1D02D604002911AD /* EmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiEmoticons.m; sourceTree = "<group>"; };
+		E635DCEE1D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRPublicGroupDetailViewController.h; sourceTree = "<group>"; };
+		E635DCEF1D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRPublicGroupDetailViewController.m; sourceTree = "<group>"; };
 		E649FEBB1CE8481600A0447F /* MYWeiChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYWeiChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E649FEBF1CE8481600A0447F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E649FECF1CE8481600A0447F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -549,6 +558,20 @@
 		E690694A1CE84BF60014FE63 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E6B8BA661D13C2F600D64E2A /* ZSRAddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRAddFriendCell.h; sourceTree = "<group>"; };
 		E6B8BA671D13C2F600D64E2A /* ZSRAddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRAddFriendCell.m; sourceTree = "<group>"; };
+		E6B8BA6B1D13F9C600D64E2A /* ZSRGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRGroupListViewController.h; sourceTree = "<group>"; };
+		E6B8BA6C1D13F9C600D64E2A /* ZSRGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRGroupListViewController.m; sourceTree = "<group>"; };
+		E6B8BA701D14014D00D64E2A /* ZSRPublicGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRPublicGroupListViewController.h; sourceTree = "<group>"; };
+		E6B8BA711D14014D00D64E2A /* ZSRPublicGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRPublicGroupListViewController.m; sourceTree = "<group>"; };
+		E6B8BA731D14020A00D64E2A /* ZSRCreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRCreateGroupViewController.h; sourceTree = "<group>"; };
+		E6B8BA741D14020A00D64E2A /* ZSRCreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRCreateGroupViewController.m; sourceTree = "<group>"; };
+		E6C1AC351D15786B00583ACA /* ZSRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTextView.h; sourceTree = "<group>"; };
+		E6C1AC361D15786B00583ACA /* ZSRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTextView.m; sourceTree = "<group>"; };
+		E6C1AC381D158CAF00583ACA /* ZSRChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRChooseViewController.h; sourceTree = "<group>"; };
+		E6C1AC391D158CAF00583ACA /* ZSRChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRChooseViewController.m; sourceTree = "<group>"; };
+		E6C1AC3E1D158EFA00583ACA /* ZSRContactSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactSelectionViewController.h; sourceTree = "<group>"; };
+		E6C1AC3F1D158EFA00583ACA /* ZSRContactSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactSelectionViewController.m; sourceTree = "<group>"; };
+		E6C1AC411D15945B00583ACA /* ZSRRemarkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRRemarkImageView.h; sourceTree = "<group>"; };
+		E6C1AC421D15945B00583ACA /* ZSRRemarkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRRemarkImageView.m; sourceTree = "<group>"; };
 		E6C1FE071CF3557000C068DB /* ZSRTimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTimeTool.h; sourceTree = "<group>"; };
 		E6C1FE081CF3557000C068DB /* ZSRTimeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTimeTool.m; sourceTree = "<group>"; };
 		E6CAA98B1D125A9D00E76120 /* ChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyin.h; sourceTree = "<group>"; };
@@ -557,8 +580,6 @@
 		E6CAA9911D125BF600E76120 /* ZSRUserProfileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRUserProfileManager.m; sourceTree = "<group>"; };
 		E6CAA99F1D129F7600E76120 /* ZSRApplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRApplyViewController.h; sourceTree = "<group>"; };
 		E6CAA9A01D129F7600E76120 /* ZSRApplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRApplyViewController.m; sourceTree = "<group>"; };
-		E6CAA9A21D12A09E00E76120 /* ZSRGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRGroupListViewController.h; sourceTree = "<group>"; };
-		E6CAA9A31D12A09E00E76120 /* ZSRGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRGroupListViewController.m; sourceTree = "<group>"; };
 		E6CAA9A51D12A2D000E76120 /* ZSRApplyFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRApplyFriendCell.h; sourceTree = "<group>"; };
 		E6CAA9A61D12A2D000E76120 /* ZSRApplyFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRApplyFriendCell.m; sourceTree = "<group>"; };
 		E6CAA9A81D12A5B000E76120 /* ZSRInvitationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRInvitationManager.h; sourceTree = "<group>"; };
@@ -1156,11 +1177,12 @@
 		E690691E1CE84BF60014FE63 /* CLasses */ = {
 			isa = PBXGroup;
 			children = (
+				E68276841CE97F27009F911A /* chat */,
 				E6CAA98F1D125BBC00E76120 /* Profile */,
 				E6EC8D411CEA1C5E0098679D /* Lib */,
-				E68276841CE97F27009F911A /* chat */,
 				E66F425B1CE86D3A001217F6 /* Category */,
 				E690691F1CE84BF60014FE63 /* Common */,
+				E6B8BA691D13F96C00D64E2A /* ChatGroup */,
 				E69069201CE84BF60014FE63 /* Contacts */,
 				E690692E1CE84BF60014FE63 /* Discover */,
 				E69069311CE84BF60014FE63 /* Login */,
@@ -1200,8 +1222,6 @@
 				E6CAA98C1D125A9D00E76120 /* ChineseToPinyin.m */,
 				E6CAA99F1D129F7600E76120 /* ZSRApplyViewController.h */,
 				E6CAA9A01D129F7600E76120 /* ZSRApplyViewController.m */,
-				E6CAA9A21D12A09E00E76120 /* ZSRGroupListViewController.h */,
-				E6CAA9A31D12A09E00E76120 /* ZSRGroupListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1216,8 +1236,8 @@
 		E69069291CE84BF60014FE63 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E60170441D1179D300431C39 /* ZSRContactsCell.h */,
-				E60170451D1179D300431C39 /* ZSRContactsCell.m */,
+				E60170441D1179D300431C39 /* ZSRBaseTableViewCell.h */,
+				E60170451D1179D300431C39 /* ZSRBaseTableViewCell.m */,
 				E6CAA9A51D12A2D000E76120 /* ZSRApplyFriendCell.h */,
 				E6CAA9A61D12A2D000E76120 /* ZSRApplyFriendCell.m */,
 				E6B8BA661D13C2F600D64E2A /* ZSRAddFriendCell.h */,
@@ -1292,6 +1312,53 @@
 				E682769E1CE9A7ED009F911A /* Constant.h */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		E6B8BA691D13F96C00D64E2A /* ChatGroup */ = {
+			isa = PBXGroup;
+			children = (
+				E6B8BA6A1D13F9C600D64E2A /* Controller */,
+				E6B8BA6E1D13F9F500D64E2A /* Model */,
+				E6B8BA6F1D13F9F500D64E2A /* View */,
+			);
+			path = ChatGroup;
+			sourceTree = "<group>";
+		};
+		E6B8BA6A1D13F9C600D64E2A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E6B8BA6B1D13F9C600D64E2A /* ZSRGroupListViewController.h */,
+				E6B8BA6C1D13F9C600D64E2A /* ZSRGroupListViewController.m */,
+				E6B8BA701D14014D00D64E2A /* ZSRPublicGroupListViewController.h */,
+				E6B8BA711D14014D00D64E2A /* ZSRPublicGroupListViewController.m */,
+				E6B8BA731D14020A00D64E2A /* ZSRCreateGroupViewController.h */,
+				E6B8BA741D14020A00D64E2A /* ZSRCreateGroupViewController.m */,
+				E635DCEE1D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.h */,
+				E635DCEF1D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m */,
+				E6C1AC381D158CAF00583ACA /* ZSRChooseViewController.h */,
+				E6C1AC391D158CAF00583ACA /* ZSRChooseViewController.m */,
+				E6C1AC3E1D158EFA00583ACA /* ZSRContactSelectionViewController.h */,
+				E6C1AC3F1D158EFA00583ACA /* ZSRContactSelectionViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E6B8BA6E1D13F9F500D64E2A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E6B8BA6F1D13F9F500D64E2A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E6C1AC351D15786B00583ACA /* ZSRTextView.h */,
+				E6C1AC361D15786B00583ACA /* ZSRTextView.m */,
+				E6C1AC411D15945B00583ACA /* ZSRRemarkImageView.h */,
+				E6C1AC421D15945B00583ACA /* ZSRRemarkImageView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E6C1FE061CF3554F00C068DB /* Tool */ = {
@@ -1801,25 +1868,31 @@
 				E633D37D1D02D604002911AD /* Emoji.m in Sources */,
 				E682769A1CE9A4AE009F911A /* ZSRMessageFrameModel.m in Sources */,
 				E665CD1D1D0EAC000015E394 /* ZSRMessageReadManager.m in Sources */,
+				E6C1AC371D15786B00583ACA /* ZSRTextView.m in Sources */,
 				E66F42661CE89EE6001217F6 /* ZSRAddFriendViewController.m in Sources */,
 				E649FEC01CE8481600A0447F /* main.m in Sources */,
 				E69069511CE84BF60014FE63 /* ZSRLoginViewController.m in Sources */,
 				E6EC8D5B1CEA1C5E0098679D /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				E6EC8D5D1CEA1C5E0098679D /* EMCDDeviceManagerBase.m in Sources */,
+				E6B8BA721D14014D00D64E2A /* ZSRPublicGroupListViewController.m in Sources */,
+				E6B8BA751D14020A00D64E2A /* ZSRCreateGroupViewController.m in Sources */,
 				E69069531CE84BF60014FE63 /* ZSRStartViewController.m in Sources */,
 				E665CCFA1D0E57AC0015E394 /* DXChatBarMoreView.m in Sources */,
 				E665CD171D0E805B0015E394 /* THProgressView.m in Sources */,
+				E6C1AC401D158EFA00583ACA /* ZSRContactSelectionViewController.m in Sources */,
 				E6EC8D6F1CEA1D910098679D /* wav.mm in Sources */,
 				E665CCFD1D0E57AC0015E394 /* FacialView.m in Sources */,
+				E635DCF01D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m in Sources */,
 				E6016EA61D11022800431C39 /* ZSRChatAudioBubbleView.m in Sources */,
 				E601703F1D1153AE00431C39 /* ZSRChatListCell.m in Sources */,
 				E665CD021D0E58D70015E394 /* ZSRMessageModelManager.m in Sources */,
-				E6CAA9A41D12A09E00E76120 /* ZSRGroupListViewController.m in Sources */,
 				E60170401D1153AE00431C39 /* ZSRConversationViewController.m in Sources */,
 				E68276A11CE9A960009F911A /* UIImage+ResizImage.m in Sources */,
 				E69069521CE84BF60014FE63 /* ZSRRegisgerViewController.m in Sources */,
 				E69069561CE84BF60014FE63 /* ZSRMeViewController.m in Sources */,
+				E6C1AC3A1D158CAF00583ACA /* ZSRChooseViewController.m in Sources */,
 				E690694B1CE84BF60014FE63 /* ZSRContactsViewController.m in Sources */,
+				E6C1AC431D15945B00583ACA /* ZSRRemarkImageView.m in Sources */,
 				E6EC8D6E1CEA1D910098679D /* amrFileCodec.mm in Sources */,
 				E665CD051D0E59960015E394 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				E665CD131D0E7FC80015E394 /* ZSRMessageCell.m in Sources */,
@@ -1829,7 +1902,7 @@
 				E6C1FE091CF3557000C068DB /* ZSRTimeTool.m in Sources */,
 				E682768D1CE97FF8009F911A /* ZSRChatViewController.m in Sources */,
 				E6CAA98D1D125A9D00E76120 /* ChineseToPinyin.m in Sources */,
-				E60170461D1179D300431C39 /* ZSRContactsCell.m in Sources */,
+				E60170461D1179D300431C39 /* ZSRBaseTableViewCell.m in Sources */,
 				E665CCFE1D0E57AC0015E394 /* XHMessageTextView.m in Sources */,
 				E69069551CE84BF60014FE63 /* ZSRTabBarViewController.m in Sources */,
 				E6EC8D5C1CEA1C5E0098679D /* EMCDDeviceManager+Remind.m in Sources */,
@@ -1837,6 +1910,7 @@
 				E6016EA91D1102A500431C39 /* ZSRChatBaseBubbleView.m in Sources */,
 				E6CAA9A71D12A2D000E76120 /* ZSRApplyFriendCell.m in Sources */,
 				E6E762091D0159520024B4C9 /* ZSRAudioPlayTool.m in Sources */,
+				E6B8BA6D1D13F9C600D64E2A /* ZSRGroupListViewController.m in Sources */,
 				E69069581CE84BF60014FE63 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

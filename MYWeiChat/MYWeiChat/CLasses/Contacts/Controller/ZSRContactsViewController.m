@@ -9,7 +9,7 @@
 #import "ZSRContactsViewController.h"
 #import "ZSRAddFriendViewController.h"
 #import "ZSRChatViewController.h"
-#import "ZSRContactsCell.h"
+#import "ZSRBaseTableViewCell.h"
 #import "EaseMob.h"
 #import "MJRefresh.h"
 #import "ChineseToPinyin.h"
@@ -124,19 +124,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ZSRContactsCell *cell;
+    ZSRBaseTableViewCell *cell;
     if (indexPath.section == 0 && indexPath.row == 0) {
-        cell = [ZSRContactsCell contactCellWithTableView:tableView reuseIdentifier:@"FriendCell"];
+        cell = [ZSRBaseTableViewCell contactCellWithTableView:tableView reuseIdentifier:@"FriendCell"];
         cell.imageView.image = [UIImage imageNamed:@"newFriends"];
         cell.textLabel.text = @"新的朋友";
         [cell addSubview:self.unapplyCountLabel];
 
     }else{
-        cell = [ZSRContactsCell contactCellWithTableView:tableView];
+        cell = [ZSRBaseTableViewCell contactCellWithTableView:tableView];
         cell.indexPath = indexPath;
         if (indexPath.section == 0 && indexPath.row == 1) {
             cell.imageView.image = [UIImage imageNamed:@"groupPrivateHeader"];
-            cell.username = @"群聊";
+            cell.username = @"群组";
         }
         else{
             EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
@@ -181,7 +181,7 @@
                 _groupController = [[ZSRGroupListViewController alloc] initWithStyle:UITableViewStylePlain];
             }
             else{
-//                [_groupController reloadDataSource];
+                [_groupController reloadDataSource];
             }
             [self.navigationController pushViewController:_groupController animated:YES];
         }
@@ -353,19 +353,13 @@
         [array addObject:buddy];
     }
     
-    //每个section内的数组排序
+    //section内数组排序
     for (int i = 0; i < [sortedArray count]; i++) {
+
         NSArray *array = [[sortedArray objectAtIndex:i] sortedArrayUsingComparator:^NSComparisonResult(EMBuddy *obj1, EMBuddy *obj2) {
-            NSString *firstLetter1 = [ChineseToPinyin pinyinFromChineseString:[[ZSRUserProfileManager sharedInstance] getNickNameWithUsername:obj1.username]];
-            firstLetter1 = [[firstLetter1 substringToIndex:1] uppercaseString];
-            
-            NSString *firstLetter2 = [ChineseToPinyin pinyinFromChineseString:[[ZSRUserProfileManager sharedInstance] getNickNameWithUsername:obj2.username]];
-            firstLetter2 = [[firstLetter2 substringToIndex:1] uppercaseString];
-            
-            return [firstLetter1 caseInsensitiveCompare:firstLetter2];
+            return [obj1.username caseInsensitiveCompare:obj2.username];
         }];
-        
-        
+
         [sortedArray replaceObjectAtIndex:i withObject:[NSMutableArray arrayWithArray:array]];
     }
     
