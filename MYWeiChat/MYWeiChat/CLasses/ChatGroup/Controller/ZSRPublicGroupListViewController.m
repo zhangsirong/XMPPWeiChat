@@ -88,7 +88,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [self.dataSource count];
 }
 
@@ -130,9 +129,7 @@
     [self.navigationController pushViewController:detailController animated:YES];
 }
 
-
 #pragma mark - data
-
 - (void)reloadDataSource
 {
 

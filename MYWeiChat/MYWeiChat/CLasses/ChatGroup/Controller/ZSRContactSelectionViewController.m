@@ -63,7 +63,7 @@
 
     self.title = @"选择联系人";
     self.navigationItem.rightBarButtonItem = nil;
-    
+    self.showAllIndex = YES;
     [self.view addSubview:self.footerView];
     self.tableView.editing = YES;
     self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.footerView.frame.size.height);
@@ -126,14 +126,13 @@
     
     // Configure the cell...
     if (cell == nil) {
-        cell = [[ZSRBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[ZSRBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     EMBuddy *buddy = [[_dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:@"chatListCellHead.png"];
+    cell.imageView.image = [UIImage imageNamed:@"chatListCellHead"];
     cell.textLabel.text = buddy.username;
     cell.username = buddy.username;
-    
     return cell;
 }
 
@@ -191,7 +190,7 @@
 
 - (void)reloadFooterView
 {
-//    [self.footerScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.footerScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     CGFloat imageSize = self.footerScrollView.frame.size.height;
     NSInteger count = [self.selectedContacts count];
@@ -205,10 +204,10 @@
     }
     
     if ([self.selectedContacts count] == 0) {
-        [_doneButton setTitle:NSLocalizedString(@"ok", @"OK") forState:UIControlStateNormal];
+        [_doneButton setTitle:@"确定" forState:UIControlStateNormal];
     }
     else{
-        [_doneButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"doneWithCount", @"Done(%i)"), [self.selectedContacts count]] forState:UIControlStateNormal];
+        [_doneButton setTitle:[NSString stringWithFormat:@"确定(%lu)", (unsigned long)[self.selectedContacts count]] forState:UIControlStateNormal];
     }
 }
 

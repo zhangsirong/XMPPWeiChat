@@ -91,7 +91,7 @@
         _textView.layer.cornerRadius = 3;
         _textView.font = [UIFont systemFontOfSize:14.0];
         _textView.backgroundColor = [UIColor whiteColor];
-        _textView.placeholder = @"请输入群组简介";
+        _textView.placeholder = @"请输入群组简介(可选)";
         _textView.returnKeyType = UIReturnKeyDone;
         _textView.delegate = self;
     }
@@ -277,13 +277,12 @@
 - (void)addContacts:(id)sender
 {
     if (self.textField.text.length == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:NSLocalizedString(@"group.create.inputName", @"please enter the group name") delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入群组名称" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
     
     [self.view endEditing:YES];
-    
     ZSRContactSelectionViewController *selectionController = [[ZSRContactSelectionViewController alloc] init];
     selectionController.delegate = self;
     [self.navigationController pushViewController:selectionController animated:YES];

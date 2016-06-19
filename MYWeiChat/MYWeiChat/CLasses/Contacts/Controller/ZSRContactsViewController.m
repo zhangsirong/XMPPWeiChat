@@ -278,6 +278,40 @@
     [[ZSRApplyViewController shareController] addNewApply:dic];
     [self reloadApplyView];
 }
+
+
+//接收到入群申请
+- (void)didReceiveApplyToJoinGroup:(NSString *)groupId
+                         groupname:(NSString *)groupname
+                     applyUsername:(NSString *)username
+                            reason:(NSString *)reason
+                             error:(EMError *)error
+{
+    if (!groupId || !username) {
+        return;
+    }
+    
+    if (!reason || reason.length == 0) {
+        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoin", @"%@ apply to join groups\'%@\'"), username, groupname];
+    }
+    else{
+        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoinWithName", @"%@ apply to join groups\'%@\'：%@"), username, groupname, reason];
+    }
+    
+    if (error) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.sendApplyFail", @"send application failure:%@\nreason：%@"), reason, error.description];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"error", @"Error") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    else{
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":groupname, @"groupId":groupId, @"username":username, @"groupname":groupname, @"applyMessage":reason, @"applyStyle":[NSNumber numberWithInteger:ZSRApplyStyleJoinGroup]}];
+        [[ZSRApplyViewController shareController] addNewApply:dic];
+        [self reloadGroupView];
+        
+    }
+}
+
+
 //好友请求被同意
 -(void)didAcceptedByBuddy:(NSString *)username{
     
@@ -312,6 +346,8 @@
     // 刷新表格
     [self reloadDataSource];
 }
+
+
 
 
 
@@ -388,12 +424,23 @@
     }
     
     [self.dataSource addObjectsFromArray:[self sortDataArray:self.contactsSource]];
-    
+    [[ZSRApplyViewController shareController] loadDataSourceFromLocalDB];
     [_tableView reloadData];
 }
 
 
+
 #pragma mark - action
+
+
+- (void)reloadGroupView
+{
+    [self reloadApplyView];
+    
+    if (_groupController) {
+        [_groupController reloadDataSource];
+    }
+}
 
 - (void)reloadApplyView
 {

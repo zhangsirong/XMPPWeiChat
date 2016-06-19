@@ -36,7 +36,6 @@
         [self.contentView addSubview:_bottomLineView];
         
         self.textLabel.backgroundColor = [UIColor clearColor];
-        
     }
     return self;
 }

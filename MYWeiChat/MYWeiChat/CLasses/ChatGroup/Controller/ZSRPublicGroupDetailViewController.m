@@ -127,7 +127,7 @@
     }
     
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"群管理员";
+        cell.textLabel.text = @"群主";
         cell.detailTextLabel.text = _group.owner;
     }
     else{

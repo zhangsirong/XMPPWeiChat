@@ -55,6 +55,8 @@ static ZSRApplyViewController *controller = nil;
 {
     [super viewDidLoad];
     self.title = @"新的朋友";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self loadDataSourceFromLocalDB];
 }
 
 
@@ -250,7 +252,6 @@ static ZSRApplyViewController *controller = nil;
     NSString *loginName = [loginInfo objectForKey:kSDKUsername];
     if(loginName && [loginName length] > 0)
     {
-        
         NSArray * applyArray = [[ZSRInvitationManager sharedInstance] applyEmtitiesWithloginUser:loginName];
         [self.dataSource addObjectsFromArray:applyArray];
         

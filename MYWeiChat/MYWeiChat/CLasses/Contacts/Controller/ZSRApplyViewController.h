@@ -15,6 +15,10 @@ typedef enum{
 }ZSRApplyStyle;
 
 @interface ZSRApplyViewController : UITableViewController
+{
+    NSMutableArray *_dataSource;
+}
+
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
 + (instancetype)shareController;

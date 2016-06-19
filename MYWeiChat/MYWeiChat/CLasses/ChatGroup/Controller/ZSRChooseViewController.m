@@ -176,7 +176,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (!self.showAllIndex && [[self.dataSource objectAtIndex:section] count] == 0)
+    if ([[self.dataSource objectAtIndex:section] count] == 0)
     {
         return 0;
     }
@@ -213,7 +213,7 @@
                 [existTitles addObject:[self.sectionTitles objectAtIndex:i]];
             }
         }
-        return existTitles;
+        return self.sectionTitles;
     }
 }
 

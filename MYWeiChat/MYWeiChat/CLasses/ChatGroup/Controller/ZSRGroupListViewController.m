@@ -44,7 +44,6 @@
 #warning 把self注册为SDK的delegate
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -201,10 +200,10 @@
 - (void)reloadDataSource
 {
     [self.dataSource removeAllObjects];
-    NSArray *rooms = [[EaseMob sharedInstance].chatManager loadAllMyGroupsFromDatabaseWithAppend2Chat:NO];
-    [self.dataSource addObjectsFromArray:rooms];
-    
-    [self.tableView reloadData];
+    [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsListWithCompletion:^(NSArray *groups, EMError *error) {
+        [self.dataSource addObjectsFromArray:groups];
+        [self.tableView reloadData];
+    } onQueue:dispatch_get_main_queue()];
 }
 
 

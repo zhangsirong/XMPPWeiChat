@@ -10,6 +10,7 @@
 #import "ZSRTabBarViewController.h"
 #import "ZSRStartViewController.h"
 #import "ZSRNavigationViewController.h"
+#import "ZSRApplyViewController.h"
 #import "EaseMob.h"
 @interface AppDelegate ()<EMChatManagerDelegate>
 
@@ -39,12 +40,13 @@
     
     // 3.如果登录过，直接来到主界面
     if ([[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
+        //加载申请通知的数据
         // 来主界面
         ZSRTabBarViewController *vc = [[ZSRTabBarViewController alloc] init];
+//        [[ZSRApplyViewController shareController] loadDataSourceFromLocalDB];
         //    [self.navigationController pushViewController:vc animated:YES ];
         self.window.rootViewController = vc;
     }
-    
     [self.window makeKeyAndVisible];
     return YES;
 }
