@@ -24,6 +24,9 @@
 //用户头像
 @property (nonatomic, weak)UIImageView *headImageView;
 
+//姓名
+@property (nonatomic, strong) UILabel *nameLabel;
+
 //背景
 @property (nonatomic, weak)UIButton *textView;
 
@@ -74,8 +77,8 @@
         timeLabel.font = [UIFont systemFontOfSize:13.0f];
         [self.contentView addSubview:timeLabel];
         self.timeLabel = timeLabel;
-        
         UITapGestureRecognizer *headImageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImagePressed:)];
+        
         //2.头像
         UIImageView *headImageView = [[UIImageView alloc]init];
         [headImageView addGestureRecognizer:headImageTap];
@@ -84,7 +87,14 @@
         [self.contentView addSubview:headImageView];
         self.headImageView = headImageView;
         
-        //3.背景
+        //3.名字
+        UILabel *nameLabel = [[UILabel alloc]init];
+        nameLabel.textAlignment = NSTextAlignmentCenter;
+        nameLabel.font = [UIFont systemFontOfSize:13.0f];
+        [self.contentView addSubview:nameLabel];
+        self.nameLabel = nameLabel;
+        
+        //4.背景
         UIButton *backgView = [[UIButton alloc]init];
         backgView.titleLabel.font = bBtnFont;
         backgView.titleLabel.numberOfLines = 0;//自动换行
@@ -93,7 +103,7 @@
         [self.contentView addSubview:backgView];
         self.backgView = backgView;
         
-        //4.正文
+        //5.正文
         UIButton *textView = [[UIButton alloc]init];
         textView.titleLabel.font = bBtnFont;
         textView.titleLabel.numberOfLines = 0;//自动换行
@@ -102,7 +112,7 @@
         [self.contentView addSubview:textView];
         self.textView = textView;
         
-        //5.语音
+        //6.语音
         UIButton *voiceView = [[UIButton alloc]init];
         voiceView.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         [voiceView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -116,7 +126,7 @@
         [self.contentView addSubview:voiceTimeLabel];
         self.voiceTimeLabel = voiceTimeLabel;
         
-        //6.图片
+        //7.图片
         UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imagePressed:)];
 
         UIImageView *imgView = [[UIImageView alloc] init];
@@ -127,7 +137,7 @@
         self.chatImgView = imgView;
 
         
-        //6.视频图片
+        //8.视频图片
         
         UIImageView *videoImgView = [[UIImageView alloc] init];
         [self.contentView addSubview:videoImgView];
@@ -193,12 +203,17 @@
     
     //2.头像
     self.headImageView.frame = frameMessage.headImageF;
+    self.nameLabel.frame = frameMessage.nameLabelF;
+
     
     if (model.isSender) {
         self.headImageView.image = [UIImage imageNamed:@"Gatsby"];
         
     }else{
         self.headImageView.image = [UIImage imageNamed:@"Jobs"];
+        if (model.messageType != eMessageTypeChat) {
+            self.nameLabel.text = [model.username stringByAppendingString:@":"];
+        }
     }
     
     

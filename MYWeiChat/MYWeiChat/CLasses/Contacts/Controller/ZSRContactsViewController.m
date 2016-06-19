@@ -189,14 +189,15 @@
     }else{
         //获取好友
         EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
-        ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
         NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
         if ([buddy.username isEqualToString:[loginInfo objectForKey:kSDKUsername]]) {
             [self showAlertMessage:@"不能和自己聊天"];
             return;
         }
-        vc.buddy = buddy;
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        ZSRChatViewController *chatVC = [[ZSRChatViewController alloc] initWithChatter:buddy.username isGroup:NO];
+        chatVC.title = [[ZSRUserProfileManager sharedInstance] getNickNameWithUsername:buddy.username];
+        [self.navigationController pushViewController:chatVC animated:YES];
     }
     
 }

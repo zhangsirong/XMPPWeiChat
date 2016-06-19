@@ -150,9 +150,9 @@
         }
     } else {
         EMGroup *group = [self.dataSource objectAtIndex:indexPath.row];
-        ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
-        vc.title = group.groupSubject;
-        [self.navigationController pushViewController:vc animated:YES];
+        ZSRChatViewController *chatController = [[ZSRChatViewController alloc] initWithChatter:group.groupId isGroup:YES];
+        chatController.title = group.groupSubject;
+        [self.navigationController pushViewController:chatController animated:YES];
     }
 }
 

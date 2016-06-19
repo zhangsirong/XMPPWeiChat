@@ -12,6 +12,7 @@
 #import "ZSRChatListCell.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "ZSRTimeTool.h"
+#import "ZSRUserProfileManager.h"
 
 @interface ZSRConversationViewController ()<EMChatManagerDelegate,UIAlertViewDelegate>
 /** 好友的名称 */
@@ -19,6 +20,8 @@
 
 /** 历史会话记录 */
 @property (nonatomic, strong) NSArray *conversations;
+
+
 @end
 
 
@@ -289,14 +292,38 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //进入到聊天控制器
-    //会话
     EMConversation *conversation = self.conversations[indexPath.row];
-    EMBuddy *buddy = [EMBuddy buddyWithUsername:conversation.chatter];
-    ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
-    vc.buddy = buddy;
-    if (conversation.conversationType == eConversationTypeGroupChat){
-        vc.conversation = conversation;
+    ZSRChatViewController *chatController;
+    
+    NSString *title = conversation.chatter;
+    if (conversation.conversationType != eConversationTypeChat) {
+        if ([[conversation.ext objectForKey:@"groupSubject"] length])
+        {
+            title = [conversation.ext objectForKey:@"groupSubject"];
+        }
+        else
+        {
+            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+            for (EMGroup *group in groupArray) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    title = group.groupSubject;
+                    break;
+                }
+            }
+        }
+    } else if (conversation.conversationType == eConversationTypeChat) {
+        title = [[ZSRUserProfileManager sharedInstance] getNickNameWithUsername:conversation.chatter];
     }
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    chatController = [[ZSRChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
+    chatController.title = title;
+    //会话
+//    EMBuddy *buddy = [EMBuddy buddyWithUsername:conversation.chatter];
+//    ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
+//    vc.buddy = buddy;
+//    if (conversation.conversationType == eConversationTypeGroupChat){
+//        vc.conversation = conversation;
+//    }
+    [self.navigationController pushViewController:chatController animated:YES];
 }
 @end

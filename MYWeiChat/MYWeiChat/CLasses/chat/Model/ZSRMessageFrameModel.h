@@ -23,6 +23,8 @@
 
 //头像
 @property (nonatomic, assign,readonly)CGRect headImageF;
+//姓名
+@property (nonatomic, assign,readonly)CGRect nameLabelF;
 
 //声音
 @property (nonatomic, assign,readonly)CGRect voiceImageF;

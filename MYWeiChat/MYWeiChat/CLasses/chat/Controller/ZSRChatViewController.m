@@ -38,11 +38,14 @@
     BOOL _isScrollToBottom;
 }
 
-@property (nonatomic) BOOL isChatGroup;
+@property (nonatomic) BOOL isGroup;
 @property (nonatomic) BOOL isScrollToBottom;
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic) BOOL isKicked;
 @property (nonatomic) BOOL isRobot;
+
+
+@property (nonatomic) EMConversationType conversationType;
 
 @property (nonatomic, strong) ZSRMessageToolBar *chatToolBar;
 @property (nonatomic, strong) UITableView *tableView;
@@ -61,6 +64,40 @@
 @end
 
 @implementation ZSRChatViewController
+
+
+- (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup
+{
+    EMConversationType type = isGroup ? eConversationTypeGroupChat : eConversationTypeChat;
+    self = [self initWithChatter:chatter conversationType:type];
+    if (self) {
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithChatter:(NSString *)chatter conversationType:(EMConversationType)type
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _isPlayingAudio = NO;
+        _chatter = chatter;
+        _conversationType = type;
+        _messages = [NSMutableArray array];
+        //根据接收者的username获取当前会话的管理者
+        _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:chatter
+                                                                    conversationType:type];
+        [_conversation markAllMessagesAsRead:YES];
+    }
+    
+    return self;
+}
+
+- (BOOL)isGroup
+{
+    return _conversationType != eConversationTypeChat;
+}
+
 
 #pragma mark - helper
 - (NSString *)convert2Mp4:(NSURL *)movUrl {
@@ -119,7 +156,7 @@
 
         _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
         _chatToolBar.delegate = self;
-        ChatMoreType type = self.isChatGroup == YES ? ChatMoreTypeGroupChat : ChatMoreTypeChat;
+        ChatMoreType type = self.isGroup == YES ? ChatMoreTypeGroupChat : ChatMoreTypeChat;
         _chatToolBar.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), _chatToolBar.frame.size.width, 80) type:type];
         _chatToolBar.moreView.backgroundColor = ZSRColor(240, 242,247);
         _chatToolBar.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -178,9 +215,9 @@
     [self setupSubView];
     [self loadLocalChatRecords];
     if(self.conversation.conversationType == eConversationTypeChat){
-        self.title = self.buddy.username;
+//        self.title = self.buddy.username;
     }else if (self.conversation.conversationType == eConversationTypeGroupChat){
-        self.title = [self.conversation.ext objectForKey:@"groupSubject"];
+//        self.title = [self.conversation.ext objectForKey:@"groupSubject"];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kOrientationDidChange) name:UIDeviceOrientationDidChangeNotification  object:nil];
@@ -207,9 +244,8 @@
 
 -(void)loadLocalChatRecords{
     // 要获取本地聊天记录使用 会话对象
-     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.buddy.username conversationType:eConversationTypeChat];
+     EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.conversation.chatter conversationType:self.conversationType];
     self.conversation = conversation;
-
 
     // 加载与当前聊天用户所有聊天记录
     NSArray *msgS = [conversation loadAllMessages];
@@ -370,9 +406,11 @@
 }
 
 -(void)sendMessage:(id<IEMMessageBody>)body{
+    
+    NSString *chatter= _conversation.chatter;
     //1.构造消息对象
-    EMMessage *message = [[EMMessage alloc] initWithReceiver:self.buddy.username bodies:@[body]];
-    message.messageType = eMessageTypeChat;
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:chatter bodies:@[body]];
+    message.messageType = self.isGroup?eMessageTypeGroupChat:eMessageTypeChat;
     
     //2.发送消息
     [[EaseMob sharedInstance].chatManager asyncSendMessage:message progress:nil prepare:^(EMMessage *message, EMError *error) {
@@ -380,7 +418,6 @@
     } onQueue:nil completion:^(EMMessage *message, EMError *error) {
         NSLog(@"发送成功 %@",error);
     } onQueue:nil];
-    
     
     [self didAddMessage:message];
    
@@ -400,7 +437,7 @@
 
 #pragma mark 接收好友回复消息
 -(void)didReceiveMessage:(EMMessage *)message{
-    if ([message.from isEqualToString:self.buddy.username]){
+    if ([message.from isEqualToString:self.conversation.chatter]){
         [self didAddMessage:message];
     }
 }

@@ -31,11 +31,19 @@
     CGFloat headImageW = bIconW;
     CGFloat headImageH = bIconH;
     
+    CGFloat nameLabelX = padding + headImageW;
+    CGFloat nameLabelY = CGRectGetMaxY(_timeF);
+    CGFloat nameLabelW = bIconW;
+    CGFloat nameLabelH = 20;
+    
     if (msgModel.isSender) {//自己发的
         
         headImageX = ScreenW - headImageW - padding;
     }else{//别人发的
         headImageX = padding;
+        if (msgModel.messageType != eMessageTypeChat) {
+            _nameLabelF = CGRectMake(nameLabelX, nameLabelY, nameLabelW, nameLabelH);
+        }
     }
     _headImageF =  CGRectMake(headImageX, headImageY, headImageW, headImageH);
     
