@@ -198,6 +198,12 @@
 		E601703F1D1153AE00431C39 /* ZSRChatListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E601703C1D1153AE00431C39 /* ZSRChatListCell.m */; };
 		E60170401D1153AE00431C39 /* ZSRConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E601703E1D1153AE00431C39 /* ZSRConversationViewController.m */; };
 		E60170461D1179D300431C39 /* ZSRBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E60170451D1179D300431C39 /* ZSRBaseTableViewCell.m */; };
+		E610827E1D17B79D00376A64 /* ZSRUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E610827D1D17B79D00376A64 /* ZSRUserProfileViewController.m */; };
+		E61082811D17BAC600376A64 /* UIImageView+HeadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E61082801D17BAC600376A64 /* UIImageView+HeadImage.m */; };
+		E61082841D17BE9800376A64 /* ZSRChatGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61082831D17BE9800376A64 /* ZSRChatGroupDetailViewController.m */; };
+		E61082871D17C34500376A64 /* ZSRContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61082861D17C34500376A64 /* ZSRContactView.m */; };
+		E610828A1D17E13300376A64 /* ZSRGroupSubjectChangingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61082891D17E13300376A64 /* ZSRGroupSubjectChangingViewController.m */; };
+		E62321021D17FEE800B8685A /* ZSRGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62321011D17FEE800B8685A /* ZSRGroupSettingViewController.m */; };
 		E633D37D1D02D604002911AD /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D37A1D02D604002911AD /* Emoji.m */; };
 		E633D37E1D02D604002911AD /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = E633D37C1D02D604002911AD /* EmojiEmoticons.m */; };
 		E635DCF01D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E635DCEF1D1526A1001FD4A6 /* ZSRPublicGroupDetailViewController.m */; };
@@ -244,6 +250,7 @@
 		E6C1AC401D158EFA00583ACA /* ZSRContactSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1AC3F1D158EFA00583ACA /* ZSRContactSelectionViewController.m */; };
 		E6C1AC431D15945B00583ACA /* ZSRRemarkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1AC421D15945B00583ACA /* ZSRRemarkImageView.m */; };
 		E6C1FE091CF3557000C068DB /* ZSRTimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C1FE081CF3557000C068DB /* ZSRTimeTool.m */; };
+		E6C7C3FB1D18481F00B9ACDC /* ZSRAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C7C3FA1D18481F00B9ACDC /* ZSRAlertView.m */; };
 		E6CAA98D1D125A9D00E76120 /* ChineseToPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA98C1D125A9D00E76120 /* ChineseToPinyin.m */; };
 		E6CAA9921D125BF600E76120 /* ZSRUserProfileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9911D125BF600E76120 /* ZSRUserProfileManager.m */; };
 		E6CAA9A11D129F7600E76120 /* ZSRApplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CAA9A01D129F7600E76120 /* ZSRApplyViewController.m */; };
@@ -480,6 +487,18 @@
 		E601703E1D1153AE00431C39 /* ZSRConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRConversationViewController.m; sourceTree = "<group>"; };
 		E60170441D1179D300431C39 /* ZSRBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRBaseTableViewCell.h; sourceTree = "<group>"; };
 		E60170451D1179D300431C39 /* ZSRBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRBaseTableViewCell.m; sourceTree = "<group>"; };
+		E610827C1D17B79D00376A64 /* ZSRUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRUserProfileViewController.h; sourceTree = "<group>"; };
+		E610827D1D17B79D00376A64 /* ZSRUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRUserProfileViewController.m; sourceTree = "<group>"; };
+		E610827F1D17BAC600376A64 /* UIImageView+HeadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HeadImage.h"; sourceTree = "<group>"; };
+		E61082801D17BAC600376A64 /* UIImageView+HeadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HeadImage.m"; sourceTree = "<group>"; };
+		E61082821D17BE9800376A64 /* ZSRChatGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRChatGroupDetailViewController.h; sourceTree = "<group>"; };
+		E61082831D17BE9800376A64 /* ZSRChatGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRChatGroupDetailViewController.m; sourceTree = "<group>"; };
+		E61082851D17C34500376A64 /* ZSRContactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRContactView.h; sourceTree = "<group>"; };
+		E61082861D17C34500376A64 /* ZSRContactView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRContactView.m; sourceTree = "<group>"; };
+		E61082881D17E13300376A64 /* ZSRGroupSubjectChangingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRGroupSubjectChangingViewController.h; sourceTree = "<group>"; };
+		E61082891D17E13300376A64 /* ZSRGroupSubjectChangingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRGroupSubjectChangingViewController.m; sourceTree = "<group>"; };
+		E62321001D17FEE800B8685A /* ZSRGroupSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRGroupSettingViewController.h; sourceTree = "<group>"; };
+		E62321011D17FEE800B8685A /* ZSRGroupSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRGroupSettingViewController.m; sourceTree = "<group>"; };
 		E633D3791D02D604002911AD /* Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emoji.h; sourceTree = "<group>"; };
 		E633D37A1D02D604002911AD /* Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emoji.m; sourceTree = "<group>"; };
 		E633D37B1D02D604002911AD /* EmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiEmoticons.h; sourceTree = "<group>"; };
@@ -574,6 +593,8 @@
 		E6C1AC421D15945B00583ACA /* ZSRRemarkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRRemarkImageView.m; sourceTree = "<group>"; };
 		E6C1FE071CF3557000C068DB /* ZSRTimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRTimeTool.h; sourceTree = "<group>"; };
 		E6C1FE081CF3557000C068DB /* ZSRTimeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRTimeTool.m; sourceTree = "<group>"; };
+		E6C7C3F91D18481F00B9ACDC /* ZSRAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRAlertView.h; sourceTree = "<group>"; };
+		E6C7C3FA1D18481F00B9ACDC /* ZSRAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSRAlertView.m; sourceTree = "<group>"; };
 		E6CAA98B1D125A9D00E76120 /* ChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyin.h; sourceTree = "<group>"; };
 		E6CAA98C1D125A9D00E76120 /* ChineseToPinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyin.m; sourceTree = "<group>"; };
 		E6CAA9901D125BF600E76120 /* ZSRUserProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSRUserProfileManager.h; sourceTree = "<group>"; };
@@ -1128,6 +1149,8 @@
 				E68276A01CE9A960009F911A /* UIImage+ResizImage.m */,
 				E665CD0B1D0E7F310015E394 /* UIResponder+Router.h */,
 				E665CD0C1D0E7F310015E394 /* UIResponder+Router.m */,
+				E610827F1D17BAC600376A64 /* UIImageView+HeadImage.h */,
+				E61082801D17BAC600376A64 /* UIImageView+HeadImage.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1242,6 +1265,8 @@
 				E6CAA9A61D12A2D000E76120 /* ZSRApplyFriendCell.m */,
 				E6B8BA661D13C2F600D64E2A /* ZSRAddFriendCell.h */,
 				E6B8BA671D13C2F600D64E2A /* ZSRAddFriendCell.m */,
+				E6C7C3F91D18481F00B9ACDC /* ZSRAlertView.h */,
+				E6C7C3FA1D18481F00B9ACDC /* ZSRAlertView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1339,6 +1364,12 @@
 				E6C1AC391D158CAF00583ACA /* ZSRChooseViewController.m */,
 				E6C1AC3E1D158EFA00583ACA /* ZSRContactSelectionViewController.h */,
 				E6C1AC3F1D158EFA00583ACA /* ZSRContactSelectionViewController.m */,
+				E61082821D17BE9800376A64 /* ZSRChatGroupDetailViewController.h */,
+				E61082831D17BE9800376A64 /* ZSRChatGroupDetailViewController.m */,
+				E61082881D17E13300376A64 /* ZSRGroupSubjectChangingViewController.h */,
+				E61082891D17E13300376A64 /* ZSRGroupSubjectChangingViewController.m */,
+				E62321001D17FEE800B8685A /* ZSRGroupSettingViewController.h */,
+				E62321011D17FEE800B8685A /* ZSRGroupSettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1357,6 +1388,8 @@
 				E6C1AC361D15786B00583ACA /* ZSRTextView.m */,
 				E6C1AC411D15945B00583ACA /* ZSRRemarkImageView.h */,
 				E6C1AC421D15945B00583ACA /* ZSRRemarkImageView.m */,
+				E61082851D17C34500376A64 /* ZSRContactView.h */,
+				E61082861D17C34500376A64 /* ZSRContactView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1383,6 +1416,8 @@
 				E6CAA9911D125BF600E76120 /* ZSRUserProfileManager.m */,
 				E6CAA9A81D12A5B000E76120 /* ZSRInvitationManager.h */,
 				E6CAA9A91D12A5B000E76120 /* ZSRInvitationManager.m */,
+				E610827C1D17B79D00376A64 /* ZSRUserProfileViewController.h */,
+				E610827D1D17B79D00376A64 /* ZSRUserProfileViewController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1860,9 +1895,11 @@
 				E6EC8D5A1CEA1C5E0098679D /* EMCDDeviceManager+Microphone.m in Sources */,
 				E665CCFF1D0E57AC0015E394 /* ZSRMessageToolBar.m in Sources */,
 				E665CCFB1D0E57AC0015E394 /* DXFaceView.m in Sources */,
+				E610827E1D17B79D00376A64 /* ZSRUserProfileViewController.m in Sources */,
 				E6EC8D701CEA1D910098679D /* EMVoiceConverter.mm in Sources */,
 				E6EC8D581CEA1C5E0098679D /* EMAudioRecorderUtil.m in Sources */,
 				E6CAA9A11D129F7600E76120 /* ZSRApplyViewController.m in Sources */,
+				E61082811D17BAC600376A64 /* UIImageView+HeadImage.m in Sources */,
 				E69069501CE84BF60014FE63 /* ZSRDiscoverViewController.m in Sources */,
 				E6EC8D591CEA1C5E0098679D /* EMCDDeviceManager+Media.m in Sources */,
 				E633D37D1D02D604002911AD /* Emoji.m in Sources */,
@@ -1873,12 +1910,15 @@
 				E649FEC01CE8481600A0447F /* main.m in Sources */,
 				E69069511CE84BF60014FE63 /* ZSRLoginViewController.m in Sources */,
 				E6EC8D5B1CEA1C5E0098679D /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				E610828A1D17E13300376A64 /* ZSRGroupSubjectChangingViewController.m in Sources */,
+				E6C7C3FB1D18481F00B9ACDC /* ZSRAlertView.m in Sources */,
 				E6EC8D5D1CEA1C5E0098679D /* EMCDDeviceManagerBase.m in Sources */,
 				E6B8BA721D14014D00D64E2A /* ZSRPublicGroupListViewController.m in Sources */,
 				E6B8BA751D14020A00D64E2A /* ZSRCreateGroupViewController.m in Sources */,
 				E69069531CE84BF60014FE63 /* ZSRStartViewController.m in Sources */,
 				E665CCFA1D0E57AC0015E394 /* DXChatBarMoreView.m in Sources */,
 				E665CD171D0E805B0015E394 /* THProgressView.m in Sources */,
+				E61082841D17BE9800376A64 /* ZSRChatGroupDetailViewController.m in Sources */,
 				E6C1AC401D158EFA00583ACA /* ZSRContactSelectionViewController.m in Sources */,
 				E6EC8D6F1CEA1D910098679D /* wav.mm in Sources */,
 				E665CCFD1D0E57AC0015E394 /* FacialView.m in Sources */,
@@ -1909,7 +1949,9 @@
 				E69069541CE84BF60014FE63 /* ZSRNavigationViewController.m in Sources */,
 				E6016EA91D1102A500431C39 /* ZSRChatBaseBubbleView.m in Sources */,
 				E6CAA9A71D12A2D000E76120 /* ZSRApplyFriendCell.m in Sources */,
+				E62321021D17FEE800B8685A /* ZSRGroupSettingViewController.m in Sources */,
 				E6E762091D0159520024B4C9 /* ZSRAudioPlayTool.m in Sources */,
+				E61082871D17C34500376A64 /* ZSRContactView.m in Sources */,
 				E6B8BA6D1D13F9C600D64E2A /* ZSRGroupListViewController.m in Sources */,
 				E69069581CE84BF60014FE63 /* AppDelegate.m in Sources */,
 			);

@@ -21,6 +21,9 @@
 #import "ZSRMessageReadManager.h"
 #import "ZSRAudioPlayTool.h"
 #import "Constant.h"
+#import "ZSRUserProfileViewController.h"
+#import "ZSRChatGroupDetailViewController.h"
+
 
 @import AVKit;
 @interface ZSRChatViewController ()<UITableViewDataSource,UITableViewDelegate,EMChatManagerDelegate,ZSRMessageToolBarDelegate,EMCDDeviceManagerDelegate,DXChatBarMoreViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -214,11 +217,7 @@
     
     [self setupSubView];
     [self loadLocalChatRecords];
-    if(self.conversation.conversationType == eConversationTypeChat){
-//        self.title = self.buddy.username;
-    }else if (self.conversation.conversationType == eConversationTypeGroupChat){
-//        self.title = [self.conversation.ext objectForKey:@"groupSubject"];
-    }
+    [self setupBarButtonItem];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kOrientationDidChange) name:UIDeviceOrientationDidChangeNotification  object:nil];
     // 设置聊天管理器的代理
@@ -252,6 +251,22 @@
     for (EMMessage *msg in msgS) {
         [self didAddMessage:msg];
         NSLog(@"%@",msg);
+    }
+}
+
+- (void)setupBarButtonItem
+{
+    if (self.isGroup) {
+        UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
+        [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
+    }
+    else{
+        UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [clearButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        [clearButton addTarget:self action:@selector(removeAllMessages:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
     }
 }
 
@@ -477,6 +492,10 @@
     ZSRMessageModel *model = [userInfo objectForKey:KMESSAGEKEY];
     
     switch (eventType) {
+        case kRouterEventChatHeadImageTapEventType:
+            [self chatHeadCellBubblePressed:model];
+            break;
+            
         case kRouterEventImageBubbleTapEventType:
             [self chatImageCellBubblePressed:model];
             break;
@@ -491,6 +510,11 @@
             break;
     }
 }
+
+- (void)chatHeadCellBubblePressed:(ZSRMessageModel *)model{
+    
+    ZSRUserProfileViewController *userprofile = [[ZSRUserProfileViewController alloc] initWithUsername:model.username];
+    [self.navigationController pushViewController:userprofile animated:YES];}
 
 -(void)chatImageCellBubblePressed:(ZSRMessageModel *)model
 {
@@ -682,5 +706,16 @@
         }
     }
     [audioSession setActive:YES error:nil];
+}
+
+#pragma - private
+- (void)showRoomContact:(id)sender
+{
+    [self.view endEditing:YES];
+    if (self.conversationType == eConversationTypeGroupChat) {
+        ZSRChatGroupDetailViewController *detailController = [[ZSRChatGroupDetailViewController alloc] initWithGroupId:_chatter];
+        detailController.title = self.title;
+        [self.navigationController pushViewController:detailController animated:YES];
+    }
 }
 @end

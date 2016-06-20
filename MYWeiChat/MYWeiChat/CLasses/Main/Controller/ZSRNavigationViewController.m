@@ -78,14 +78,14 @@
         backBtn.size = backBtn.currentBackgroundImage.size;
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
         
-        UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [moreBtn addTarget:self action:@selector(more) forControlEvents:UIControlEventTouchUpInside];
-        // 设置图片
-        [moreBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
-        [moreBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
-        // 设置尺寸
-        moreBtn.size = moreBtn.currentBackgroundImage.size;
-        viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+//        UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [moreBtn addTarget:self action:@selector(more) forControlEvents:UIControlEventTouchUpInside];
+//        // 设置图片
+//        [moreBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
+//        [moreBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
+//        // 设置尺寸
+//        moreBtn.size = moreBtn.currentBackgroundImage.size;
+//        viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
     }
     
     [super pushViewController:viewController animated:animated];

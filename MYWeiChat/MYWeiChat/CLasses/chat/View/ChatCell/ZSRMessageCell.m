@@ -77,6 +77,7 @@
         timeLabel.font = [UIFont systemFontOfSize:13.0f];
         [self.contentView addSubview:timeLabel];
         self.timeLabel = timeLabel;
+        
         UITapGestureRecognizer *headImageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImagePressed:)];
         
         //2.头像
