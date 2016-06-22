@@ -85,7 +85,6 @@
     }
     // 注册
     [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:username password:password withCompletion:^(NSString *username, NSString *password, EMError *error) {
-        NSLog(@"%@",[NSThread currentThread]);
         if (!error) {
             [MBProgressHUD showError:@"注册成功,请登录"];
         }else{

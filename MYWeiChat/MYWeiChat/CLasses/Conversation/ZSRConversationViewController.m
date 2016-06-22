@@ -17,23 +17,32 @@
 @interface ZSRConversationViewController ()<EMChatManagerDelegate,UIAlertViewDelegate>
 /** 好友的名称 */
 @property (nonatomic, copy) NSString *buddyUsername;
-
-/** 历史会话记录 */
-@property (nonatomic, strong) NSArray *conversations;
-
+@property (strong, nonatomic) NSMutableArray *dataSource;
 
 @end
 
 
+
 @implementation ZSRConversationViewController
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _dataSource = [NSMutableArray array];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置代理
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //获取历史会话记录
-    [self loadConversations];
+    
+    [self removeEmptyConversationsFromDB];
     
 }
 
@@ -42,10 +51,31 @@
     [self loadConversations];
 }
 
+- (void)removeEmptyConversationsFromDB
+{
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSMutableArray *needRemoveConversations;
+    for (EMConversation *conversation in conversations) {
+        if (!conversation.latestMessage || (conversation.conversationType == eConversationTypeChatRoom)) {
+            if (!needRemoveConversations) {
+                needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
+            }
+            
+            [needRemoveConversations addObject:conversation.chatter];
+        }
+    }
+    
+    if (needRemoveConversations && needRemoveConversations.count > 0) {
+        [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
+                                                             deleteMessages:YES
+                                                                append2Chat:NO];
+    }
+}
+
 -(void)loadConversations{
     
     
-    self.conversations = [self loadDataSource];
+    self.dataSource = [self loadDataSource];
     [self.tableView reloadData];
     //显示总的未读数
     [self showTabBarBadge];
@@ -113,7 +143,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.conversations.count;
+    return self.dataSource.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -121,7 +151,7 @@
     
     // 4.设置cell的属性...
     
-    EMConversation *conversation = self.conversations[indexPath.row];
+    EMConversation *conversation = self.dataSource[indexPath.row];
     
     cell.name = conversation.chatter;
     if (conversation.conversationType == eConversationTypeChat) {
@@ -156,9 +186,7 @@
     cell.detailMsg = [self subTitleMessageByConversation:conversation];
     cell.time = [self lastMessageTimeByConversation:conversation];
     cell.unreadCount = [self unreadMessageCountByConversation:conversation];
-
     return cell;
-    
     
 }
 
@@ -253,7 +281,7 @@
 -(void)didUpdateConversationList:(NSArray *)conversationList{
     
     //给数据源重新赋值
-    self.conversations = conversationList;
+    self.dataSource = conversationList;
     
     //刷新表格
     [self.tableView reloadData];
@@ -276,7 +304,7 @@
     //遍历所有的会话记录，将未读取的消息数进行累
     
     NSInteger totalUnreadCount = 0;
-    for (EMConversation *conversation in self.conversations) {
+    for (EMConversation *conversation in self.dataSource) {
         totalUnreadCount += [conversation unreadMessagesCount];
     }
     if (totalUnreadCount == 0) {
@@ -292,7 +320,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //进入到聊天控制器
-    EMConversation *conversation = self.conversations[indexPath.row];
+    EMConversation *conversation = self.dataSource[indexPath.row];
     ZSRChatViewController *chatController;
     
     NSString *title = conversation.chatter;
@@ -317,13 +345,20 @@
     
     chatController = [[ZSRChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
     chatController.title = title;
-    //会话
-//    EMBuddy *buddy = [EMBuddy buddyWithUsername:conversation.chatter];
-//    ZSRChatViewController *vc = [[ZSRChatViewController alloc] init];
-//    vc.buddy = buddy;
-//    if (conversation.conversationType == eConversationTypeGroupChat){
-//        vc.conversation = conversation;
-//    }
+
     [self.navigationController pushViewController:chatController animated:YES];
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        EMConversation *converation = [self.dataSource objectAtIndex:indexPath.row];
+        [[EaseMob sharedInstance].chatManager removeConversationByChatter:converation.chatter deleteMessages:YES append2Chat:YES];
+        [self.dataSource removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 @end

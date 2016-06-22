@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZSRMeViewController : UITableViewController
+@interface ZSRSettingsViewController : UITableViewController
+
+- (void)refreshConfig;
 
 @end

@@ -12,7 +12,7 @@
 #import "ZSRConversationViewController.h"
 #import "ZSRContactsViewController.h"
 #import "ZSRDiscoverViewController.h"
-#import "ZSRMeViewController.h"
+#import "ZSRSettingsViewController.h"
 
 @interface ZSRTabBarViewController ()
 
@@ -48,10 +48,10 @@
     ZSRContactsViewController *contactsVc = [[ZSRContactsViewController alloc] init];
     [self addChildVc:contactsVc title:@"通讯录" image:@"tabbar_contacts.png" selectedImage:@"tabbar_contactsHL.png"];
     
-    ZSRDiscoverViewController *discoverVc = [[ZSRDiscoverViewController alloc] init];
-    [self addChildVc:discoverVc title:@"发现" image:@"tabbar_discover.png" selectedImage:@"tabbar_discoverHL.png"];
+//    ZSRDiscoverViewController *discoverVc = [[ZSRDiscoverViewController alloc] init];
+//    [self addChildVc:discoverVc title:@"发现" image:@"tabbar_discover.png" selectedImage:@"tabbar_discoverHL.png"];
    
-    ZSRMeViewController *meVc = [[ZSRMeViewController alloc] init];
+    ZSRSettingsViewController *meVc = [[ZSRSettingsViewController alloc] init];
     [self addChildVc:meVc title:@"我" image:@"tabbar_me.png" selectedImage:@"tabbar_meHL.png"];
     
 

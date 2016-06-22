@@ -16,9 +16,13 @@
 #define kColOfRow 5
 #define kContactSize 70
 @interface ZSRChatGroupDetailViewController ()<IChatManagerDelegate, ZSRChooseViewDelegate, UIActionSheetDelegate>
+{
+    BOOL _isEditing;
+}
 
 - (void)unregisterNotifications;
 - (void)registerNotifications;
+
 
 @property (nonatomic) ZSRGroupOccupantType occupantType;
 @property (strong, nonatomic) EMGroup *chatGroup;
@@ -61,6 +65,8 @@
 {
     self = [super init];
     if (self) {
+        _isEditing = NO;
+
         // Custom initialization
         _chatGroup = chatGroup;
         _dataSource = [NSMutableArray array];
@@ -239,7 +245,7 @@
         cell.textLabel.text = @"修改群名称";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
+
     return cell;
 }
 
@@ -419,7 +425,6 @@
                 if (![username isEqualToString:loginUsername]) {
                     contactView.editing = isEditing;
                 }
-                
                 __weak typeof(self) weakSelf = self;
                 [contactView setDeleteContact:^(NSInteger index) {
                     [MBProgressHUD showMessage:@"正删除成员"];
@@ -464,8 +469,9 @@
 {
     if (tap.state == UIGestureRecognizerStateEnded)
     {
-        if (self.addButton.hidden) {
+        if (self.addButton.hidden && _isEditing) {
             [self setScrollViewEditing:NO];
+            _isEditing = NO;
         }
     }
 }
@@ -474,6 +480,12 @@
 {
     if (longPress.state == UIGestureRecognizerStateBegan)
     {
+        
+        if (!_isEditing) {
+            [self setScrollViewEditing:YES];
+            _isEditing = YES;
+        }
+
         NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
         NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
         for (ZSRContactView *contactView in self.scrollView.subviews)
@@ -486,8 +498,6 @@
                         return;
                     }
                     _selectedContact = contactView;
-                    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"删除", nil];
-                    [sheet showInView:self.view];
                 }
             }
         }
@@ -570,6 +580,7 @@
             [MBProgressHUD showMessage:@"退出群失败"];
         }
         else{
+            [MBProgressHUD showMessage:@"解散群组失败"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
         }
     } onQueue:nil];
@@ -583,16 +594,4 @@
     NSLog(@"ignored group list:%@.", ignoredGroupList);
 }
 
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSInteger index = _selectedContact.index;
-    _selectedContact.deleteContact(index);
-    _selectedContact = nil;
-}
-
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-{
-    _selectedContact = nil;
-}
 @end

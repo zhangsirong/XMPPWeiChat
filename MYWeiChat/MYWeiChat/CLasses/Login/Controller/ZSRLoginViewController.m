@@ -105,10 +105,6 @@
         // 登录请求完成后的block回调
         if (!error) {
             NSLog(@"登录成功 %@",loginInfo);
-            
-            // 设置自动登录
-            [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
-            
             // 来主界面
             ZSRTabBarViewController   *vc = [[ZSRTabBarViewController alloc] init];
             //    [self.navigationController pushViewController:vc animated:YES ];
