@@ -9,8 +9,10 @@
 #import "AppDelegate.h"
 #import "ZSRTabBarViewController.h"
 #import "ZSRStartViewController.h"
-#import "ZSRNavigationViewController.h"
 #import "ZSRApplyViewController.h"
+#import "ZSRLoginViewController.h"
+#import "AppDelegate+EaseMob.h"
+
 #import "EaseMob.h"
 @interface AppDelegate ()<EMChatManagerDelegate>
 
@@ -21,43 +23,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    ZSRLog(@"%@",NSHomeDirectory());
+    _connectionState = eEMConnectionConnected;
+    
+    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
+    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    //registerSDKWithAppKey:注册的appKey，详细见下面注释。
-    //apnsCertName:推送证书名(不需要加后缀)，详细见下面注释。
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"lpzsrong#chatapp" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:@(NO)}];
-    [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-    
-    
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    
-    
-    [[EaseMob sharedInstance].chatManager setIsAutoFetchBuddyList:YES];
-    self.window =[[UIWindow alloc] init];
-    self.window.frame = [UIScreen mainScreen].bounds;
-    ZSRNavigationViewController *navVc = [[ZSRNavigationViewController alloc] initWithRootViewController:[[ZSRStartViewController alloc] init]];
-    self.window.rootViewController = navVc;
-    
-    // 3.如果登录过，直接来到主界面
-    if ([[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
-        //加载申请通知的数据
-        // 来主界面
-        ZSRTabBarViewController *vc = [[ZSRTabBarViewController alloc] init];
-//        [[ZSRApplyViewController shareController] loadDataSourceFromLocalDB];
-        //    [self.navigationController pushViewController:vc animated:YES ];
-        self.window.rootViewController = vc;
-    }
+    [self loginStateChange:nil];
+
     [self.window makeKeyAndVisible];
     return YES;
-}
-#pragma mark 自动登录的回调
--(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
-    if (!error) {
-        NSLog(@"自动登录成功 %@",loginInfo);
-    }else{
-        NSLog(@"自动登录失败 %@",error);
-    }
-    
 }
 // App进入后台
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -77,6 +54,29 @@
     [[EaseMob sharedInstance] applicationWillTerminate:application];
 }
 
-
-
+#pragma mark - private
+//登陆状态改变
+-(void)loginStateChange:(NSNotification *)notification
+{
+    BOOL isAutoLogin = [[[EaseMob sharedInstance] chatManager] isAutoLoginEnabled];
+    BOOL loginSuccess = [notification.object boolValue];
+    
+    if (isAutoLogin || loginSuccess) {//登陆成功加载主窗口控制器
+        //加载申请通知的数据
+        [[ZSRApplyViewController shareController] loadDataSourceFromLocalDB];
+        if (_mainController == nil) {
+            // 来主界面
+            ZSRTabBarViewController *mainController = [[ZSRTabBarViewController alloc] init];
+            _mainController = mainController;
+        }
+        self.window.rootViewController = _mainController;
+    }else{//登陆失败加载登陆页面控制器
+        _mainController = nil;
+        ZSRNavigationViewController *loginController = [[ZSRNavigationViewController alloc] initWithRootViewController:[[ZSRStartViewController alloc] init]];
+        
+        self.window.rootViewController = loginController;
+    }
+}
 @end
+    
+

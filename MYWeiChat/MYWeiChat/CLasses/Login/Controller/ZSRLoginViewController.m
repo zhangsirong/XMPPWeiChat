@@ -107,6 +107,7 @@
             NSLog(@"登录成功 %@",loginInfo);
             // 来主界面
             ZSRTabBarViewController   *vc = [[ZSRTabBarViewController alloc] init];
+            [[EaseMob sharedInstance].chatManager enableAutoLogin];
             //    [self.navigationController pushViewController:vc animated:YES ];
             [self presentViewController:vc animated:YES completion:nil];
             

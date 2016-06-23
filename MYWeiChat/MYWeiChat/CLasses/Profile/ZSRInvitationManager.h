@@ -31,4 +31,5 @@
 @property (nonatomic, strong) NSString * groupId;
 @property (nonatomic, strong) NSString * groupSubject;
 
+
 @end

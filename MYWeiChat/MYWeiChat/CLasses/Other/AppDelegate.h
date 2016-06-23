@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "ZSRTabBarViewController.h"
+#import "ZSRApplyViewController.h"
+@interface AppDelegate : UIResponder <UIApplicationDelegate, IChatManagerDelegate>
+{
+    EMConnectionState _connectionState;
+}
+
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) ZSRTabBarViewController *mainController;
 
 @end
 

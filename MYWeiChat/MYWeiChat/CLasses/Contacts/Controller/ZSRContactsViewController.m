@@ -16,6 +16,7 @@
 #import "ZSRUserProfileManager.h"
 #import "ZSRApplyViewController.h"
 #import "ZSRGroupListViewController.h"
+#import "ZSRInvitationManager.h"
 
 @interface ZSRContactsViewController ()<UITableViewDataSource, UITableViewDelegate,EMChatManagerDelegate,UISearchBarDelegate>
 
@@ -47,7 +48,7 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-
+    self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height - 49);
     [self.view addSubview:self.tableView];
     
@@ -258,7 +259,7 @@
 -(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
     if (!error) {//自动登录成功，此时buddyList就有值
         NSArray *buddyList = [[EaseMob sharedInstance].chatManager buddyList];
-        NSLog(@"=== %@",buddyList);
+//        NSLog(@"=== %@",buddyList);
         [self.tableView reloadData];
     }
 }
@@ -273,7 +274,7 @@
         return;
     }
     if (!message) {
-        message = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyAddWithName", @"%@ add you as a friend"), username];
+        message = [NSString stringWithFormat:@"%@ add you as a friend", username];
     }
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":username, @"username":username, @"applyMessage":message, @"applyStyle":[NSNumber numberWithInteger:ZSRApplyStyleFriend]}];
     [[ZSRApplyViewController shareController] addNewApply:dic];
@@ -337,7 +338,7 @@
 //好友列表数据被更新
 -(void)didUpdateBuddyList:(NSArray *)buddyList changedBuddies:(NSArray *)changedBuddies isAdd:(BOOL)isAdd{
     
-    NSLog(@"好友列表数据被更新 %@",buddyList);
+//    NSLog(@"好友列表数据被更新 %@",buddyList);
     [self reloadDataSource];
 }
 
@@ -425,7 +426,6 @@
     }
     
     [self.dataSource addObjectsFromArray:[self sortDataArray:self.contactsSource]];
-    [[ZSRApplyViewController shareController] loadDataSourceFromLocalDB];
     [_tableView reloadData];
 }
 

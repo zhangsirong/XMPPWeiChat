@@ -19,8 +19,7 @@ typedef enum{
     NSMutableArray *_dataSource;
 }
 
-@property (strong, nonatomic) NSMutableArray *dataSource;
-
+@property (strong, nonatomic,readonly) NSMutableArray *dataSource;
 + (instancetype)shareController;
 
 - (void)addNewApply:(NSDictionary *)dictionary;

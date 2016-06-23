@@ -248,6 +248,7 @@ static ZSRApplyViewController *controller = nil;
 - (void)loadDataSourceFromLocalDB
 {
     [_dataSource removeAllObjects];
+    
     NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
     NSString *loginName = [loginInfo objectForKey:kSDKUsername];
     if(loginName && [loginName length] > 0)

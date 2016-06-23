@@ -11,6 +11,7 @@
 
 @interface ZSRInvitationManager (){
     NSUserDefaults *_defaults;
+    NSString *_filePath;
 }
 
 @end
@@ -45,6 +46,7 @@ static ZSRInvitationManager *sharedInstance = nil;
 }
 
 -(void)removeInvitation:(ZSRApplyEntity *)applyEntity loginUser:(NSString *)username{
+    
     NSData *defalutData = [_defaults objectForKey:username];
     NSArray *ary = [NSKeyedUnarchiver unarchiveObjectWithData:defalutData];
     NSMutableArray *appleys = [[NSMutableArray alloc] initWithArray:ary];

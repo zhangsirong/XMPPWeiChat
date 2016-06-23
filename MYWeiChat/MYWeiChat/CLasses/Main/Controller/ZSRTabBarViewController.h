@@ -9,5 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface ZSRTabBarViewController : UITabBarController
+{
+    EMConnectionState _connectionState;
+}
+
+- (void)jumpToChatList;
+
+- (void)setupUntreatedApplyCount;
+
+- (void)networkChanged:(EMConnectionState)connectionState;
+
+- (void)didReceiveLocalNotification:(UILocalNotification *)notification;
 
 @end

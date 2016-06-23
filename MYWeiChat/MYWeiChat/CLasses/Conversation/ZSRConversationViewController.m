@@ -18,10 +18,10 @@
 /** 好友的名称 */
 @property (nonatomic, copy) NSString *buddyUsername;
 @property (strong, nonatomic) NSMutableArray *dataSource;
+@property (nonatomic, strong) UIView   *networkStateView;
+
 
 @end
-
-
 
 @implementation ZSRConversationViewController
 
@@ -34,6 +34,26 @@
     }
     return self;
 }
+- (UIView *)networkStateView
+{
+    if (_networkStateView == nil) {
+        _networkStateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44)];
+        _networkStateView.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:199 / 255.0 blue:199 / 255.0 alpha:0.5];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (_networkStateView.frame.size.height - 20) / 2, 20, 20)];
+        imageView.image = [UIImage imageNamed:@"messageSendFail"];
+        [_networkStateView addSubview:imageView];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame) + 5, 0, _networkStateView.frame.size.width - (CGRectGetMaxX(imageView.frame) + 15), _networkStateView.frame.size.height)];
+        label.font = [UIFont systemFontOfSize:15.0];
+        label.textColor = [UIColor grayColor];
+        label.backgroundColor = [UIColor clearColor];
+        label.text = NSLocalizedString(@"network.disconnection", @"Network disconnection");
+        [_networkStateView addSubview:label];
+    }
+    
+    return _networkStateView;
+}
 
 
 - (void)viewDidLoad {
@@ -41,7 +61,7 @@
     //设置代理
     [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self registerNotifications];
     [self removeEmptyConversationsFromDB];
     
 }
@@ -73,12 +93,8 @@
 }
 
 -(void)loadConversations{
-    
-    
     self.dataSource = [self loadDataSource];
     [self.tableView reloadData];
-    //显示总的未读数
-    [self showTabBarBadge];
 }
 
 - (NSMutableArray *)loadDataSource
@@ -112,33 +128,7 @@
     return ret;
 }
 
-#pragma mark - chatManager代理方法
-//1.监听网络状态
-- (void)didConnectionStateChanged:(EMConnectionState)connectionState{
-    //    eEMConnectionConnected,   //连接成功
-    //    eEMConnectionDisconnected,//未连接
-    if (connectionState == eEMConnectionDisconnected) {
-        NSLog(@"网络断开，未连接...");
-        //        self.title = @"未连接.";
-    }else{
-        NSLog(@"网络通了...");
-    }
-    
-}
 
-
--(void)willAutoReconnect{
-    NSLog(@"将自动重连接...");
-    //    self.title = @"连接中....";
-}
-
--(void)didAutoReconnectFinishedWithError:(NSError *)error{
-    if (!error) {
-        NSLog(@"自动重连接成功...");
-    }else{
-        NSLog(@"自动重连接失败... %@",error);
-    }
-}
 
 #pragma mark - Table view data source
 
@@ -250,14 +240,6 @@
 }
 
 
-#pragma mark 自动登录的回调
--(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
-    if (error) {
-        NSLog(@"自动登录失败 %@",error);
-    }
-}
-
-
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (buttonIndex == 0) {//拒绝好友请求
@@ -268,36 +250,21 @@
     }
 }
 
-
-
-- (void)dealloc
-{
-    //移除聊天管理器的代理
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
-}
-
-
 #pragma mark 历史会话列表更新
 -(void)didUpdateConversationList:(NSArray *)conversationList{
     
-    //给数据源重新赋值
-    self.dataSource = conversationList;
-    
-    //刷新表格
-    [self.tableView reloadData];
-    
-    //显示总的未读数
-    [self showTabBarBadge];
-    
+    [self refreshDataSource];
 }
 
 #pragma mark 未读消息数改变
-- (void)didUnreadMessagesCountChanged{
-    //更新表格
-    [self.tableView reloadData];
-    //显示总的未读数
-    [self showTabBarBadge];
-    
+-(void)didUnreadMessagesCountChanged
+{
+    [self refreshDataSource];
+}
+
+- (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
+{
+    [self refreshDataSource];
 }
 
 -(void)showTabBarBadge{
@@ -361,4 +328,62 @@
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
+
+
+
+#pragma mark - public
+
+-(void)refreshDataSource
+{
+    self.dataSource = [self loadDataSource];
+    [self.tableView reloadData];
+}
+
+- (void)isConnect:(BOOL)isConnect{
+    if (!isConnect) {
+        self.tableView.tableHeaderView = self.networkStateView;
+    }
+    else{
+        self.tableView.tableHeaderView = nil;
+    }
+    
+}
+
+- (void)networkChanged:(EMConnectionState)connectionState
+{
+    if (connectionState == eEMConnectionDisconnected) {
+        self.tableView.tableHeaderView = self.networkStateView;
+    }
+    else{
+        self.tableView.tableHeaderView = nil;
+    }
+}
+
+- (void)willReceiveOfflineMessages{
+    NSLog(NSLocalizedString(@"message.beginReceiveOffine", @"Begin to receive offline messages"));
+}
+
+- (void)didReceiveOfflineMessages:(NSArray *)offlineMessages
+{
+    [self refreshDataSource];
+}
+
+- (void)didFinishedReceiveOfflineMessages{
+    NSLog(NSLocalizedString(@"message.endReceiveOffine", @"End to receive offline messages"));
+}
+
+#pragma mark - registerNotifications
+-(void)registerNotifications{
+    [self unregisterNotifications];
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+}
+
+-(void)unregisterNotifications{
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+}
+
+- (void)dealloc{
+    [self unregisterNotifications];
+}
+
 @end

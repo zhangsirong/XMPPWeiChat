@@ -201,7 +201,12 @@
 - (void)autoLoginChanged:(UISwitch *)autoSwitch
 {
         BOOL toOn = autoSwitch.isOn;
-       [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:toOn];
+    if (toOn) {
+        [[EaseMob sharedInstance].chatManager enableAutoLogin];
+    }else{
+        [[EaseMob sharedInstance].chatManager disableAutoLogin];
+
+    }
 }
 
 - (void)useIpChanged:(UISwitch *)ipSwitch
